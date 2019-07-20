@@ -1,0 +1,8 @@
+template:
+  module: template
+  class: Template
+  dependencies:
+    - notification_manager
+    - presence_helper
+    - scheduler
+    - tts_manager
