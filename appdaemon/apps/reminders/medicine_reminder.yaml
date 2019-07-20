@@ -1,0 +1,14 @@
+pill:
+  module: medicine_reminder
+  class: MedicineReminder
+  medicine_kind: "pill"
+  remind_time: "19:00:00"
+  constrain_input_boolean: input_boolean.ad_medicine_reminder,on
+  notify_target: "ios_isabellas_iphone_x_beta"
+  dependencies:
+    - notification_manager
+    - presence_helper
+    - scheduler
+    - tts_manager
+    
+    
