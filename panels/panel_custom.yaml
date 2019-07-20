@@ -1,0 +1,5 @@
+- name: alarm
+  sidebar_title: Alarm
+  sidebar_icon: mdi:shield-home
+  config:
+    alarmid: alarm_control_panel.house

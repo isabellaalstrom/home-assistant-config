@@ -1,0 +1,25 @@
+  - platform: spotify
+    client_id: !secret spotify_id
+    client_secret: !secret spotify_secret
+    
+  - platform: samsungtv
+    name: 'Living Room Tv'
+    host: !secret samsungtv2_host
+    port: 8001
+    mac: !secret samsungtv2_mac
+
+  - platform: samsungtv
+    name: 'Living Room Movie System'
+    host: !secret samsungtv1_host
+    mac: !secret samsungtv1_mac
+
+  - platform: plex
+
+  - platform: androidtv
+    host: !secret shield_host
+    name: "Living Room NVidia Shield"
+    adb_server_ip: 127.0.0.1
+    adb_server_port: 5037
+    device_class: androidtv
+    apps:
+      "tv4" : "TV4 Play"

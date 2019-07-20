@@ -1,0 +1,35 @@
+push:
+    categories:
+      - name: Home Alone
+        identifier: 'isa_mode'
+        actions:
+          - identifier: 'HOME_ALONE_MODE_ON'
+            title: 'Yes'
+            authenticationRequired: yes
+            behavior: 'default'
+          - identifier: 'HOME_ALONE_MODE_OFF'
+            title: 'Nope'
+            activationMode: 'background'
+
+      - name: Lights Off When Away
+        identifier: 'lights_off_away'
+        actions:
+          - identifier: 'LIGHTS_OFF'
+            title: 'Yes'
+            activationMode: 'background'
+            destructive: yes
+          - identifier: 'LIGHTS_ON'
+            title: 'No'
+            activationMode: 'background'
+
+      - name: Lights Off When Bedroom Window Open
+        identifier: 'lights_off_bedroom'
+        actions:
+          - identifier: 'LIGHTS_OFF_BEDROOM'
+            title: 'Yes'
+            activationMode: 'background'
+            destructive: yes
+          - identifier: 'LIGHTS_ON_BEDROOM'
+            title: 'No'
+            activationMode: 'background'
+

@@ -1,0 +1,56 @@
+  exclude:
+    domains:
+      # - automation
+      - alert
+      - camera
+      - media_player
+      - sun
+      - calendar
+      # - sensor
+      - device_tracker
+      - group
+      - switch
+      - script
+      - zwave
+    entities:
+      - binary_sensor.clip_sensor_pushdim_toogle
+      - binary_sensor.clip_sensor_pushdim_toogle_2
+      - binary_sensor.clip_sensor_pushdim_toogle_3
+      - binary_sensor.clip_sensor_pushdim_toogle_4
+      - binary_sensor.clip_sensor_pushdim_toogle_on_off
+      - binary_sensor.clip_sensor_pushdim_toogle_on_off_2
+      - binary_sensor.clip_sensor_pushdim_toogle_on_off_3
+      - binary_sensor.clip_sensor_pushdim_toogle_on_off_4
+      - binary_sensor.clip_sensor_toogle_on_off
+      - binary_sensor.clip_sensor_toogle_on_off_2
+      - binary_sensor.clip_sensor_toogle_on_off_3
+      - binary_sensor.clip_sensor_toogle_on_off_4
+      - binary_sensor.clip_sensor_toogle_on_off_5
+      - binary_sensor.upstairs_hallway_dashboard_ping
+      - binary_sensor.living_room_dashboard_ping
+      - binary_sensor.rpi_zero_ping
+      - binary_sensor.remote_ui
+      - binary_sensor.workday_sensor
+      - sensor.current_version
+      - sensor.version_available
+      - sensor.date
+      - sensor.date_time
+      - sensor.time
+      - sensor.nuc_containers_active
+      - sensor.last_boot
+  include:
+    entities:
+      - device_tracker.desktop39i618g
+      - device_tracker.isa_addon_presence
+      - device_tracker.isabellas_iphone_x
+      - device_tracker.isabellas_iphone_x_wifi
+      - device_tracker.isa_laptop
+      - device_tracker.isa_computer
+      - device_tracker.isabellas_iphone_x_beta
+      - sensor.isabellas_iphone_x_bt
+      - sensor.stefan_iphone_7_bt
+      - device_tracker.cnstefang
+      - device_tracker.stefan_addon_presence
+      - device_tracker.stefan_iphone_7
+      - device_tracker.stefan_iphone_7_wifi
+      - device_tracker.stefan_computer

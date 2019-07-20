@@ -50,3 +50,5 @@ esphome/
 haslcache.json
 appdaemon/compiled
 nodered/
+zones/
+resources/
