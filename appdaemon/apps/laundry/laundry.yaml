@@ -1,0 +1,23 @@
+washer:
+  module: washer
+  class: Washer
+  global_dependencies: globals
+  power_sensor: sensor.washer
+  input_select: input_select.washing_machine_status
+  hatch_sensor: binary_sensor.washer_hatch
+  light: light.floorlamp_uplight
+  dependencies:
+    - presence_helper
+    - notification_manager
+
+dryer:
+  module: dryer
+  class: Dryer
+  global_dependencies: globals
+  power_sensor: sensor.dryer
+  input_select: input_select.dryer_status
+  hatch_sensor: binary_sensor.dryer_hatch
+  light: light.floorlamp_uplight
+  dependencies:
+    - presence_helper
+    - notification_manager
