@@ -1,0 +1,4 @@
+binary_sensor:
+  - platform: ping
+    name: "Living Room Dashboard Ping"
+    host: !secret dashboard_host

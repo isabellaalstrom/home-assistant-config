@@ -1,0 +1,129 @@
+sensor:
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_free
+      - type: memory_use_percent
+      - type: processor_use
+      - type: last_boot
+  - platform: version
+  - platform: version
+    name: version_available
+    source: hassio
+
+  # - platform: glances
+  #   host: 127.0.0.1
+  #   port: 61208
+  #   name: "Nuc"
+  #   ssl: true
+  #   verify_ssl: false
+  #   username: !secret glances_username
+  #   password: !secret glances_password
+  #   version: 3
+  #   resources:
+  #     - 'disk_use_percent'
+  #     - 'memory_use_percent'
+  #     - 'swap_use_percent'
+  #     - 'processor_load'
+  #     - 'docker_active'
+  #     - 'docker_cpu_use'
+
+automation:
+  - alias: '[System] Hass Started'
+    initial_state: 'on'
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      - service: notify.discord_system_hook
+        data:
+          message: "@here Hass.io Online"
+      - service: mqtt.publish
+        data:
+          topic: monitor/scan/arrive
+
+  - alias: '[System] Hass Ready'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: zwave.network_ready
+    action:
+      - service: notify.discord_system_hook
+        data:
+          message: "Z-wave network now ready"
+      - delay: 00:05
+      - service: homekit.start
+      
+  - alias: '[System] Hass Stopped'
+    initial_state: 'on'
+    trigger:
+      platform: homeassistant
+      event: shutdown
+    action:
+      - service: notify.discord_system_hook
+        data:
+          message: "@here Hass.io Offline"
+        
+  - alias: '[System] Hass New Device Tracked'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: device_tracker_new_device
+    action:
+      - service: notify.discord_system_hook
+        data_template:
+          message: >
+            New Device Tracked: {{trigger.event.data.host_name}} ({{trigger.event.data.entity_id}})
+
+  - alias: '[System] Hass New Platform Discovered'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: PLATFORM_DISCOVERED
+    action:
+      - service: notify.discord_system_hook
+        data_template:
+          message: >
+            New Platform Discovered: {{trigger.event.data.service}} ({{trigger.event.data.discovered}})
+
+  - alias: '[System] Hass Updater'
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: sensor.version_available
+    condition:
+      - condition: template
+        value_template: >-
+          {{
+            states('sensor.version_available')
+            !=
+            states('sensor.version_current')
+          }}
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data_template:
+          title: Upgrade time!
+          message: >-
+            Hass.io version {{ states('sensor.version_available') }} is now available!
+          data:
+            attachment:
+              content-type: png
+              url: https://png2.kisspng.com/20180504/avq/kisspng-computer-icons-starburst-clip-art-the-store-to-upgrade-kuangshuai-5aecf79d6760f6.2104595515254793254235.png
+      - service: notify.discord_system_hook
+        data_template:
+          message: "Home Assistant {{ states.sensor.version_available.state }} is now available!"
+          
+  - alias: '[System] Ip Ban Notify'
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: persistent_notification.ipban
+    condition:
+      - condition: template
+        value_template: "{{ trigger.to_state.state != off }}"
+    action:
+      - service: notify.discord_system_hook
+        data_template:
+          message: >
+            '@here {{ trigger.state.attributes.message }}. Ip address has been banned.'
