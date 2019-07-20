@@ -1,0 +1,19 @@
+# stefan_remote_control:
+#   module: tradfri_remote
+#   class: TradfriRemote
+#   event: deconz_event
+#   id: stefan_remote
+#   lightId: light.stefan_lightstrip
+#   sideButtonType: color
+# isa_remote_control:
+#   module: tradfri_remote
+#   class: TradfriRemote
+#   event: deconz_event
+#   id: isa_remote
+#   lightId: light.isa_ceiling_light
+# isa_dimmer:
+#   module: tradfri_remote
+#   class: TradfriRemote
+#   event: deconz_event
+#   id: isa_dimmer
+#   lightId: light.isa_ceiling_light

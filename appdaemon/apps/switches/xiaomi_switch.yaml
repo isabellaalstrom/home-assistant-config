@@ -1,0 +1,36 @@
+# floorlamp_dimmer:
+#   module: xiaomi_switch
+#   class: XiaomiDimmer
+#   event: deconz_event
+#   id: floorlamp_dimmer
+#   lightId: light.floorlamp_uplight
+#   secondLightId: light.floorlamp_reading_light
+# hallway_dimmer:
+#   module: xiaomi_switch
+#   class: XiaomiDimmer
+#   event: deconz_event
+#   id: hallway_dimmer
+#   lightId: light.hallway_window_light
+#   secondLightId: light.hallway_window_light
+# bedside_dimmer:
+#   module: xiaomi_switch
+#   class: XiaomiDimmer
+#   event: deconz_event
+#   id: bedside_dimmer
+#   lightId: light.bedside_lamp
+#   secondLightId: light.bedroom_ceiling_light
+# bedroom_fan:
+#   module: xiaomi_switch
+#   class: XiaomiDimmer
+#   event: deconz_event
+#   id: bedroom_fan
+#   lightId: switch.switch_1
+#   secondLightId: light.bedroom_ceiling_light
+outdoor_switch:
+  module: xiaomi_switch
+  class: XiaomiDimmer
+  event: deconz_event
+  id: outdoor_switch
+  lightId: none
+  # only_on: true
+  secondLightId: light.outdoor_yard_light_net
