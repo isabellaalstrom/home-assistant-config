@@ -1,0 +1,144 @@
+# Card-Specific Modifications
+ha-card-box-shadow: "10px 10px 17px -8px #A9A9A9" # Shadows on cards. Same as `shadow-elevation-2dp_-_box-shadow:
+ha-card-border-radius: "10px" # Rounded corners on cards. NOTE: may not work with custom cards.
+# ha-card-background: # Defines the background for cards.
+
+# Fonts
+primary-font-family: 'Open Sans,sans-serif'
+paper-font-common-base_-_font-family: "var(--primary-font-family)"
+paper-font-common-code_-_font-family: "var(--primary-font-family)"
+paper-font-body1_-_font-family: "var(--primary-font-family)"
+paper-font-subhead_-_font-family: "var(--primary-font-family)"
+paper-font-headline_-_font-family: "var(--primary-font-family)"
+paper-font-caption_-_font-family: "var(--primary-font-family)"
+paper-font-title_-_font-family: "var(--primary-font-family)"
+# Each of the following all have the following elements that can be appended:
+# `_-_font-family`, `_-_webkit-font-smoothing`, `_-_white-space`, `_-_overflow`, `_-_text-overflow`, `_-_font-size`, `_-_font-weight`, `_-_letter-spacing`, `_-_line-height`, `_-_text-transform`
+# paper-font-common-base...
+# paper-font-common-code...
+# paper-font-common-code2...
+# paper-font-common-nowrap...
+# paper-font-body1...
+# paper-font-body2...
+# paper-font-code1...
+# paper-font-code2...
+# paper-font-button...
+# paper-font-menu...
+# paper-font-subhead...
+# paper-font-headline...<0.89| No longer available in 0.89
+# paper-font-caption...
+# paper-font-title...
+# paper-font-headline...
+# paper-font-display1...
+# paper-font-display2...
+# paper-font-display3...
+# paper-font-display4...
+# app-toolbar-font-size: # 14px
+# app-drawer-font-size: # 14px
+
+# Colors
+# primary-text-color: # `|`'#FFFFFF' CSS color value for the color to be used.
+text-primary-color: '#FFF'
+primary-color: "#636B75"
+secondary-text-color: "#5f6368"
+text-light-color: '#BAC0C6' 
+# disabled-text-color:
+text-medium-color: '#8c96a5'
+paper-item-icon-color: 'var(--text-light-color)'  
+# accent-color:
+# accent-medium-color:
+# background-color:
+# background-color-2:
+# background-card-color:
+# secondary-background-color: # CSS color value, ie. `red`|secondary color that can be used by cards, e.g. custom updater card uses it to color every second row
+# border-color:
+# divider-color:
+# dark-primary-color:
+# light-primary-color: # CSS color value, ie. `redcolor of your Avatars letter background
+# paper-tabs-selection-bar-color:
+# table-row-background-color:
+# table-row-alternative-background-color:
+# alarm-color-disarmed:
+# alarm-color-pending:
+# alarm-color-triggered:
+# alarm-color-armed:
+# alarm-color-autoarm:
+# alarm-state-color: 
+# state-icon-unavailable-color:
+# dark-primary-opacity:
+# dark-secondary-opacity:
+# dark-disabled-opacity:
+# paper-listbox-color: # CSS color value, ie. `redColor of the overall text of the popup menues (such as "3 dot menu" and background of hovered icon (in a lighter shade of the same color)
+# Header
+
+# Left Menu
+
+# paper-listbox-background-color: # `|CSS color value, ie. `redColor of the background of the left sidebar menu.
+# paper-listbox_-_font-family: # |Roboto, sans serif | |Font used for the left sidebar menu. 
+# sidebar-icon-color: # `|CSS color value, ie. `redColor for the icons in the left sidebar menu.
+# sidebar-selected-icon-color: # `|CSS color value, ie. `redColor for the currently selected icon in the left sidebar menu. 
+# sidebar-selected-text-color: # `|CSS color value, ie. `redColor for the text of the currently selected menu item in the left sidebar menu.
+# sidebar-text_-_background: # `|CSS color value, ie. `red
+# primary-background-color: # color of the sidebar headers background (space behind the text "Home Assistant" and your Avatar)
+# # Card Elements
+
+# paper-card-header-color:
+# paper-card-background-color: # background of the cards
+# paper-dialog-background-color: # background color of dialogs that appear when clicking on a entity
+# paper-dialog-color: # text color of dialogs that appear when clicking on a entity 
+# paper-item-icon-color: # color of entities icons when off,
+# paper-item-icon-active-color: # color of entities icons when on, gets overriden by lights color if available 
+# paper-item-icon_-_color:
+# paper-item-selected_-_background-color:
+# paper-menu-button-dropdown-background:
+# paper-slider-height: # Height of the slider.
+# paper-slider-container-color: # Color of the part of the slider which is not active.
+# paper-slider-knob-color:
+# paper-slider-knob-start-color:
+# paper-slider-pin-color:
+# paper-slider-active-color: # Color of the part of the slider which is active.
+# paper-slider-secondary-color:
+# paper-slider-disabled-active-color:
+# paper-toggle-button-checked-button-color: # CSS color value, ie. `redColor of the button for an on/off toggle when turned on. 
+# paper-toggle-button-checked-bar-color: # CSS color value, ie. `redColor of the sliding area for an on/off toggle when turned on.
+# paper-toggle-button-checked-ink-color:
+# paper-toggle-button-unchecked-button-color: # CSS color value, ie. `redColor of the button for an on/off toggle when turned off. 
+# paper-toggle-button-unchecked-bar-color: # CSS color value, ie. `redColor of the sliding area for an on/off toggle when turned off. 
+# paper-toggle-button-unchecked-ink-color:
+
+# # Shadows
+# mo-box-shadow-s:
+# mo-box-shadow-m:
+# mo-box-shadow-l:
+# mo-box-shadow-xl:
+# per-input-container-shared-input-style_-_box-shadow:
+# per-material_-_display:
+# per-material_-_position:
+# per-material-elevation-1_-_box-shadow:
+# per-material-elevation-2_-_box-shadow:
+# per-material-elevation-3_-_box-shadow:
+# per-material-elevation-4_-_box-shadow:
+# per-material-elevation-5_-_box-shadow:
+# adow-elevation-2dp_-_box-shadow:
+# adow-elevation-3dp_-_box-shadow:
+# adow-elevation-4dp_-_box-shadow:
+# shadow-elevation-6dp_-_box-shadow:
+# shadow-elevation-8dp_-_box-shadow:
+# shadow-elevation-12dp_-_box-shadow:
+# shadow-elevation-16dp_-_box-shadow:
+# shadow-elevation-24dp_-_box-shadow:
+# shadow-transition_-_transition:
+
+# ## Uncategorized - Need to Update
+# label-badge-border-color:
+# paper-grey-50:
+# paper-grey-200:
+# paper-progress-height:
+# ha-label-badge-color: 
+# label-badge-red:
+# label-badge-text-color:
+# label-badge-background-color:
+# google-red-500:
+# google-green-500:
+# mdc-theme-primary: # 0.88|# Related to the new mwc-card/buttons somehow.  
+# base-unit:
