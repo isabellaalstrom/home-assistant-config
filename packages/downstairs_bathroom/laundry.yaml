@@ -1,0 +1,91 @@
+homeassistant:
+  customize:
+    input_select.washing_machine_status:
+      icon: mdi:washing-machine
+    sensor.washer:
+      icon: mdi:washing-machine
+  customize_glob:
+    input_select.washing_machine_status:
+      templates:
+        hs_color: "if (state === 'Idle') return [0, 0];
+        else if (state === 'Running') return [40, 70];
+        else if (state === 'Clean') return [0, 85];"
+    input_select.dryer_status:
+      templates:
+        hs_color: "if (state === 'Idle') return [0, 0];
+        else if (state === 'Running') return [40, 70];
+        else if (state === 'Clean') return [116, 85];"
+ios:
+  push:
+    categories:
+      - name: Laundry Clean
+        identifier: 'washer'
+        actions:
+          - identifier: 'WASHER_DONE'
+            title: 'Done'
+            activationMode: 'background'
+            destructive: no
+          - identifier: 'WASHER_NOT_EMPTIED'
+            title: 'Snooze'
+            activationMode: 'background'
+            destructive: yes
+      - name: Laundry Dry
+        identifier: 'dryer'
+        actions:
+          - identifier: 'DRYER_DONE'
+            title: 'Done'
+            activationMode: 'background'
+            destructive: no
+          - identifier: 'DRYER_NOT_EMPTIED'
+            title: 'Snooze'
+            activationMode: 'background'
+            destructive: yes
+
+input_select:  
+  washing_machine_status:
+    name: Washing Machine Status
+    options:
+      - Idle
+      - Running
+      - Clean
+  
+  dryer_status:
+    name: Dryer Status
+    options:
+      - Idle
+      - Running
+      - Clean
+
+sensor:
+  - platform: template
+    sensors:
+      washer:
+        friendly_name: Washer Idle
+        entity_id: "sensor.washer_plug_power"
+        value_template: "{{ states('sensor.washer_plug_power') | int < 3.4 }}"
+      dryer:
+        friendly_name: Dryer Idle
+        entity_id: "sensor.dryer_plug_power"
+        value_template: "{{ states('sensor.dryer_plug_power') | int < 3.4 }}"
+
+automation:
+  - alias: '[Temperature] Notification on high humidity in downstairs bathroom'
+    initial_state: 'on'
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.humidity_downstairs_bathroom
+        above: 43
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.isa
+          state: 'Home'
+        - condition: time
+          after: '09:00:00'
+          before: '23:00:00'
+    action:
+    - service: notify.ios_isabellas_iphone_x
+      data:
+        title: 'High humidity in downstairs bathroom'
+        message: 'Turn on the fan'
