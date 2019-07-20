@@ -1,0 +1,23 @@
+sensor:
+  - platform: template
+    sensors:
+      total_power_usage:
+        value_template: '{{ ((states.sensor.bike_charger_power.state | float) +
+          (states.sensor.dining_room_ceiling_light_power.state | float) +
+          (states.sensor.dryer_plug_power.state | float) +
+          (states.sensor.kitchen_ceiling_spotlights_power.state | float) +
+          (states.sensor.living_room_ceiling_light_power.state | float) +
+          (states.sensor.living_room_spotlights_power.state | float) +
+          (states.sensor.passage_ceiling_spotlights_power.state | float) +
+          (states.sensor.upstairs_hallway_ceiling_light_power.state | float) +
+          (states.sensor.washer_plug_power.state | float)) | round(0) }}'
+        friendly_name: 'Total Power Use'
+        unit_of_measurement: 'W'
+        
+utility_meter:
+  daily_energy_consumption:
+    source: sensor.total_power_usage
+    cycle: daily 
+  monthly_energy_consumption:
+    source: sensor.total_power_usage
+    cycle: monthly

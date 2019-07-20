@@ -1,0 +1,35 @@
+weather:
+  - platform: darksky
+    api_key: !secret darksky_key
+
+sensor:
+  - platform: darksky
+    api_key: !secret darksky_key
+    scan_interval:
+      minutes: 10
+    forecast:
+      - 1
+    monitored_conditions:
+      - summary
+      - precip_probability
+      - precip_type
+      - precip_intensity
+      - precip_intensity_max
+      - temperature
+      - wind_speed
+      - cloud_cover
+      - nearest_storm_distance
+      - minutely_summary
+      - apparent_temperature
+      - temperature_low
+      - temperature_high
+
+camera:
+  - platform: generic
+    name: "Fisksätra meteogram"
+    still_image_url: https://www.yr.no/place/Sweden/Stockholm/Nacka_Kommun/meteogram.svg
+    content_type: 'image/svg+xml'
+  - platform: generic
+    name: "Stockholm meteogram"
+    still_image_url: https://www.yr.no/place/Sweden/Stockholm/Stockholm/meteogram.svg
+    content_type: 'image/svg+xml'

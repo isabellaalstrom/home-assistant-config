@@ -1,0 +1,57 @@
+homeassistant:
+  customize:
+    media_player.living_room_chromecast:
+      friendly_name: Chromecast Shield
+    media_player.bedroom_chromecast:
+      friendly_name: Chromecast Bedroom
+    media_player.shield_2:
+      friendly_name: Plex Shield
+      icon: mdi:plex
+
+script:
+  sonos_say:
+    alias: "Sonos TTS script"
+    sequence:
+     - service: sonos.snapshot
+       data_template:
+         entity_id: "{{ sonos_entity }}"
+     - service: sonos.unjoin
+       data_template:
+         entity_id: "{{ sonos_entity }}"
+     - service: media_player.volume_set
+       data_template:
+         entity_id: "{{ sonos_entity }}"
+         volume_level: "{{ volume }}"
+     - service: tts.google_say
+       data_template:
+         entity_id: "{{ sonos_entity }}"
+         message: "{{ message }}"
+     - delay: "{{ delay }}"
+     - service: sonos.restore
+       data_template:
+         entity_id: "{{ sonos_entity }}"
+
+automation:
+  - alias: '[TTS] Sonos on Media center not on'
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: media_player.living_room_tv
+      to: 'on'
+    action:
+      - delay: '00:02:00'
+      - condition: state
+        entity_id: media_player.living_room_movie_system
+        state: 'off'
+      - condition: state
+        entity_id: device_tracker.livingroom_movie_system
+        state: 'not_home'
+      - condition: state
+        entity_id: device_tracker.livingroom_tv
+        state: 'home'
+      - service: script.sonos_say
+        data:
+          sonos_entity: media_player.living_room_sonos
+          volume: 0.2
+          message: 'Media system is not turned on'
+          delay: '00:00:15'

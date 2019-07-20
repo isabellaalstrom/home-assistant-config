@@ -1,0 +1,23 @@
+octoprint:
+  host: !secret octoprint_ip
+  api_key: !secret octoprint_key
+  name: Ender 3 Pro
+  bed: true
+  number_of_tools: 1
+  sensors:
+    monitored_conditions:
+      - 'Current State'
+      - 'Job Percentage'
+      - 'Temperatures'
+      - 'Time Elapsed'
+      - 'Time Remaining'
+  binary_sensors:
+    monitored_conditions:
+      - 'Printing'
+      - 'Printing Error'
+
+camera:
+  - platform: mjpeg
+    name: Ender 3 Pro
+    still_image_url: !secret octoprint_still_image_url
+    mjpeg_url: !secret octoprint_mjpeg_url

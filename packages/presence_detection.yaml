@@ -1,0 +1,158 @@
+## From https://philhawthorne.com/making-home-assistants-presence-detection-not-so-binary/
+homeassistant:
+  customize:     
+    sensor.trash:
+      icon: mdi:delete
+    sensor.dining_room_stefan_iphone_7_bt:
+      source_type: bluetooth
+    sensor.dining_room_isabellas_iphone_x_bt:
+      source_type: bluetooth
+    sensor.living_room_isabellas_iphone_x_bt:
+      source_type: bluetooth
+    sensor.living_room_stefan_iphone_7_bt:
+      source_type: bluetooth
+
+sensor:
+  - platform: mqtt
+    state_topic: 'monitor/dining_room/isa'
+    value_template: >
+     {% if float(value_json.confidence) > 0 %}
+      home
+     {% else %}
+      not_home
+     {% endif %}
+    json_attributes_topic: 'monitor/dining_room/isa'
+    name: dining_room_isabellas_iphone_x_bt
+ 
+  - platform: mqtt
+    state_topic: 'monitor/living_room/isa'
+    value_template: >
+     {% if float(value_json.confidence) > 0 %}
+      home
+     {% else %}
+      not_home
+     {% endif %}
+    json_attributes_topic: 'monitor/living_room/isa'
+    name: living_room_isabellas_iphone_x_bt
+
+  - platform: mqtt
+    state_topic: 'monitor/dining_room/stefan'
+    value_template: >
+     {% if float(value_json.confidence) > 0 %}
+      home
+     {% else %}
+      not_home
+     {% endif %}
+    json_attributes_topic: 'monitor/dining_room/stefan'
+    name: dining_room_stefan_iphone_7_bt
+
+  - platform: mqtt
+    state_topic: 'monitor/living_room/stefan'
+    value_template: >
+     {% if float(value_json.confidence) > 0 %}
+      home
+     {% else %}
+      not_home
+     {% endif %}
+    json_attributes_topic: 'monitor/living_room/stefan'
+    name: living_room_stefan_iphone_7_bt
+
+  - platform: mqtt
+    state_topic: 'monitor/dining_room/trash'
+    value_template: >
+     {% if float(value_json.confidence) > 0 %}
+      Home
+     {% else %}
+      Away
+     {% endif %}
+    json_attributes_topic: 'monitor/dining_room/trash'
+    name: Trash
+
+  - platform: mqtt
+    state_topic: 'monitor/dining_room/status'
+    name: Monitor Dining Room
+
+  - platform: mqtt
+    state_topic: 'monitor/living_room/status'
+    name: Monitor Living Room
+
+group:
+  persons:
+    view: no
+    entities:
+      - device_tracker.isabellas_iphone_x
+      - device_tracker.isabellas_iphone_x_wifi
+      - sensor.isabellas_iphone_x_bt
+      - device_tracker.stefan_iphone_7_wifi
+      - device_tracker.stefan_iphone_7
+      - sensor.stefan_iphone_7_bt
+      
+  isabella:
+    name: Isabella
+    entities:
+      - device_tracker.isabellas_iphone_x
+      - device_tracker.isabellas_iphone_x_wifi
+      - sensor.isabellas_iphone_x_bt
+  stefan:
+    name: Stefan
+    entities:
+      - device_tracker.stefan_iphone_7_wifi
+      - device_tracker.stefan_iphone_7
+      - sensor.stefan_iphone_7_bt
+   
+input_boolean:
+  isa_home:
+    name: Isa Homekit
+    # icon: mdi:
+  stefan_home:
+    name: Stefan Homekit
+    # icon: mdi:
+
+proximity:
+  home_isa: 
+    zone: home
+    devices:
+      - device_tracker.isabellas_iphone_x
+    tolerance: 50
+    unit_of_measurement: km
+  home_stefan: 
+    zone: home
+    devices:
+      - device_tracker.stefan_iphone_7
+    tolerance: 50
+    unit_of_measurement: km
+
+automation:
+  - alias: '[Presence] Presence MQTT event'
+    initial_state: 'on'
+    trigger:
+    - platform: mqtt
+      topic: 'monitor/home/#'
+    action:
+      event: HASS_MQTT_PRESENCE
+      event_data_template:
+        topic: '{{ trigger.topic }}'
+        payload: '{{ trigger.payload }}'
+
+  - alias: '[Presence] Presence Homebound'
+    initial_state: 'on'
+    trigger:
+      - platform: numeric_state
+        entity_id: proximity.home_isa
+        below: 6
+      - platform: numeric_state
+        entity_id: proximity.home_stefan
+        below: 6
+    condition:
+      condition: or
+      conditions:
+      - condition: template
+        value_template: '{{ states.proximity.home_stefan.attributes.dir_of_travel == "towards" }}'
+      - condition: template
+        value_template: '{{ states.proximity.home_isa.attributes.dir_of_travel == "towards" }}'
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data_template:
+          title: "{{ trigger.to_state.name | title }}"
+          message: "{{ trigger.to_state.state }}"
+

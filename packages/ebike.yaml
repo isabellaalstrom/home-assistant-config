@@ -1,0 +1,29 @@
+sensor:
+  - platform: template
+    sensors:
+      ebike_charger:
+        friendly_name: E-bike Charger Idle
+        entity_id: "sensor.bike_charger_power"
+        value_template: "{{ states('sensor.bike_charger_power') | int < 30 }}"
+
+input_select:  
+  ebike_charger_status:
+    name: E-bike Charger Status
+    options:
+      - Waiting
+      - Charging
+      - Charged
+ios:
+  push:
+    categories:
+      - name: Bike Charger
+        identifier: 'bike'
+        actions:
+          - identifier: 'CHARGE_NOW'
+            title: 'Charge now'
+            activationMode: 'background'
+            destructive: no
+          - identifier: 'CHARGE_TOMORROW'
+            title: 'Remind tomorrow'
+            activationMode: 'background'
+            destructive: yes

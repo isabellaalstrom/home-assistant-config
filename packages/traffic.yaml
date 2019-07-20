@@ -1,0 +1,51 @@
+# sensor:
+#   - platform: scrape
+#     name: Nacka gator Tweet
+#     resource: https://twitter.com/Nackagator
+#     select: ".js-tweet-text-container .tweet-text"
+
+#   - platform: waze_travel_time
+#     name: "Home-Solna Travel Time"
+#     origin: zone.home
+#     destination: zone.work_solna
+#     region: 'EU'
+#     realtime: true
+
+#   - platform: trafikverket_weatherstation
+#     name: Trafikverket Älta
+#     api_key: !secret trafikverket_api_key
+#     station: Älta
+#     monitored_conditions:
+#         # - air_temp
+#         - road_temp
+#         # - humidity
+#         # - precipitation
+#         # - wind_direction
+#         # - wind_direction_text
+#         # - wind_speed
+
+# camera:
+# - platform: generic
+#   name: TPL Skvaltan
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39635199.Jpeg?type=fullsize
+# - platform: generic
+#   name: TPL Nacka
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39626472.Jpeg?type=fullsize
+# - platform: generic
+#   name: Sicklatunneln
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39626658.Jpeg?type=fullsize
+# - platform: generic
+#   name: Svindersvik
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39626476.Jpeg?type=fullsize
+# - platform: generic
+#   name: Marinstaden
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39626475.Jpeg?type=fullsize
+# - platform: generic
+#   name: TPL Kvarnholmen
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39626474.Jpeg?type=fullsize
+# - platform: generic
+#   name: Vikdalen
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39626473.Jpeg?type=fullsize
+# - platform: generic
+#   name: TPL Gröndal
+#   still_image_url: https://api.trafikinfo.trafikverket.se/v1/Images/TrafficFlowCamera_39636115.Jpeg?type=fullsize

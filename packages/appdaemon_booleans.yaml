@@ -1,0 +1,14 @@
+# input_boolean.ad_* will automatically show in automations view due to lovelace monster card filter
+input_boolean:
+  ad_presence:
+    name: Presence notify
+  ad_camera_motion_notification:
+    name: Camera motion notify
+  ad_air_cleaner_schedule:
+    name: Air cleaner schedule
+  ad_bike_charger:
+    name: Bike Charger
+  ad_medicine_reminder:
+    name: Medicine Reminder
+  ad_trash:
+    name: Trash app

@@ -1,0 +1,16 @@
+automation:
+  - alias: '[House] Low Battery Ipad'
+    initial_state: 'on'
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.paddan_battery_level
+        below: 20
+    condition:
+      condition: state
+      entity_id: sensor.paddan_battery_state
+      state: 'Unplugged'
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data_template:
+          title: 'Battery low'
+          message: '{{ trigger.to_state.name }}'

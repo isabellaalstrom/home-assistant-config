@@ -1,0 +1,4 @@
+input_boolean:
+  test:
+    name: Test stuff
+    initial: off

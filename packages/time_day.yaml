@@ -1,0 +1,169 @@
+input_select:
+  house_mode:
+    name: House mode
+    options:
+     - Morning
+     - Day
+     - Evening
+     - Night
+    icon: mdi:white-balance-sunny
+
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      # - 'time_date'
+      # - 'time_utc'
+
+automation:
+  ###################################
+  ##  Set to evening               ##
+  ###################################
+
+  # - alias: '[House] Day Mode To Evening'
+  #   initial_state: 'on'
+  #   trigger:
+  #     - platform: sun
+  #       event: sunset
+  #       offset: '-00:45:00'
+
+  #   action:
+  #     - service: input_select.select_option
+  #       data:
+  #         entity_id: input_select.house_mode
+  #         option: Evening
+
+  ###################################
+  ##  Set to morning               ##
+  ###################################
+
+  # - alias: '[House] Day Mode To Morning'
+  #   initial_state: 'on'
+  #   trigger:
+  #     - platform: sun
+  #       event: sunrise
+
+  #   action:
+  #     - service: input_select.select_option
+  #       data:
+  #         entity_id: input_select.house_mode
+  #         option: Morning
+
+  # ###################################
+  # ##  Set to day                   ##
+  # ###################################
+
+  # - alias: '[House] Day Mode To Day'
+  #   initial_state: 'on'
+  #   trigger:
+  #     - platform: time
+  #       at: "09:00:00"
+
+  #   action:
+  #     - service: input_select.select_option
+  #       data:
+  #         entity_id: input_select.house_mode
+  #         option: Day
+
+  ###################################
+  ##  Set to night                 ##
+  ###################################
+
+  - alias: '[House] Day Mode To Night'
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: light.lights_automation
+        to: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_select.house_mode
+          state: 'Evening'
+        ## Has to be between 22 and 06
+        - condition: time
+          after: '22:00:00'
+          before: '06:00:00'
+
+        # ## Someone has to be home
+        - condition: state
+          entity_id: group.persons
+          state: 'home'
+
+        # ## No movement detected
+        # # - condition: state
+        # #   entity_id: sensor.upstairs_hallway_movement
+        # #   state: 'No movement'
+        # # - condition: state
+        # #   entity_id: sensor.passage_movement
+        # #   state: 'No movement'
+
+        # - condition: state
+        #   entity_id: light.lights_automation
+        #   state: 'off'
+
+        ## All computers off (not reliable, due to sometimes leaving on, how to fix?)
+        # - condition: state
+        #   entity_id: sensor.isa_computer
+        #   state: Offline
+        # - condition: state
+        #   entity_id: sensor.isa_laptop
+        #   state: Offline
+        # - condition: state
+        #   entity_id: sensor.stefan_computer
+        #   state: Offline
+
+        # - condition: state
+        #   entity_id: sensor.isabellas_iphone_x_battery_state
+        #   state: Charging
+        #   ## fel namn?
+        # - condition: state
+        #   entity_id: sensor.igrims_battery_state
+        #   state: Charging
+
+        ## Tv-system bottenvåning avstängt
+        ## group.media_player_view?
+        # - condition: state
+        #   entity_id: sensor.movie_system
+        #   state: Offline
+        # - condition: state
+        #   entity_id: sensor.samsung65
+        #   state: Offline
+        # ## Tv sovrum avstängd
+        # - condition: state
+        #   entity_id: sensor.samsung49
+        #   state: Offline
+        #   ## försöker täcka alla olika states för shield
+        # - condition: or
+        #   conditions:
+        #   - condition: state
+        #     entity_id: media_player.plex_shield
+        #     state: idle
+        #   - condition: state
+        #     entity_id: media_player.plex_shield
+        #     state: 'off'
+        #   - condition: state
+        #     entity_id: media_player.living_room_chromecast
+        #     state: idle
+        #   - condition: state
+        #     entity_id: media_player.living_room_chromecast
+        #     state: 'off'
+        #   - condition: state
+        #     entity_id: sensor.shield
+        #     state: Offline
+        #   - condition: state
+        #     entity_id: sensor.shield_2
+        #     state: Offline
+
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          message: 'It seems like everyone is asleep'
+          title: 'Good night!'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: Night

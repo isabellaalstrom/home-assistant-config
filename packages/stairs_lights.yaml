@@ -1,0 +1,45 @@
+homeassistant:
+  customize:
+    light.stairs_bottom_spot:
+      icon: mdi:spotlight-beam
+      friendly_name: Stairs Bottom Spot
+
+    light.stairs_middle_spot:
+      friendly_name: Stairs Middle Spot
+      icon: mdi:spotlight-beam
+
+    light.stairs_top_spot:
+      friendly_name: Stairs Top Spot
+      icon: mdi:spotlight-beam
+
+    light.stairs_lights_lights:
+      friendly_name: Stairs Lights
+      # icon: mdi:stairs
+
+light:
+  - name: 'Stairs Bottom Spot'
+    command_topic: milight/0x2/rgbw/1 
+    state_topic: milight/updates/0x2/rgbw/1
+    <<: &MILIGHT_PARAMS
+      platform: mqtt
+      schema: json
+      color_temp: true
+      rgb: true
+      brightness: true
+
+  - name: "Stairs Middle Spot"
+    command_topic: milight/0x3/rgbw/1 
+    state_topic: milight/updates/0x3/rgbw/1
+    <<: *MILIGHT_PARAMS
+
+  - name: "Stairs Top Spot"
+    command_topic: milight/0x1/rgbw/1 
+    state_topic: milight/updates/0x1/rgbw/1
+    <<: *MILIGHT_PARAMS
+    
+  - platform: group
+    name: 'Stairs lights'
+    entities:
+      - light.stairs_bottom_spot
+      - light.stairs_middle_spot
+      - light.stairs_top_spot

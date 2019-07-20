@@ -1,0 +1,11 @@
+homeassistant:
+  customize_glob:
+    input_boolean.vacation_mode:
+      templates:
+        hs_color: "if (state === 'off') return [0, 0];
+        else return [116, 85];"
+
+input_boolean:
+  vacation_mode:
+    name: Vacation Mode
+    icon: mdi:beach

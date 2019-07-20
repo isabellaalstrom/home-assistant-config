@@ -1,0 +1,77 @@
+# # install:
+# # sudo apt-get install svtplay-dl
+# # custom component from:
+# # https://github.com/postlund/hass-config
+
+# homeassistant:
+#   customize:
+#     script.morning_news:
+#       homebridge_visible: true
+#       homebridge_name: Morning News
+#       icon: mdi:television-classic
+#       alexa_display_categories: TV
+#       alexa_name: Morning News
+
+#     script.turn_on_shield:
+#       alexa_name: Shield
+#       alexa_display_categories: TV
+
+
+# svtplay_dl:
+#   accounts:
+#     tv4play:
+#       username: !secret svtplay_tv4_username
+#       password: !secret svtplay_tv4_password
+
+# script:
+#   morning_news:
+#     alias: Morning news
+#     sequence:
+#       # todo: turn on tv with ir
+#       - service: script.turn_on_shield
+#       - service: script.svtplay_play
+#         data:
+#           entity_id: media_player.living_room_chromecast
+#           program: morning news
+  
+#   turn_on_shield:
+#     alias: Turn On Living Room Tv
+#     sequence:
+#       service: media_player.turn_on
+#       data:
+#         entity_id: media_player.living_room_chromecast
+
+#   svtplay_play:
+#     alias: Play something with svtplay_dl
+#     sequence:
+#       - service: svtplay_dl.play_url
+#         data_template:
+#           entity_id: '{{ entity_id }}'
+#           account: tv4play
+#           url: >
+#             {% set p = program|lower|replace(' ', '') %}
+#             {% if p|lower == 'masterchef' %}
+#               http://www.tv4play.se/feed/program/sveriges-m%C3%A4sterkock
+#             {% else %}
+#               !
+#             {% endif %}
+#           live: >
+#             {% set p = program|lower|replace(' ', '') %}
+#             {% if p|lower == 'morningnews' %}
+#               true
+#             {% else %}
+#               false
+#             {% endif %}
+#           title: >
+#             {% set p = program|lower|replace(' ', '') %}
+#             {% if p == 'morningnews' %}
+#               Nyhetsmorgon live
+#             {% elif p == 'masterchef' %}
+#               Sveriges mästerkock del
+#             {% else %}
+#               {{ program }}
+#             {% endif %}
+#       - delay: '00:00:05'  # Conditional wait until video is playing here
+#       - service: media_player.media_play
+#         data_template:
+#           entity_id: '{{ entity_id }}'
