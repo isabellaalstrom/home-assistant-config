@@ -1,0 +1,3 @@
+coming_home_summary:
+  module: summaries
+  class: Summary
