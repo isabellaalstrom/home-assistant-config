@@ -1,0 +1,96 @@
+## Automations regarding this have moved to Appdaemon
+
+homeassistant:
+  customize:
+    counter.all_litterbox_visits_today:
+      icon: mdi:emoticon-poop
+      friendly_name: All Litterbox Visits Today
+    ## Upstairs
+    counter.litterbox_upstairs_visits:
+      icon: mdi:emoticon-poop
+      friendly_name: Upstairs Litterbox Visits
+    binary_sensor.motion_sensor_158d0001a66291:
+      friendly_name: Upstairs Litterbox
+      hidden: true
+    sensor.illumination_158d0001a66291:
+      friendly_name: Isas Room Lux
+      icon: mdi:theme-light-dark
+    binary_sensor.switch_158d0001a6687f:
+      friendly_name: Upstairs litterbox switch
+
+    ## Downstairs
+    counter.litterbox_downstairs_visits:
+      icon: mdi:emoticon-poop
+      friendly_name: Downstairs Litterbox Visits
+    binary_sensor.motion_sensor_158d0001a24ef1:
+      hidden: true
+      friendly_name: Downstairs Litterbox
+    sensor.illumination_158d0001a24ef1:
+      friendly_name: Downstairs Litterbox Lux
+      icon: mdi:theme-light-dark
+    binary_sensor.switch_158d0001b8f876:
+      friendly_name: Downstairs litterbox switch
+
+
+#-------------------------------------------
+
+counter:
+  litterbox_upstairs_visits:
+    name: Upstairs Litterbox Visits
+    step: 1
+  litterbox_downstairs_visits:
+    name: Downstairs Litterbox Visits
+    step: 1
+  all_litterbox_visits_today:
+    name: All Litterbox Visits Today
+    step: 1
+
+input_number:
+  upstairs_litterbox_persistence:
+    name: Upstairs litterbox persistence
+    min: 0
+    max: 50
+    step: 1
+    mode: box
+
+  downstairs_litterbox_persistence:
+    name: Downstairs litterbox persistence
+    min: 0
+    max: 50
+    step: 1
+    mode: box
+
+  all_litterbox_persistence:
+    name: All litterbox persistence
+    min: 0
+    max: 50
+    step: 1
+    mode: box
+
+input_select:
+  ulitterbox_state:
+    name: Upstairs Litterbox State
+    options:
+      - Clean
+      - Dirty
+      - Cleaning
+    icon: mdi:paw
+    
+  dlitterbox_state:
+    name: Downstairs Litterbox State
+    options:
+      - Clean
+      - Dirty
+      - Cleaning
+    icon: mdi:paw
+#-------------------------------------------
+
+automation:
+  - alias: '[Cats] Litterbox All Counter Reset At Midnight'
+    initial_state: 'on'
+    trigger:
+      - platform: time
+        at: '23:59:00'
+    action:
+      - service: counter.reset
+        entity_id: counter.all_litterbox_visits_today
