@@ -1,0 +1,37 @@
+switch:
+  - platform: broadlink
+    friendly_name: Broadlink Bedroom
+    host: !secret broadlink_bedroom_ip
+    mac: !secret broadlink_bedroom_mac
+
+script:
+  air_cleaner_quiet:
+    sequence:
+      - service: broadlink.send
+        data:
+          host: 192.168.1.53
+          packet:
+            - 'JgBQAAABI5MRFBE4FBETEhQ1EhMTEhMSFDUSExQ2EjgSExQ2EjgSOBE5ERQTEhQQFBEUERQQFRAUERQ1EjgSOBI4EjgTNxM2FAAFJQABAUoUAA0FAAAAAAAAAAA='
+  air_cleaner_auto:
+    sequence:
+      - service: broadlink.send
+        data:
+          host: 192.168.1.53
+          packet:
+            - 'JgBQAAABJJUTEhM2FBEUERQ2FBEUERQRFDYUERQ2FDYUERQ1FDYUNhQ2FBEUERQRFDYTEhMSExITERQ2FDYUNhQRFDUUNhQ2FAAFJAABJ0oSAA0FAAAAAAAAAAA='
+  air_cleaner_turbo:
+    sequence:
+      - service: broadlink.send
+        data:
+          host: 192.168.1.53
+          packet:
+            - 'JgBYAAABIJITEhI4EhMSExI4EhMSExITEjgSExI4EjgRFBE4EjgSOBITEjgSOBITEjgRFBEUERQROBIUERQROBITEjgSOBI4EgAFJwABIEkSAAxXAAEdShMADQU='
+
+input_select:
+  air_cleaner:
+    name: Air cleaner
+    options:
+     - Quiet
+     - Auto
+     - Turbo
+    icon: mdi:air-conditioner
