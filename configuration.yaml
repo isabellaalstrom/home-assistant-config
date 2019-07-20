@@ -1,0 +1,115 @@
+homeassistant:
+  name: Home
+  latitude: !secret lat_coord
+  longitude: !secret long_coord
+  elevation: 50
+  unit_system: metric
+  time_zone: !secret time_zone
+  customize_glob: !include customglob.yaml
+  packages: !include_dir_named packages
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - !secret trusted_network_1
+        - !secret trusted_network_2
+        - !secret trusted_network_3
+        - !secret trusted_network_4
+        - !secret trusted_network_5
+    - type: legacy_api_password
+      api_password: !secret http_password
+      
+  whitelist_external_dirs:
+    - !secret motion_dir
+    - !secret recording_dir
+config:
+hassio:
+system_health:
+ssdp:
+zeroconf:
+http:
+  base_url: !secret base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  # ip_ban_enabled: true
+  # login_attempts_threshold: 3
+
+updater:
+discovery:
+  ignore:
+    - igd
+
+# ########################################
+# ###           ASSISTANTS             ###
+# ########################################
+cloud: # !include assistants/cloud.yaml
+homekit: !include assistants/homekit.yaml
+
+# ########################################
+# ###             MOBILE               ###
+# ########################################
+ios: !include notify/ios_config.yaml
+mobile_app:
+
+# ########################################
+# ###                GUI               ###
+# ########################################
+lovelace:
+  mode: yaml
+
+customizer:
+  custom_ui: hosted
+
+map:
+
+frontend:
+  themes: !include_dir_named themes
+  extra_html_url:
+    - /local/hass-bha-icons.html
+    
+panel_custom: !include panels/panel_custom.yaml
+
+hacs:
+  token: !secret github_access_token
+
+browser_mod:
+  devices:
+    24d2e744-aee3dfdb:
+      name: Isa laptop
+    82ce1407-06ba38e8:
+      name: Dashboard
+    49b3d945-27efcb05:
+      name: Isa PC
+      
+# ########################################
+# ###              LOGGING             ###
+# ########################################
+
+recorder: !include logging/recorder.yaml
+history: !include logging/history.yaml
+logbook: !include logging/logbook.yaml
+logger: !include logging/logger.yaml
+
+# ########################################
+# ###              ENTITIES             ###
+# ########################################
+person:
+media_player: !include entities/media_player.yaml
+device_tracker: !include entities/device_tracker.yaml
+zone: !include_dir_merge_list zones/
+alarm_control_panel: !include resources/bwalarm/bwalarm.yaml
+
+
+# ########################################
+# ###             SERVICES             ###
+# ########################################
+sun:
+shopping_list:
+notify: !include notify/notify.yaml
+
+python_script:
+ 
+tts:
+  - platform: google_translate
+
+ffmpeg:
