@@ -1,0 +1,11 @@
+mailbox:
+  module: mailbox
+  class: Mailbox
+  global_dependencies: globals
+  mail_slot_sensor: binary_sensor.mailbox_letter
+  mail_door_sensor: binary_sensor.mailbox_package
+  mail_status: input_select.mailbox_status 
+  door: sensor.front_door
+  dependencies:
+    - presence_helper
+    - notification_manager
