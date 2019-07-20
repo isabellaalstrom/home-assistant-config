@@ -1,0 +1,41 @@
+homeassistant:
+  customize:
+    binary_sensor.water_heater_sensor:
+      friendly_name: Water Leak Water Heater   
+
+    binary_sensor.water_leak_kitchen:
+      friendly_name: Water Leak Kitchen Sink
+    
+      
+sensor:
+  - platform: template  
+    sensors:
+      water_heater:
+        friendly_name: 'Water Heater'
+        entity_id: "binary_sensor.water_heater_sensor"
+        value_template: '{% if is_state("binary_sensor.water_heater_sensor", "on") %}Leaking{% else %}No leak{% endif %}'
+        icon_template: '{% if is_state("binary_sensor.water_heater_sensor", "on") %}mdi:water{% else %}mdi:water-off{% endif %}'
+      kitchen_sink:
+        friendly_name: 'Kitchen Sink'
+        entity_id: "binary_sensor.water_leak_kitchen"
+        value_template: '{% if is_state("binary_sensor.water_leak_kitchen", "on") %}Leaking{% else %}No leak{% endif %}'
+        icon_template: '{% if is_state("binary_sensor.water_leak_kitchen", "on") %}mdi:water{% else %}mdi:water-off{% endif %}'
+
+alert:
+  water_heater_flooding:
+    name: The water heater is leaking!
+    entity_id: binary_sensor.water_heater_sensor
+    state: 'on'
+    repeat: 60
+    skip_first: False
+    notifiers:
+      - ios_isabellas_iphone_x
+
+  kitchen_sink_flooding:
+    name: The kitchen sink is leaking!
+    entity_id: binary_sensor.water_leak_kitchen
+    state: 'on'
+    repeat: 60
+    skip_first: False
+    notifiers:
+      - ios_isabellas_iphone_x

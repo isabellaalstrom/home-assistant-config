@@ -1,0 +1,91 @@
+sensor:
+  - platform: imap_email_content
+    server: imap.gmail.com
+    port: 993
+    name: Verisure Mail
+    username: !secret verisure_mail_username
+    password: !secret verisure_mail_password
+    senders:
+      - 'no-reply@verisure.com'
+
+  - platform: template
+    sensors:
+      front_door_lock:
+        friendly_name: 'Front Door Lock'
+        entity_id: "lock.ytterdorr"
+        value_template: '{% if is_state("lock.ytterdorr", "unlocked") %}Unlocked{% elif is_state("lock.ytterdorr", "locked")%}Locked{% else %}Unknown{% endif %}'
+        icon_template: '{% if is_state("lock.ytterdorr", "unlocked") %}mdi:home-lock-open{% elif is_state("lock.ytterdorr", "locked")%}mdi:home-lock{% else %}mdi:comment-question-outline{% endif %}'
+      
+      # yard_door_lock:
+      #   friendly_name: 'Yard Door Lock'
+      #   entity_id: "binary_sensor.lock_sensor"
+      #   value_template: '{% if is_state("binary_sensor.lock_sensor", "on") %}Unlocked{% elif is_state("binary_sensor.lock_sensor", "off")%}Locked{% else %}Unknown{% endif %}'
+      #   icon_template: '{% if is_state("binary_sensor.lock_sensor", "on") %}mdi:lock-open-outline{% elif is_state("binary_sensor.lock_sensor", "off")%}mdi:lock-outline{% else %}mdi:lock-question{% endif %}'
+      
+      # all_locks:
+      #   friendly_name: 'Locks'
+      #   entity_id:
+      #     - "lock.ytterdorr"
+      #     - "binary_sensor.lock_sensor"
+      #   value_template: '{% if is_state("lock.ytterdorr", "unlocked") and is_state("binary_sensor.lock_sensor", "on") %}All unlocked{% elif is_state("lock.ytterdorr", "locked") and is_state("binary_sensor.lock_sensor", "off") %}All locked{% elif is_state("lock.ytterdorr", "unlocked") and is_state("binary_sensor.lock_sensor", "off") %}Front door unlocked{% elif is_state("lock.ytterdorr", "locked") and is_state("binary_sensor.lock_sensor", "on") %}Yard door unlocked{% else %}Unknown{% endif %}'
+      #   icon_template: '{% if is_state("lock.ytterdorr", "locked") and is_state("binary_sensor.lock_sensor", "off") %}mdi:home-lock{% else %}mdi:home-lock-open{% endif %}'
+      
+      unlocked_by:
+        friendly_name: "Unlocked by"
+        entity_id: "sensor.verisure_mail"
+        value_template: >-
+          {% if states.sensor.verisure_mail.attributes.subject.find("Upplåst") | int >= 0 %}
+            {% if states.sensor.verisure_mail.attributes.body.find("Isabella") | int >= 0 %}
+              Isabella
+            {% elif states.sensor.verisure_mail.attributes.body.find("Stefan") | int >= 0 %}
+              Stefan
+            {% elif states.sensor.verisure_mail.attributes.body.find("firma") | int >= 0 %}
+              Cleaners
+            {% elif states.sensor.verisure_mail.attributes.body.find("Dante") | int >= 0 %}
+              Dante
+            {% elif states.sensor.verisure_mail.attributes.body.find("drar") | int >= 0 %}
+              Parents
+            {% else %}
+              {{states.sensor.unlocked_by.state}}
+            {% endif %}
+          {% else %}
+            {{states.sensor.unlocked_by.state}}
+          {% endif %}
+
+      last_action:
+        friendly_name: "Last action"
+        entity_id: "sensor.verisure_mail"
+        value_template: >-
+          {% if states.sensor.verisure_mail.attributes.subject == "Upplåst utifrån" %}
+            Unlocked keypad
+          {% elif states.sensor.verisure_mail.attributes.subject == "Upplåst" %}
+            Unlocked remote
+          {% elif states.sensor.verisure_mail.attributes.subject == "Upplåst inifrån" %}
+            Unlocked thumbturn
+          {% elif states.sensor.verisure_mail.attributes.subject == "Låst inifrån" %}
+            Locked thumbturn
+          {% elif states.sensor.verisure_mail.attributes.subject == "Låst utifrån" %}
+            Locked keypad
+          {% elif states.sensor.verisure_mail.attributes.subject == "Låst via fjärrstyrning" %}
+            Locked remote
+          {% elif states.sensor.verisure_mail.attributes.subject == "Misslyckad låsning" %}
+            Failed to lock
+          {% else %}
+            {{ states.sensor.verisure_mail.attributes.subject }}
+          {% endif %}
+
+
+# automation:
+#   - alias: '[Security] Yard lock'
+#     initial_state: False
+#     trigger:
+#       platform: state
+#       entity_id: binary_sensor.lock_sensor
+#       to: 'on' 
+#       for:
+#         minutes: 1
+#     action:
+#       - service: notify.ios_isabellas_iphone_x
+#         data:
+#           title: 'Lock open'
+#           message: 'Yard door'

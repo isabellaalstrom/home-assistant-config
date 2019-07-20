@@ -1,0 +1,52 @@
+       
+script:
+  cleaning_time:
+    alias: Cleaning time
+    sequence:
+      - service: light.turn_on
+        data_template:
+          entity_id: light.living_room_ceiling_light_level, light.living_room_spotlights_level, light.passage_ceiling_spotlights_level, light.upstairs_hallway_ceiling_light_level, light.dining_room_ceiling_light_level, light.isa_ceiling_light, light.kitchen_ceiling_spotlights_level
+          brightness: 254
+      - service: light.turn_on
+        data_template:
+          entity_id: light.bedroom_ceiling_light, light.floorlamp_uplight, light.stairs_bottom_spot, light.stairs_top_spot
+          brightness: 254
+          rgb_color: 
+            - 255
+            - 214
+            - 170
+  cleaning_time_over:
+    alias: Cleaning time over
+    sequence:
+      - service: light.turn_on
+        data_template:
+          entity_id: light.living_room_ceiling_light_level, light.living_room_spotlights_level, light.passage_ceiling_spotlights_level, light.upstairs_hallway_ceiling_light_level, light.dining_room_ceiling_light_level, light.isa_ceiling_light
+          brightness: 100
+      - service: light.turn_on
+        data_template:
+          entity_id: light.bedroom_ceiling_light, light.floorlamp_uplight, light.stairs_bottom_spot, light.stairs_top_spot
+          brightness: 100
+          rgb_color: 
+            - 255
+            - 214
+            - 170
+      - service: light.turn_off
+        data_template:
+          entity_id: light.bedroom_ceiling_light, light.floorlamp_uplight, light.living_room_spotlights_level, light.dining_room_ceiling_light_level, light.kitchen_ceiling_spotlights_level
+
+  cleaning_music:
+    alias: Cleaning music
+    sequence:
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.spotify
+          media_content_id: spotify:user:teachingbirds:playlist:4a1ZWVUXX42QJtnmE4dNKA
+          media_content_type: playlist
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.spotify
+          source: 'Sonos!'
+      - service: media_player.shuffle_set
+        data:
+          entity_id: media_player.spotify
+          shuffle: 'true'        

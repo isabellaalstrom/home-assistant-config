@@ -1,0 +1,41 @@
+homeassistant:
+  customize:
+    binary_sensor.smoke_sensor_158d0001d37bdd:
+      friendly_name: Smoke sensor 1
+    binary_sensor.dining_room_smoke_alarm:
+      friendly_name: Smoke Sensor Dining Room
+    binary_sensor.smoke_sensor_158d0001d37c82:
+      friendly_name: Smoke sensor 3
+    
+
+
+automation:
+- alias: '[Security] Smoke Alarm'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.smoke_sensor_158d0001d37bdd, binary_sensor.dining_room_smoke_alarm, binary_sensor.smoke_sensor_158d0001d37c82
+      to: 'on'
+  action:
+    - service: notify.ios_isabellas_iphone_x
+      data_template:
+        title: '{{ trigger.to_state.name }} triggered'
+        message: >
+          {% if is_state('group.persons', 'home') %}{% if is_state('device_tracker.stefan', 'Home') %}Stefan is {{states.device_tracker.stefan.state}} {% endif %}{% if is_state('device_tracker.isabella', 'Home')%}Isabella is {{states.device_tracker.isabella.state}}{% endif %}{% else %}No one is home.
+          {% endif %}
+          Passage: {{states.sensor.temperature_passage.state_with_unit}}
+          Bathroom: {{states.sensor.temperature_downstairs_bathroom.state}}
+          Stefan: {{states.sensor.temperature_stefan.state}}
+          Bedroom: {{states.sensor.temperature_bedroom.state}}
+
+- alias: '[Temperature] High Temperatures'
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.temperature_passage, sensor.temperature_downstairs_bathroom, sensor.temperature_stefan, sensor.temperature_bedroom
+      above: 35.0
+  action:
+    - service: notify.ios_isabellas_iphone_x
+      data_template:
+        title: '{{ trigger.to_state.name }}'
+        message: '{{ trigger.to_state.state }}'

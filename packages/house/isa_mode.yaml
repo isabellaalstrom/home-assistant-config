@@ -1,0 +1,115 @@
+homeassistant:
+  customize:
+    input_boolean.isa_mode:
+      templates:
+        icon: >
+          if (state === 'on') return 'mdi:account';
+          else if (state === 'off') return 'mdi:account-off';
+        icon_color: >
+          if (state === 'on') return 'rgb(56, 150, 56)';
+          else if (state === 'off') return 'rgb(249, 251, 255)';
+
+input_boolean:
+  isa_mode:
+    name: Isabella Mode
+    initial: 'off'
+    icon: mdi:account
+
+automation:
+  - alias: '[House] Isa Mode Ask'
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: person.isa
+        to: 'Just arrived'
+      - platform: state
+        entity_id: person.stefan
+        to: 'Just Left'
+    condition:
+      condition: and
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity_id: person.isa
+              state: 'Home'
+            - condition: state
+              entity_id: person.isa
+              state: 'Just arrived'
+        - condition: or
+          conditions:
+            - condition: state
+              entity_id: person.stefan
+              state: 'Away'
+            - condition: state
+              entity_id: person.stefan
+              state: 'Just left'
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          title: 'Home alone!'
+          message: 'Turn on mode?'
+          data:
+            push:
+              category: "isa_mode"
+
+  - alias: '[House] Isa Mode On'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: HOME_ALONE_MODE_ON
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.isa_mode
+      # - More to come when confirmed working as intended
+
+  - alias: '[House] Isa Mode Off'
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: person.stefan
+        to: 'Just arrived'
+      - platform: state
+        entity_id: person.stefan
+        to: 'Home'
+      - platform: state
+        entity_id: person.isa
+        to: 'Just Left'
+    condition:
+      - condition: state
+        entity_id: input_boolean.isa_mode
+        state: 'on'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.isa_mode
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          title: 'No more alone time'
+          message: 'Stefan is home'
+      # - service: script.sonos_say
+      #   data:
+      #     sonos_entity: media_player.living_room_sonos
+      #     volume: 0.2
+      #     message: 'Stefan Just arrived'
+      #     delay: '00:00:10'
+
+  - alias: '[TTS] Sonos Stefan Leaving Golf Course'
+    initial_state: 'on'
+    trigger:
+      - platform: zone
+        entity_id: person.stefan
+        zone: zone.golf
+        event: leave
+    action:
+      - delay: '00:01:00'
+      - condition: state
+        entity_id: media_player.living_room_movie_system
+        state: 'off'
+      - service: script.sonos_say
+        data:
+          sonos_entity: media_player.living_room_sonos
+          volume: 0.2
+          message: 'Stefan is now leaving the golf course'
+          delay: '00:00:15'

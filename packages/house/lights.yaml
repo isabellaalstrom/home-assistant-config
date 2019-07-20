@@ -1,0 +1,309 @@
+homeassistant:
+  customize:
+    light.hallway_window_light:
+      icon: mdi:lamp
+
+    light.outdoor_lights:
+      icon: mdi:wall-sconce
+      
+    light.gateway_light_34ce008bfc4b:
+      friendly_name: Nightlight
+      icon: mdi:lamp
+
+    light.living_room_ceiling_light_level:
+      icon: mdi:ceiling-light
+      friendly_name: Living Room Light
+        
+    light.upstairs_hallway_ceiling_light_level:
+      icon: mdi:ceiling-light
+      friendly_name: Upstairs Hallway Light
+        
+    light.dining_room_ceiling_light_level:
+      friendly_name: Dining Room Light
+      icon: mdi:ceiling-light
+        
+    light.passage_ceiling_spotlights_level:
+      friendly_name: Passage Lights
+      icon: mdi:track-light
+        
+    light.living_room_spotlights_level:
+      friendly_name: Living room Spotlights
+      icon: mdi:track-light
+        
+    light.isa_ceiling_light:
+      friendly_name: Isa Ceiling Light
+      icon: mdi:ceiling-light
+
+    light.bedroom_ceiling_light:
+      friendly_name: Bedroom Ceiling Light
+      icon: mdi:ceiling-light
+
+    light.bedside_lamp:
+      friendly_name: Bedside Lamp
+      icon: mdi:lamp
+
+    light.floorlamp_uplight:
+      icon: mdi:floor-lamp
+      friendly_name: Floorlamp
+        
+    light.floorlamp_reading_light:
+      icon: mdi:lamp
+      friendly_name: Floorlamp Reading Light
+
+    light.stefan_lightstrip:
+      icon: mdi:led-strip
+            
+    light.kitchen_ceiling_spotlights_level:
+      icon: mdi:track-light
+      friendly_name: Kitchen Lights
+
+    light.outdoor_front_light:
+      icon: mdi:wall-sconce
+      
+    light.outdoor_hanging_lights:
+      icon: mdi:lightbulb
+
+    light.outdoor_front_hanging_lights:
+      icon: mdi:lightbulb
+
+    light.outdoor_yard_light:
+      icon: mdi:wall-sconce
+
+    light.outdoor_yard_light_net:
+      icon: mdi:lightbulb
+
+    light.walk_in_closet_lights:
+      icon: mdi:wall-sconce
+
+scene:
+  - name: Morning Lights
+    entities:
+      light.living_room_ceiling_light_level:
+        state: on
+        brightness: 50
+        transition: 30
+      light.kitchen_ceiling_spotlights_level:
+        state: on
+      light.passage_ceiling_spotlights_level:
+        state: on
+        brightness: 50
+        transition: 30
+      light.upstairs_hallway_ceiling_light_level:
+        state: on
+        brightness: 10
+      light.floorlamp_uplight:
+        state: on
+        brightness: 150
+        transition: 30
+      light.stairs_lights:
+        state: on
+        brightness: 50
+        transition: 30
+
+  - name: Dark Lights On
+    entities:
+      light.outdoor_front_light:
+        state: on
+        brightness: 127
+        transition: 60
+      light.outdoor_yard_light:
+        state: on
+        brightness: 127
+        transition: 60
+      light.hallway_window_light:
+        state: on
+        brightness: 45
+        transition: 60
+      light.outdoor_hanging_lights: on
+      light.outdoor_front_hanging_lights: on
+      
+  - name: Dark Lights Off
+    entities:
+      light.outdoor_front_light:
+        state: off
+        transition: 30
+      light.outdoor_yard_light:
+        state: off
+        transition: 30
+      light.hallway_window_light:
+        state: off
+        transition: 30
+      light.outdoor_hanging_lights: off
+      light.outdoor_front_hanging_lights: off
+
+  - name: Evening Lights
+    entities:
+      light.living_room_ceiling_light_level:
+        state: on
+        brightness_pct: 50
+      light.passage_ceiling_spotlights_level:
+        state: on
+        brightness_pct: 20
+      light.upstairs_hallway_ceiling_light_level:
+        state: on
+        brightness_pct: 20
+      light.floorlamp_uplight:
+        state: on
+        brightness_pct: 50
+      
+  - name: Ceiling lights
+    entities:
+      light.living_room_ceiling_light_level:
+        state: on
+        brightness: 50
+        transition: 30
+      light.living_room_spotlights_level:
+        state: on
+        brightness: 30
+        transition: 30
+      light.passage_ceiling_spotlights_level:
+        state: on
+        brightness: 50
+        transition: 30
+      light.upstairs_hallway_ceiling_light_level:
+        state: on
+        brightness: 50
+        transition: 30
+      light.dining_room_ceiling_light_level:
+        state: on
+        brightness: 50
+        transition: 30
+        
+  - name: Welcome Home
+    entities:
+      light.living_room_ceiling_light_level:
+        state: on
+        brightness: 60
+      light.passage_ceiling_spotlights_level:
+        state: on
+        brightness: 50
+      light.upstairs_hallway_ceiling_light_level:
+        state: on
+        brightness: 50
+      light.floorlamp_uplight:
+        state: on
+        brightness: 150
+      light.outdoor_lights:
+        state: on
+        brightness: 255
+        
+  - name: Movie Time
+    entities:
+      light.living_room_spotlights_level:
+        state: off
+        transition: 30
+      light.passage_ceiling_spotlights_level:
+        state: off
+        transition: 30
+      light.kitchen_ceiling_spotlights_level:
+        state: off
+        transition: 30
+      light.dining_room_ceiling_light_level:
+        state: off
+        transition: 30
+      light.floorlamp_reading_light:
+        state: off
+        transition: 30
+      light.floorlamp_uplight:
+        state: off
+        transition: 30
+      light.isa_ceiling_light:
+        state: off
+        transition: 30
+      light.living_room_ceiling_light_level:
+        state: on
+        brightness: 10
+      light.stairs_lights:
+        state: on
+        brightness: 10
+      light.upstairs_hallway_ceiling_light_level:
+        state: on
+        brightness: 10
+          
+light:
+  - platform: rfxtrx
+    signal_repetitions: 5
+    devices:
+      0b11000273bc0cfe08010f70:
+        name: Outdoor hanging lights
+      0b11000382bc0cfe00010f70:
+        name: Outdoor front hanging lights
+      0b11000261bc0cfe05010f70:
+        name: Outdoor yard light net
+  - platform: group
+    name: Walk in closet lights
+    entities:
+      - light.walk_in_closet_1
+      - light.walk_in_closet_2
+      - light.walk_in_closet_3
+      - light.walk_in_closet_4
+  - platform: group
+    name: 'Outdoor lights'
+    entities:
+      - light.outdoor_plug
+      - light.outdoor_front_light
+      - light.outdoor_yard_light
+      - light.outdoor_hanging_lights
+      - light.outdoor_front_hanging_lights
+
+  - platform: group
+    name: 'Inside lights'
+    entities:
+      - light.bedroom_ceiling_light
+      - light.bedside_lamp
+      - light.living_room_ceiling_light_level
+      - light.living_room_spotlights_level
+      - light.passage_ceiling_spotlights_level
+      - light.upstairs_hallway_ceiling_light_level
+      - light.dining_room_ceiling_light_level
+      - light.isa_ceiling_light
+      - light.floorlamp_reading_light
+      - light.floorlamp_uplight
+      - light.gateway_light_34ce008bfc4b
+      - light.stairs_lights
+      - light.walk_in_closet_lights
+      - light.kitchen_ceiling_spotlights_level
+
+  - platform: group
+    name: 'Downstairs lights'
+    entities:
+      - light.dining_room_ceiling_light_level  
+      - light.kitchen_ceiling_spotlights_level
+      - light.floorlamp_reading_light
+      - light.floorlamp_uplight
+      - light.hallway_window_light
+      - light.stairs_lights
+      - light.passage_ceiling_spotlights_level
+      - light.living_room_ceiling_light_level
+      - light.living_room_spotlights_level
+
+  - platform: group
+    name: 'Upstairs lights'
+    entities:
+      - light.bedroom_ceiling_light
+      - light.bedside_lamp
+      - light.isa_ceiling_light
+      - light.walk_in_closet_lights
+      # - light.stefan_ceiling_light
+      # - light.stefan_lightstrip
+      - light.upstairs_hallway_ceiling_light_level
+      # - light.gateway_light_34ce008bfc4b
+
+  - platform: group
+    name: 'Lights automation'
+    entities:
+      - light.bedroom_ceiling_light
+      - light.bedside_lamp
+      - light.living_room_ceiling_light_level
+      - light.living_room_spotlights_level
+      - light.passage_ceiling_spotlights_level
+      - light.upstairs_hallway_ceiling_light_level
+      - light.dining_room_ceiling_light_level
+      - light.isa_ceiling_light
+      - light.floorlamp_reading_light
+      - light.floorlamp_uplight
+      - light.gateway_light_34ce008bfc4b
+      - light.kitchen_sink_light
+      - light.stairs_lights
+      - light.walk_in_closet_lights
+      - light.kitchen_ceiling_spotlights_level
