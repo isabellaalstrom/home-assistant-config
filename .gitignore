@@ -52,3 +52,4 @@ zwcfg_0xca115759.xml
 ip_bans.yaml
 /lovelace/for_gen/*
 esphome/
+haslcache.json
