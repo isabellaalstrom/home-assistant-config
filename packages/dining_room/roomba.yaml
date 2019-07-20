@@ -1,0 +1,225 @@
+ios:
+  push:
+    categories:
+      - name: Vacuum Now
+        identifier: 'vacuum'
+        actions:
+          - identifier: 'VACUUM_NOW'
+            title: 'Yes'
+            authenticationRequired: yes
+            behavior: 'default'
+          - identifier: 'VACUUM_LATER'
+            title: 'Snooze'
+            activationMode: 'background'
+          - identifier: 'VACUUM_STOP_ASKING'
+            title: 'Stop asking'
+            activationMode: 'background'
+            destructive: yes
+
+vacuum:
+  - platform: template
+    vacuums:
+      roomba:
+        value_template: "{% if is_state('binary_sensor.roomba', 'on') %}cleaning{% else %}docked{% endif %}"
+        start:
+          - service: switch.turn_on
+            data:
+              entity_id: switch.roomba_vacuum
+        stop:
+          - service: switch.turn_off
+            data:
+              entity_id: switch.roomba_vacuum
+        # return_to_base:
+            # service: script.vacuum_return_to_base
+
+switch:
+  - platform: broadlink
+    friendly_name: Broadlink Hallway
+    host: !secret broadlink_roomba_ip
+    mac: !secret broadlink_roomba_mac
+    switches:
+      roomba_vacuum:
+        friendly_name: Roomba Vacuum
+        command_on: 'JgD8AGEgIV8gXyBfXCIhXyBfIAACoGIfIGAfYB9gXSIfYR5hHgACol8iHmIdYh1iXCIfYR5hHgACo2EgHmEfYR1iXCIeYh1iHQACq2AhH2EeYR9gXCMfYB9gHwAComAhH2AfYR9gXCIgYB9gHwACoWAiH2AfYB9gXCMfYB9hHgAComAhH2EeYR5hXCIgYCBfIAACoGEgIGAfYB9gXSIfYR5hHgACql8jHWIdYh1iXCMeYR5hHgACo18iHmEeYh1iXCIeYh1iHQACo18jHWIdYh5hXSIeYh1iHQACo18jHWIdYh1iXCIfYR5hHgACq18iHmEeYh1iXCIeYh1iHgANBQAAAAAAAAAAAAAAAA=='
+        command_off: 'JgCQAGAhHmIfYB9gH2BdIh5iXAACbGAhHmIeYR5hH2BdIh5iXAACZGAhHmIeYR5hH2BdIh5iXAACZGEhH2AfYB9gIF9eISBgXgACYl8iIGAfYB9gH2BfICBgXgACamEhH2AfYB9gH2BfICBgXgACYmEgIGAfYCBfIF9cIx9hXAACZGAhHmIeYR5hH2BdIh5iXAANBQAAAAAAAAAA'
+      # roomba_dock:
+      #   friendly_name: Roomba Dock
+      #   command_on: 'JgA2AF8iHmIdYh1iHWJcIh5iXAACbF8iIGAeYh1iHWJeICBgXQACY18iIGAeYh1iHWJeICBgXgANBQAA'
+      #   command_off: 'JgCQAGAhHmIfYB9gH2BdIh5iXAACbGAhHmIeYR5hH2BdIh5iXAACZGAhHmIeYR5hH2BdIh5iXAACZGEhH2AfYB9gIF9eISBgXgACYl8iIGAfYB9gH2BfICBgXgACamEhH2AfYB9gH2BfICBgXgACYmEgIGAfYCBfIF9cIx9hXAACZGAhHmIeYR5hH2BdIh5iXAANBQAAAAAAAAAA'
+
+input_select:
+  roomba_mode:
+    name: Roomba
+    options:
+     - 'Waiting'
+     - 'Vacuum Now'
+     - 'Vacuuming'
+     - 'Has Vacuumed'
+     - 'Dock'
+     - 'Not Today'
+    icon: mdi:robot-vacuum
+
+automation:
+  - alias: '[House] Vacuum Ask When Everyone Is Away'
+    initial_state: 'on'
+    trigger:
+      platform: time_pattern
+      minutes: 5
+      seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: group.persons
+          state: 'not_home'
+        - condition: time
+          after: '09:00:00'
+          before: '17:00:00'
+        - condition: state
+          entity_id: input_select.roomba_mode
+          state: 'Waiting'
+        - condition: state
+          entity_id: binary_sensor.roomba
+          state: 'off'
+        - condition: state
+          entity_id: calendar.cleaning_day
+          state: 'off'
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          message: 'Vacuum now?'
+          title: 'No one seems to be at home'
+          data:
+            push:
+              category: "vacuum"
+
+
+  - alias: '[House] Vacuum Now Selected'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: VACUUM_NOW
+    action:
+      - service: vacuum.start
+        entity_id: vacuum.roomba
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.roomba_mode
+          option: 'Vacuuming'
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          message: 'Telling the Roomba to start vacuuming'
+
+  - alias: '[House] Vacuum Snoozed Selected'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: VACUUM_LATER
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          message: 'I will check again next hour'
+          title: 'Not vacuuming right now'
+
+  - alias: '[House] Vacuum Stop Asking Selected'
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: VACUUM_STOP_ASKING
+    action:
+      # - service: notify.ios_isabellas_iphone_x
+      #   data:
+      #     message: 'Got it'
+      #     title: 'No vacuuming today'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.roomba_mode
+          option: 'Not Today'
+
+  ## Reset the vacuumed today check each night
+  - alias: '[House] Vacuum Reset At Midnight'
+    initial_state: 'on'
+    trigger:
+      platform: time
+      at: '23:59:00'
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.roomba_mode
+          option: 'Waiting'
+      - service: homeassistant.turn_off
+        entity_id: switch.roomba
+
+
+# ## Not working
+#   - alias: '[House] Vacuum Dock Roomba'
+#     initial_state: 'on'
+#     trigger:
+#       platform: state
+#       entity_id: input_select.roomba_mode
+#       to: 'Dock'
+#     action:
+#       - service: homeassistant.turn_off
+#         entity_id: switch.roomba
+#       - service: homeassistant.turn_off
+#         entity_id: switch.roomba_living_room
+#       - delay: '0:01'
+#       - service: homeassistant.turn_on
+#         entity_id: switch.roomba_dock
+#       - service: homeassistant.turn_on
+#         entity_id: switch.roomba_dock_living_room
+#       - service: notify.ios_isabellas_iphone_x
+#         data:
+#           message: 'Trying to dock Roomba'
+#       - service: input_select.select_option
+#         data:
+#           entity_id: input_select.roomba_mode
+#           option: 'Waiting'
+
+
+  - alias: '[House] Vacuum Now'
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: input_select.roomba_mode
+      to: 'Vacuum Now'
+    action:
+      - service: vacuum.start
+        entity_id: vacuum.roomba
+
+  - alias: '[House] Vacuum Is Done'
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.roomba
+      to: 'off'
+      from: 'on'
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          message: 'Vacuuming done'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.roomba_mode
+          option: 'Has Vacuumed'
+
+  - alias: '[House] Vacuum Starting'
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: vacuum.roomba
+      to: 'cleaning'
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          message: 'Vacuuming'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.roomba_mode
+          option: 'Vacuuming'
