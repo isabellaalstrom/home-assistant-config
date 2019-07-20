@@ -1,0 +1,32 @@
+upstairs_litterbox_persistence:
+  module: counter_persistence
+  class: CounterPersistence
+  counter: counter.litterbox_upstairs_visits
+  input_number: input_number.upstairs_litterbox_persistence
+  dependencies:
+    - notification_manager
+    - presence_helper
+    - scheduler
+    - tts_manager
+
+downstairs_litterbox_persistence:
+  module: counter_persistence
+  class: CounterPersistence
+  counter: counter.litterbox_downstairs_visits
+  input_number: input_number.downstairs_litterbox_persistence
+  dependencies:
+    - notification_manager
+    - presence_helper
+    - scheduler
+    - tts_manager
+
+upstairs_litterbox_persistence:
+  module: counter_persistence
+  class: CounterPersistence
+  counter: counter.all_litterbox_visits_today
+  input_number: input_number.all_litterbox_persistence
+  dependencies:
+    - notification_manager
+    - presence_helper
+    - scheduler
+    - tts_manager
