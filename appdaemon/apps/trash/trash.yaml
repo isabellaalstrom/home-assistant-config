@@ -1,0 +1,8 @@
+trash:
+  module: trash
+  class: Trash
+  global_dependencies: globals
+  constrain_input_boolean: input_boolean.ad_trash,on
+  dependencies:
+    - presence_helper
+    - notification_manager
