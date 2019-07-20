@@ -1,0 +1,23 @@
+unlocked_by:
+  module: presence_additions
+  class: UnlockedBy
+  global_dependencies: globals
+  unlocked_by: sensor.unlocked_by
+  isa: device_tracker.isa_addon_presence
+  stefan: device_tracker.stefan_addon_presence
+  
+mend_gps_tracker_stefan:
+  module: presence_additions
+  class: MendGps
+  global_dependencies: globals
+  gps: device_tracker.stefan_iphone_7
+  bt: sensor.stefan_iphone_7_bt
+  wifi: device_tracker.stefan_iphone_7_wifi
+  
+mend_gps_tracker_isa:
+  module: presence_additions
+  class: MendGps
+  global_dependencies: globals
+  gps: device_tracker.isabellas_iphone_x
+  bt: sensor.isabellas_iphone_x_bt
+  wifi: device_tracker.isabellas_iphone_x_wifi

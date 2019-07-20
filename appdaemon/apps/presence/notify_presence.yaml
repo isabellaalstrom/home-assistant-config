@@ -1,0 +1,12 @@
+notify_presence_isa:
+  module: notify_presence
+  class: NotifyPresence
+  constrain_input_boolean: input_boolean.ad_presence,on
+  global_dependencies: globals
+  device: person.isa
+notify_presence_stefan:
+  module: notify_presence
+  class: NotifyPresence
+  constrain_input_boolean: input_boolean.ad_presence,on 
+  global_dependencies: globals
+  device: person.stefan

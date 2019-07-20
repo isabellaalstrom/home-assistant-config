@@ -1,0 +1,7 @@
+monitor:
+  module: monitor
+  class: Monitor
+  global_dependencies: globals
+  dependencies:
+    - presence_helper
+    - notification_manager
