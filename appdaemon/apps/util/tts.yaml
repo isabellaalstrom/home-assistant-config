@@ -1,0 +1,8 @@
+---
+
+tts_manager:
+  module: tts
+  class: TTSManager
+  dependencies:
+
+    - notification_manager

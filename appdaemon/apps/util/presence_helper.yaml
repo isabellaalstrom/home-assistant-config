@@ -1,0 +1,3 @@
+presence_helper:
+  module: presence_helper
+  class: PresenceHelper

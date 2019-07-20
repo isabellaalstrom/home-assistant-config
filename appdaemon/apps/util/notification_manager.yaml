@@ -1,0 +1,3 @@
+notification_manager:
+  module: notification_manager
+  class: NotificationManager
