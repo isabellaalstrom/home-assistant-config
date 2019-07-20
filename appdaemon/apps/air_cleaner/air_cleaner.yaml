@@ -1,0 +1,19 @@
+air_cleaner:
+  module: air_cleaner
+  class: AirCleaner
+  global_dependencies: globals
+  input_select: input_select.air_cleaner
+  dependencies:
+    - presence_helper
+    - notification_manager
+air_cleaner_schedule:
+  module: air_cleaner
+  class: AirCleanerSchedule
+  global_dependencies: globals
+  auto_time: '11:00:00'
+  turbo_time: '19:00:00'
+  quiet_time: '21:00:00'
+  constrain_input_boolean: input_boolean.ad_air_cleaner,on
+  dependencies:
+    - presence_helper
+    - notification_manager
