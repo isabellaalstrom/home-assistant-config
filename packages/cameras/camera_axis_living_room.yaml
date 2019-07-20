@@ -1,0 +1,13 @@
+axis:
+  living_room_axis:
+    host: !secret axis_living_room_ip
+    username: !secret axis_username
+    password: !secret axis_password
+    include:
+      - camera
+      - motion
+      - pir
+      - sound
+      - tampering
+    trigger_time: 10
+    location: 'living room'

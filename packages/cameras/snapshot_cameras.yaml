@@ -1,0 +1,17 @@
+camera:
+  - platform: generic
+    name: Snapshot Living Room
+    still_image_url: !secret living_room_snapshot
+    verify_ssl: false
+  - platform: generic
+    name: Snapshot Passage
+    still_image_url: !secret passage_snapshot
+    verify_ssl: false
+  - platform: generic
+    name: Snapshot Attic
+    still_image_url: !secret attic_snapshot
+    verify_ssl: false
+  - platform: generic
+    name: Snapshot Hallway
+    still_image_url: !secret hallway_snapshot
+    verify_ssl: false

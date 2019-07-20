@@ -1,0 +1,76 @@
+homeassistant:
+  customize:
+    script.dafang_up:
+      icon: mdi:chevron-up
+    script.dafang_down:
+      icon: mdi:chevron-down
+    script.dafang_left:
+      icon: mdi:chevron-left
+    script.dafang_right:
+      icon: mdi:chevron-right
+    switch.dafang_h264_rtsp_server:
+      icon: mdi:power-standby
+      name: Dafang switch
+binary_sensor:
+  - platform: ffmpeg_motion
+    name: Attic motion
+    input: !secret dafang_stream_source
+camera:
+  - platform: generic
+    name: Attic
+    still_image_url: !secret dafang_stream_still_image_url
+    stream_source: !secret dafang_stream_source
+    verify_ssl: false
+    username: "root"
+    password: !secret dafang_password
+    authentication: basic
+
+switch:
+  platform: command_line
+  scan_interval: 35
+  switches:
+    dafang_server:
+      command_on: !secret dafang_server_on
+      command_off: !secret dafang_server_off
+      friendly_name: Dafang Server
+    dafang_night_vision:
+      command_on: !secret dafang_night_vision_on
+      command_off: !secret dafang_night_vision_off
+      friendly_name: Dafang Server
+    dafang_calibrate:
+      command_on: !secret dafang_calibrate
+      command_off: !secret dafang_calibrate
+      friendly_name: Dafang Calibrate
+
+cover:
+  - platform: command_line
+    covers:
+      dafang_up_down:
+        command_open: !secret dafang_up
+        command_close: !secret dafang_down
+        command_stop: move_command stop
+      dafang_left_right:
+        command_open: !secret dafang_left
+        command_close: !secret dafang_right
+        command_stop: move_command stop
+script:
+  dafang_up:
+    sequence:
+      - service: cover.open_cover
+        entity_id: cover.dafang_up_down
+  dafang_down:
+    sequence:
+      - service: cover.close_cover
+        entity_id: cover.dafang_up_down
+  dafang_left:
+    sequence:
+      - service: cover.open_cover
+        entity_id: cover.dafang_left_right
+  dafang_right:
+    sequence:
+      - service: cover.close_cover
+        entity_id: cover.dafang_left_right
+  dafang_calibrate:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.dafang_calibrate

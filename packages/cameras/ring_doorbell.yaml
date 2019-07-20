@@ -1,0 +1,41 @@
+homeassistant:
+  customize:
+    camera.front_door:
+      friendly_name: Last Motion Front Door
+
+binary_sensor:
+  - platform: ring
+sensor:
+  - platform: ring
+  - platform: template
+    sensors:
+      front_door_outdoor_movement:
+        friendly_name: 'Front Door Outdoor Movement'
+        entity_id: "binary_sensor.ring_front_door_motion"
+        value_template: '{% if is_state("binary_sensor.ring_front_door_motion", "on") %}Movement detected{% else %}No movement{% endif %}'
+        icon_template: '{% if is_state("binary_sensor.ring_front_door_motion", "on") %}mdi:run-fast{% else %}mdi:sleep{% endif %}'
+
+camera:
+  - platform: ring
+
+automation:
+  - alias: '[Security] Ring Doorbell Low Battery'
+    initial_state: 'on'
+    trigger:
+      - platform: numeric_state
+        entity_id: 'sensor.ring_front_door_battery'
+        below: '15'
+    action:
+      - service: notify.ios_isabellas_iphone_x
+        data:
+          title: 'Ring Doorbell'
+          message: 'Low Battery'
+
+  - alias: '[Security] Ring Doorbell Flash Lights'
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.ring_front_door_ding
+        to: 'on'
+    action:
+      - service: python_script.flash_lights_upstairs_hallway_and_yard

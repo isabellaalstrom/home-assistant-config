@@ -1,0 +1,52 @@
+camera:
+  - platform: generic
+    name: Hallway
+    still_image_url: !secret sannce_stream_still_image_url
+    stream_source: !secret sannce_stream_source
+binary_sensor:
+  - platform: ffmpeg_motion
+    name: Hallway motion
+    input: !secret sannce_stream_source
+
+cover:
+  - platform: command_line
+    covers:
+      sannce_up_down:
+        command_open: !secret sannce_up
+        command_close: !secret sannce_down
+        command_stop: move_command stop
+      sannce_left_right:
+        command_open: !secret sannce_left
+        command_close: !secret sannce_right
+        command_stop: move_command stop
+switch:
+  platform: command_line
+  scan_interval: 35
+  switches:
+    sannce_calibrate:
+      command_on: !secret sannce_calibrate
+      command_off: !secret sannce_calibrate
+      friendly_name: Sannce Calibrate
+script:
+  sannce_up:
+    sequence:
+      - service: cover.open_cover
+        entity_id: cover.sannce_up_down
+  sannce_down:
+    sequence:
+      - service: cover.close_cover
+        entity_id: cover.sannce_up_down
+  sannce_left:
+    sequence:
+      - service: cover.open_cover
+        entity_id: cover.sannce_left_right
+  sannce_right:
+    sequence:
+      - service: cover.close_cover
+        entity_id: cover.sannce_left_right
+  sannce_calibrate:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.sannce_calibrate
+
+## example command (calibrate): 'curl -k "http://ip-address:port/decoder_control.cgi?loginuse=myUser&loginpas=myPassword&command=25&onestep=0&1542658796212.6775"'
