@@ -1,0 +1,31 @@
+"*.*":
+  custom_ui_state_card: state-card-custom-ui
+
+"sensor.*_exporting*":
+  hidden: true
+"sensor.*_energy*":
+  hidden: true
+"sensor.*_alarm_type*":
+  hidden: true
+"sensor.*_alarm_level*":
+  hidden: true
+"sensor.*_power*":
+  hidden: true
+"sensor.*sourcenodeid":
+  hidden: true
+"sensor.*system":
+  hidden: true
+"sensor.*unknown":
+  hidden: true
+"sensor.*s_heat*":
+  hidden: true
+"sensor.*t_heat_":
+  hidden: true
+"sensor.*heat*":
+  hidden: true
+"binary_sensor.white*":
+  hidden: true
+"light.*level_*":
+  hidden: true
+"sensor.*burglar*":
+  hidden: true

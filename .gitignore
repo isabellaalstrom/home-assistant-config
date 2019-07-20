@@ -53,3 +53,4 @@ ip_bans.yaml
 /lovelace/for_gen/*
 esphome/
 haslcache.json
+appdaemon/compiled
