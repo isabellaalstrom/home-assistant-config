@@ -1,0 +1,203 @@
+title: Lights
+icon: mdi:lightbulb-on
+path: lights
+cards:
+  - type: vertical-stack
+    cards:
+    - type: horizontal-stack
+      cards:
+        - type: picture
+          image: /local/lovelace_ui/bed.jpg
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: script.goodnight
+        - type: picture
+          image: /local/lovelace_ui/morning_coffee_square.jpg
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: scene.turn_on
+            service_data:
+              entity_id: scene.morning_lights
+        - type: picture
+          image: /local/lovelace_ui/movie_square.jpg
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: scene.turn_on
+            service_data:
+              entity_id: scene.movie_time
+
+    - type: entities
+      title: Outdoor
+      show_header_toggle: false
+      entities:
+        - type: section
+          label: Front
+        - entity: light.outdoor_front_light
+          name: Wall
+          icon: bha:outdoor-lamp
+          type: custom:slider-entity-row
+          toggle: true
+        - entity: light.outdoor_front_hanging_lights
+          name: Chain lights
+          icon: bha:light-string
+          
+        - type: section
+          label: Yard
+        - entity: light.outdoor_yard_light
+          name: Wall
+          icon: bha:outdoor-lamp
+          toggle: true
+          type: custom:slider-entity-row
+        - entity: light.outdoor_hanging_lights
+          name: Chain lights
+          icon: bha:light-string
+        - entity: light.outdoor_yard_light_net
+          name: Light net
+          icon: bha:light-string
+
+    - type: horizontal-stack
+      cards:
+        - type: entity-button
+          entity: light.downstairs_lights
+          icon: mdi:home-floor-0
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: light.turn_off
+            service_data:
+              entity_id: light.downstairs_lights
+        - type: entity-button
+          entity: light.upstairs_lights
+          icon: mdi:home-floor-1
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: light.turn_off
+            service_data:
+              entity_id: light.upstairs_lights
+                  
+
+  - type: vertical-stack
+    cards:
+    - type: entities
+      title: Downstairs
+      show_header_toggle: false
+      entities:
+        - entity: light.kitchen_ceiling_spotlights_level
+          name: Kitchen
+          
+        - entity: light.dining_room_ceiling_light_level
+          name: Dining area
+          icon: bha:ceiling-lamp
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+
+        - entity: light.floorlamp_uplight
+          name: Floorlamp
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.floorlamp_reading_light
+          name: Floorlamp reading
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+
+        - entity: light.living_room_ceiling_light_level
+          name: Livingroom
+          icon: bha:ceiling-lamp-round
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+
+        - entity: light.living_room_spotlights_level
+          name: Livingroom spots
+          icon: bha:ceiling-lamp-plafond
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.passage_ceiling_spotlights_level
+          name: Passage
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.hallway_window_light
+          name: Hallway window
+          type: custom:slider-entity-row
+          icon: mdi:ceiling-light
+          toggle: true
+          hide_when_off: true
+
+        - entity: light.stairs_lights
+          name: Stairs
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.candles
+          name: Candles
+          icon: mdi:candle
+          
+  - type: vertical-stack
+    cards:
+    - type: entities
+      title: Upstairs
+      show_header_toggle: false
+      entities:
+        - entity: light.bedside_lamp
+          name: Bedside
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+      
+        - entity: light.bedroom_ceiling_light
+          name: Bedroom
+          icon: bha:ceiling-lamp
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.isa_ceiling_light
+          name: Isa
+          icon: bha:ceiling-lamp
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.upstairs_hallway_ceiling_light_level
+          name: Upstairs hallway
+          icon: bha:ceiling-lamp
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.gateway_light_34ce008bfc4b
+          name: Nightlight
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.walk_in_closet_lights
+          name: Walk in closet
+          icon: bha:ceiling-lamp-plafond
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+          
+        - entity: light.stefan_lightstrip
+          name: Stefan
+          icon: bha:led-strip
+          type: custom:toggle-lock-entity-row
+        

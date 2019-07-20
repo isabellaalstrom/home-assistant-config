@@ -1,0 +1,58 @@
+title: 3D Printer
+icon: mdi:printer-3d
+panel: true
+path: ender
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: picture-entity
+            entity: camera.ender_3_pro
+            camera_view: live
+            show_state: false
+            show_name: false
+
+          - type: glance
+            show_state: false
+            entities:
+              - binary_sensor.ender_3_pro_printing_error
+              - binary_sensor.ender_3_pro_printing
+          - break
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                hours_to_show: 2
+                points_per_hour: 60
+                show:
+                  points: false
+                entities:
+                  - entity: sensor.ender_3_pro_actual_tool0_temp
+                    name: Nozzle temp
+                    color: purple
+                  - entity: sensor.ender_3_pro_target_tool0_temp
+                    name: Nozzle temp target
+                    color: green
+
+                height: 75
+              - type: custom:mini-graph-card
+                hours_to_show: 2
+                points_per_hour: 60
+                show:
+                  points: false
+                entities:
+                  - entity: sensor.ender_3_pro_actual_bed_temp
+                    name: Bed temp
+                    color: purple
+                  - entity: sensor.ender_3_pro_target_bed_temp
+                    name: Bed temp target
+                    color: green
+                height: 75
+          - type: entities
+            entities:
+              - sensor.ender_3_pro_current_state
+              - sensor.ender_3_pro_job_percentage
+              - sensor.ender_3_pro_time_elapsed
+              - sensor.ender_3_pro_time_remaining

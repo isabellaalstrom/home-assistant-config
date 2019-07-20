@@ -1,0 +1,123 @@
+title: Automations
+icon: mdi:flash-auto
+path: automations
+cards:
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Appdaemon Apps
+    filter:
+      include:
+        - entity_id: input_boolean.ad_*
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Cats
+    filter:
+      include:
+        - entity_id: 'automation.cats*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: House
+    filter:
+      include:
+        - entity_id: 'automation.house*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Lights
+    filter:
+      include:
+        - entity_id: 'automation.lights*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Presence
+    filter:
+      include:
+        - entity_id: 'automation.presence*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Security
+    filter:
+      include:
+        - entity_id: 'automation.security*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: System
+    filter:
+      include:
+        - entity_id: 'automation.system*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Temperature
+    filter:
+      include:
+        - entity_id: 'automation.temperature*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: TTS
+    filter:
+      include:
+        - entity_id: 'automation.tts*'
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
+      title: Alerts
+    filter:
+      include:
+        - entity_id: 'alert.*'
+          options:
+            secondary_info: last-changed

@@ -1,0 +1,632 @@
+title: Nest
+icon: mdi:monitor-dashboard
+panel: true
+background: "right/auto linear-gradient(23deg, rgba(211,211,211,1) 0%, rgba(223,223,223,1) 34%, rgba(255,255,255,1) 100%)"
+path: nest-dash
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:nest-layout-card
+        layout: horizontal
+        max_width: [500px, 100%]
+        column_num: 2
+        max_columns: 2
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:decluttering-card
+                    template: nest_picture_button
+                    variables:
+                      - entity: person.stefan
+                      - entity_picture: !secret stefan_image
+                  - type: custom:decluttering-card
+                    template: nest_button
+                    variables:
+                      - entity: alarm_control_panel.house
+                      - state:
+                          - value: 'armed_away'
+                            icon: mdi:shield-lock
+                            color: rgb(152,251,152)
+                          - value: 'armed_home'
+                            icon: mdi:shield-home
+                            color: rgb(251, 210, 41)
+                          - value: 'triggered'
+                            icon: mdi:shield-alert
+                            color: rgb(255, 0, 0)
+                            styles:
+                              icon:
+                                - animation: blink 2s ease infinite
+                          - value: 'disarmed'
+                            icon: mdi:shield-off
+                            color: rgb(169,169,169)
+                          - value: 'pending'
+                            icon: mdi:shield-half-full
+                            color: rgb(169,169,169)
+                            styles:
+                              icon:
+                                - animation: blink 2s ease infinite
+                  - type: custom:decluttering-card
+                    template: nest_picture_button
+                    variables:
+                      - entity: person.isa
+                      - entity_picture: !secret isa_image
+              - type: markdown
+                content: >
+                    # [[ sensor.time.state ]]
+                    
+                    ### [[ sensor.date.state ]]
+                style: |
+                  ha-card {
+                    margin-top: 50px;
+                    margin-bottom: 330px;
+                    background-color: rgba(0, 0, 0, 0);
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 200%;
+                    -webkit-box-shadow: none;
+                    -moz-box-shadow: none;
+                    box-shadow: none;
+                    text-align: center;
+                  }
+                  h1, h3 {
+                    font-weight: 300 !important;
+                  }
+              - type: custom:smhi-forecast-card
+                entity: weather.smhi_home
+                icons: "/local/icons/weather_icons/animated/"
+                style: |
+                  ha-card {
+                    background-color: rgba(0, 0, 0, 0);
+                    -webkit-box-shadow: none;
+                    -moz-box-shadow: none;
+                    box-shadow: none;
+                  }
+
+
+          - type: vertical-stack
+            cards: 
+              - type: horizontal-stack
+                cards:
+                  - type: vertical-stack
+                    cards:
+                      - type: "custom:atomic-calendar"
+                        entities:
+                          - entity: calendar.isabella_alstrom
+                        dateSize: 120
+                        titleSize: 130
+                        style: |
+                          ha-card {
+                            height: 436px;
+                            font-family: 'Open Sans', sans-serif;
+                            margin-bottom: 10px;
+                            margin-right: 5px;
+                          }
+                      - type: horizontal-stack
+                        cards:
+                          - type: custom:grocy-chores-card
+                            title: Todo this week
+                            entity: sensor.grocy
+                            show_days: 7
+                            style: |
+                              ha-card {
+                                height: 530px;
+                                font-size: 125%;
+                                margin-right: 10px;
+                                font-family: 'Open Sans', sans-serif;
+                              }
+                              .secondary {
+                                font-size: 85%;
+                              }
+                              mwc-button {
+                                display: none;
+                              }
+                          - type: vertical-stack
+                            cards:
+                              - type: horizontal-stack
+                                cards:
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - sensor.temperature_bedroom
+                                  show:
+                                    icon: true
+                                    fill: false
+                                  height: 35
+                                  color_thresholds:
+                                    - value: 0
+                                      color: "#CCE5FF"
+                                    - value: 10
+                                      color: "#66B2FF"
+                                    - value: 15
+                                      color: "#0080FF"
+                                    - value: 18
+                                      color: "#87c087"
+                                    - value: 21
+                                      color: "#389638"
+                                    - value: 24
+                                      color: "#FF9932"
+                                    - value: 25
+                                      color: "#FF8000"
+                                    - value: 26
+                                      color: "#ff0000"
+                                  style: |
+                                    ha-card {
+                                      margin-right: 5px;
+                                      margin-bottom: 5px;
+                                    }
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - sensor.temperature_stefan
+                                  height: 35
+                                  name: S Office
+                                  show:
+                                    fill: false
+                                    icon: true
+                                  color_thresholds:
+                                    - value: 0
+                                      color: "#CCE5FF"
+                                    - value: 10
+                                      color: "#66B2FF"
+                                    - value: 18
+                                      color: "#0080FF"
+                                    - value: 20
+                                      color: "#87c087"
+                                    - value: 21
+                                      color: "#389638"
+                                    - value: 24
+                                      color: "#FF9932"
+                                    - value: 25
+                                      color: "#FF8000"
+                                    - value: 26
+                                      color: "#ff0000"
+                                  style: |
+                                    ha-card {
+                                      margin-right: 5px;
+                                      margin-bottom: 5px;
+                                    }
+                              - type: horizontal-stack
+                                cards:
+                                  - type: custom:mini-graph-card
+                                    show:
+                                      fill: false
+                                      icon: true
+                                    height: 35
+                                    entities:
+                                      - sensor.temperature_passage
+                                    color_thresholds:
+                                      - value: 0
+                                        color: "#CCE5FF"
+                                      - value: 10
+                                        color: "#66B2FF"
+                                      - value: 18
+                                        color: "#0080FF"
+                                      - value: 20
+                                        color: "#87c087"
+                                      - value: 21
+                                        color: "#389638"
+                                      - value: 24
+                                        color: "#FF9932"
+                                      - value: 25
+                                        color: "#FF8000"
+                                      - value: 26
+                                        color: "#ff0000"
+                                    style: |
+                                      ha-card {
+                                        margin-right: 5px;
+                                        margin-bottom: 5px;
+                                      }
+                                  - type: custom:mini-graph-card
+                                    show:
+                                      fill: false
+                                      icon: true
+                                    name: Laundry
+                                    height: 35
+                                    entities:
+                                      - sensor.temperature_downstairs_bathroom
+                                    color_thresholds:
+                                      - value: 0
+                                        color: "#CCE5FF"
+                                      - value: 10
+                                        color: "#66B2FF"
+                                      - value: 18
+                                        color: "#0080FF"
+                                      - value: 20
+                                        color: "#87c087"
+                                      - value: 21
+                                        color: "#389638"
+                                      - value: 24
+                                        color: "#FF9932"
+                                      - value: 25
+                                        color: "#FF8000"
+                                      - value: 26
+                                        color: "#ff0000"
+                                    style: |
+                                      ha-card {
+                                        margin-right: 5px;
+                                        margin-bottom: 5px;
+                                      }
+                              - type: horizontal-stack
+                                cards:
+                                  - type: custom:bignumber-card
+                                    title: Downstairs litterbox
+                                    entity: counter.litterbox_downstairs_visits
+                                    scale: 30px
+                                    from: bottom
+                                    min: 0
+                                    max: 10
+                                    severity:
+                                      - value: 2
+                                        style: "#FDF4D9"
+                                      - value: 3
+                                        style: "#C7E0DF"
+                                      - value: 4
+                                        style: "#C5C5D2"
+                                      - value: 10
+                                        style: "#FF9932"
+                                    style: |
+                                      ha-card {
+                                        margin-right: 5px;
+                                        margin-bottom: 5px;
+                                      }
+
+                                  - type: custom:bignumber-card
+                                    title: Upstairs litterbox
+                                    entity: counter.litterbox_upstairs_visits
+                                    scale: 30px
+                                    min: 0
+                                    max: 10
+                                    from: bottom
+                                    severity:
+                                      - value: 2
+                                        style: "#FDF4D9"
+                                      - value: 3
+                                        style: "#C7E0DF"
+                                      - value: 4
+                                        style:  "#C5C5D2"
+                                      - value: 10
+                                        style: "#FF9932"
+                                    style: |
+                                      ha-card {
+                                        margin-right: 5px;
+                                        margin-bottom: 5px;
+                                      }
+
+                              - type: custom:pollenkoll-card
+                                city: stockholm
+                                title: false
+                                show_state: false
+                                # threshold: 1
+                                minimal: true
+                                allergens:
+                                  - björk
+                                  - gräs
+                                  - gråbo
+                                style: |
+                                  ha-card {
+                                    height: 125px;
+                                    padding-top: 0;
+                                    margin-right: 5px;
+                                    padding-bottom: 0;
+                                  }
+
+                  - type: vertical-stack
+                    cards:
+                      - type: custom:vertical-stack-in-card
+                        cards:
+                          - type: horizontal-stack
+                            cards:
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_select.mailbox_status
+                                  - state:
+                                      - value: 'Package and mail'
+                                        icon: mdi:mailbox-up
+                                        color: rgb(152,251,152)
+                                      - value: 'Mail'
+                                        icon: mdi:mailbox-up
+                                        color: "#87c087"
+                                      - value: 'Package'
+                                        icon: mdi:mailbox-up
+                                        color: rgb(152,251,152)
+                                      - value: 'Empty'
+                                        icon: mdi:mailbox-outline
+                                        color: "#BAC0C6"
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_select.trash_status
+                                  - state:
+                                      - value: 'Put out'
+                                        icon: mdi:delete-restore
+                                        color: rgb(255, 0, 0)
+                                      - value: 'Home'
+                                        icon: mdi:delete-outline
+                                        color: "#BAC0C6"
+                                      - value: 'Take in'
+                                        icon: mdi:delete-restore
+                                        color: rgb(251, 210, 41)
+                                      - value: 'Out'
+                                        icon: mdi:delete-empty-outline
+                                        color: "#BAC0C6"
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_select.washing_machine_status
+                                  - state:
+                                      - value: 'Clean'
+                                        icon: mdi:washing-machine
+                                        color: rgb(255, 0, 0)
+                                        styles:
+                                          icon:
+                                            - animation: blink 2s ease infinite
+                                      - value: 'Running'
+                                        icon: mdi:washing-machine
+                                        color: rgb(152,251,152)
+                                      - value: 'Idle'
+                                        icon: mdi:washing-machine
+                                        color: "#BAC0C6"
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_select.dryer_status
+                                  - state:
+                                      - value: 'Clean'
+                                        icon: mdi:tumble-dryer
+                                        color: rgb(251, 210, 41)
+                                        styles:
+                                          icon:
+                                            - animation: blink 2s ease infinite
+                                      - value: 'Running'
+                                        icon: mdi:tumble-dryer
+                                        color: rgb(152,251,152)
+                                      - value: 'Idle'
+                                        icon: mdi:tumble-dryer
+                                        color: "#BAC0C6"
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_select.roomba_mode
+                                  - state:
+                                      - value: 'Not Today'
+                                        icon: mdi:robot-vacuum
+                                        color: rgb(251, 210, 41)
+                                      - value: 'Waiting'
+                                        icon: mdi:robot-vacuum
+                                        color: "#BAC0C6"
+                                      - value: 'Vacuuming'
+                                        icon: mdi:robot-vacuum
+                                        color: rgb(152,251,152)
+                                      - value: 'Has Vacuumed'
+                                        icon: mdi:robot-vacuum
+                                        color: "#BAC0C6"
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_select.ebike_charger_status
+                                  - state:
+                                      - value: 'Charging'
+                                        icon: mdi:bike
+                                        color: rgb(169,169,169)
+                                      - value: 'Waiting'
+                                        icon: mdi:bike
+                                        color: rgb(251, 210, 41)
+                                      - value: 'Charged'
+                                        icon: mdi:bike
+                                        color: rgb(152,251,152)
+                          - type: horizontal-stack
+                            cards:
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_boolean.guest_mode
+                                  - state:
+                                      - value: 'on'
+                                        icon: mdi:account-group-outline
+                                        color: rgb(152,251,152)
+                                      - value: 'off'
+                                        icon: mdi:account-group-outline
+                                        color: "#BAC0C6"
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: input_boolean.vacation_mode
+                                  - state:
+                                      - value: 'on'
+                                        icon: mdi:beach
+                                        color: rgb(152,251,152)
+                                      - value: 'off'
+                                        icon: mdi:beach
+                                        color: "#BAC0C6"
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: calendar.cleaning_day
+                                  - state:
+                                      - value: 'on'
+                                        icon: mdi:broom
+                                        color: rgb(152,251,152)
+                                      - value: 'off'
+                                        icon: mdi:broom
+                                        color: "#BAC0C6"
+                      - type: custom:vertical-stack-in-card
+                        cards:
+                          - type: horizontal-stack
+                            cards:
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: sensor.front_door
+                                  - name: Front Door
+                                  - show_name: true
+                                  - show_state: false
+                                  - state:
+                                      - value: 'Closed'
+                                        icon: mdi:door-closed
+                                        color: rgb(152,251,152)
+                                      - value: 'Open'
+                                        icon: mdi:door-open
+                                        color: rgb(255, 0, 0)
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: sensor.back_door
+                                  - name: Back Door
+                                  - show_name: true
+                                  - show_state: false
+                                  - state:
+                                      - value: 'Closed'
+                                        icon: mdi:door-closed
+                                        color: rgb(152,251,152)
+                                      - value: 'Open'
+                                        icon: mdi:door-open
+                                        color: rgb(255, 0, 0)
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: sensor.yard_door
+                                  - name: Yard Door
+                                  - show_name: true
+                                  - show_state: false
+                                  - state:
+                                      - value: 'Closed'
+                                        icon: mdi:door-closed
+                                        color: rgb(152,251,152)
+                                      - value: 'Open'
+                                        icon: mdi:door-open
+                                        color: rgb(255, 0, 0)
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: sensor.balcony_door
+                                  - name: Balcony Door
+                                  - show_name: true
+                                  - show_state: false
+                                  - state:
+                                      - value: 'Closed'
+                                        icon: mdi:door-closed
+                                        color: rgb(152,251,152)
+                                      - value: 'Open'
+                                        icon: mdi:door-open
+                                        color: rgb(255, 0, 0)
+                          - type: horizontal-stack
+                            cards:
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: sensor.dining_room_window
+                                  - name: Dining Room
+                                  - show_name: true
+                                  - show_state: false
+                                  - state:
+                                      - value: 'Closed'
+                                        icon: mdi:window-closed
+                                        color: rgb(152,251,152)
+                                      - value: 'Open'
+                                        icon: mdi:window-open
+                                        color: rgb(255, 0, 0)
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: sensor.bedroom_window
+                                  - name: Bedroom
+                                  - show_name: true
+                                  - show_state: false
+                                  - state:
+                                      - value: 'Closed'
+                                        icon: mdi:window-closed
+                                        color: rgb(152,251,152)
+                                      - value: 'Open'
+                                        icon: mdi:window-open
+                                        color: rgb(255, 0, 0)
+                      - type: horizontal-stack
+                        cards:
+                          - type: 'custom:home-feed-card'
+                            title: Home Feed
+                            show_empty: false
+                            entities:
+                              - entity: input_select.dryer_status
+                                name: Dryer
+                              - entity: input_select.washing_machine_status
+                                name: Washer
+                              - sensor.front_door
+                              - sensor.back_door
+                              - sensor.yard_door
+                              - sensor.balcony_door
+                              - sensor.dining_room_window
+                              - sensor.bedroom_window
+                              - sensor.bedroom_door
+                              - entity: sensor.living_room_axis_movement
+                                name: Living Room
+                                secondary_info: last-changed
+                              - entity: sensor.living_room_axis_movement_2
+                                name: Living Room 2
+                                secondary_info: last-changed
+                              - entity: sensor.passage_movement
+                                name: Passage
+                              - entity: sensor.upstairs_hallway_movement
+                                name: Stairs
+                              - entity: sensor.stefans_office_movement
+                                name: Stefans Office
+                              - entity: switch.bike_charger
+                                name: E-bike charger
+                            style: |
+                              ha-card {
+                                height: 545px;
+                                margin-top: 10px;
+                                overflow: hidden;
+                                font-family: 'Open Sans', sans-serif;
+                              }
+                          - type: custom:upcoming-media-card
+                            entity: sensor.plex_recently_added
+                            title: To watch
+                            date: ddmm
+                            clock: 24
+                            max: 3
+                            image_style: poster
+                            flag: false
+                            hide_unflagged: true
+                            icon: none
+                            all_shadows: false
+
+                            flag_color: "#e5a00d"
+                            border_color: "#ffffff"
+                            accent_color: "#ffffff"
+                            title_color: "#636B75"
+                            line_color: "#636B75"
+
+                            title_size: large
+                            line_size: medium
+
+                            title_text: "$title"
+                            line1_text: "$number - $episode"
+                            line2_text: "$runtime - $rating - $genres"
+                            line3_text: "Released: $aired"
+                            line4_text: "Added: $release"
+                            style: |
+                              .plex_fan_fanart {
+                                -webkit-box-shadow: none;
+                                -moz-box-shadow: none;
+                                box-shadow: none !important;
+                                height: 100px;
+                              }
+                              ha-card {
+                                margin-top: 10px;
+                                font-family: 'Open Sans', sans-serif;
+                                height: 560px;
+                              }
+                              .card-header {
+                                padding-bottom: 8px;
+                              }
+                              .plex_poster {
+                                margin: 0 !important;
+                              }
+                    style: |
+                      ha-card {
+                        height: 920px;
+                        font-family: 'Open Sans', sans-serif;
+                        font-size: 150%;
+                        margin: 10px;
+                        text-align: center;
+                        margin-top: 40px;
+                      }

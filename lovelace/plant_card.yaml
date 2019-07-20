@@ -1,0 +1,28 @@
+type: picture-elements
+image: /local/lovelace_ui/plants.jpg
+elements:
+  - type: state-badge
+    entity: sensor.small_chili_moisture
+    style:
+      top: 27%
+      left: 10%
+      --ha-label-badge-font-size: 1em
+  - type: state-badge
+    entity: sensor.big_chili_moisture
+    style:
+      top: 27%
+      left: 25%
+      --ha-label-badge-font-size: 1em
+      # --ha-label-badge-title-font-size: 0em removing label
+  - type: state-badge
+    entity: sensor.herbs_moisture
+    style:
+      top: 27%
+      left: 40%
+      --ha-label-badge-font-size: 1em
+  - type: state-label
+    entity: sensor.greenhouse_temperature
+    style:
+      top: 15%
+      left: 92%
+      --ha-label-badge-font-size: 1em

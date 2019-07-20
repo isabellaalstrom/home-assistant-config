@@ -1,0 +1,32 @@
+title: Settings
+icon: mdi:cogs
+path: settings
+panel: true
+cards:
+  - type: custom:layout-card
+    layout: auto
+    cards:
+      - type: vertical-stack
+        cards:
+          - !include links_card.yaml
+          - type: entities
+            title: Debugging
+            show_header_toggle: false
+            entities:
+              - input_boolean.test
+
+      - type: vertical-stack
+        cards:
+          - type: custom:auto-entities
+            card:
+              type: entities
+              title: Power consumption
+              show_header_toggle: false
+            filter:
+              include:
+                - entity_id: sensor.daily_energy_consumption
+                - entity_id: sensor.monthly_energy_consumption
+                - entity_id: "*_power"
+              exclude:
+                - entity_id: "*_2"
+                - entity_id: "*_management"

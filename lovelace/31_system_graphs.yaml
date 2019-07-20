@@ -1,0 +1,97 @@
+title: Graphs
+icon: mdi:chart-line
+path: graphs
+panel: true
+cards:  
+  - type: vertical-stack
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                title: Nuc
+                cards:
+                  - type: entities
+                    show_header_toggle: false
+                    entities:
+                      - type: custom:dummy-entity-row
+                        entity: sun.sun
+                        icon: mdi:nope
+                        name: !secret nuc_name
+                      - entity: sensor.last_boot
+                        name: Last boot
+                      - entity: sensor.snapshot_backup
+                        name: Snapshot status
+                        icon: mdi:cloud-upload-outline
+                        format: datetime
+                      - entity: binary_sensor.snapshots_stale
+                        name: Snapshots Stale
+                        icon: mdi:cloud-upload-outline
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mini-graph-card
+                        show:
+                          icon: false
+                          graph: "bar"
+                        name: Cpu use
+                        entities:
+                          - sensor.processor_use
+                        line_color: "#389638"
+                        color_thresholds:
+                          - value: 50
+                            color: green
+                          - value: 70
+                            color: orange
+                          - value: 80
+                            color: red
+                      - type: custom:mini-graph-card
+                        show:
+                          icon: false
+                        name: Ram free
+                        entities:
+                          - sensor.memory_free
+                        font_size: 50
+                        line_color: "#389638"
+          - break
+          - type: vertical-stack
+            cards:
+              - type: entities
+                show_header_toggle: false
+                entities:
+                  - type: custom:dummy-entity-row
+                    entity: sun.sun
+                    icon: mdi:nope
+                    name: !secret dashboard_name
+                  - entity: binary_sensor.living_room_dashboard_ping
+                    name: Dashboard
+                    icon: mdi:raspberry-pi
+
+          - type: vertical-stack
+            cards:
+              - type: entities
+                show_header_toggle: false
+                entities:
+                  - type: custom:dummy-entity-row
+                    entity: sun.sun
+                    icon: mdi:nope
+                    name: !secret zero_name
+                  - entity: binary_sensor.rpi_zero_ping
+                    name: RPi Zero
+                    icon: mdi:raspberry-pi
+
+          - break
+
+          - type: vertical-stack
+            cards:
+            - type: entities
+              show_header_toggle: false
+              entities:
+                - type: custom:dummy-entity-row
+                  entity: sun.sun
+                  icon: mdi:nope
+                  name: !secret 7inch_name
+                - entity: binary_sensor.upstairs_hallway_dashboard_ping
+                  name: 7inch
+                  icon: mdi:raspberry-pi

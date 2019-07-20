@@ -1,0 +1,431 @@
+title: Home info
+icon: mdi:home-heart
+panel: true
+path: home-info
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  ## Air cleaner
+                  - type: custom:button-card
+                    entity: script.air_cleaner_quiet
+                    icon: mdi:fan-off
+                    name: AC bed
+                    # size: 50%
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+                  - type: custom:button-card
+                    entity: script.air_cleaner_auto
+                    icon: mdi:fan
+                    name: AC bed
+                    # size: 50%
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+                  - type: custom:button-card
+                    entity: script.air_cleaner_turbo
+                    icon: mdi:run-fast
+                    name: AC bed
+                    # size: 50%
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+                  - type: custom:button-card
+                    entity: script.ac_off
+                    icon: mdi:fan-off
+                    name: AC
+                    # size: 50%
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+                  - type: custom:button-card
+                    entity: script.ac_on
+                    icon: mdi:fan
+                    name: AC
+                    # size: 50%
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+              - type: alarm-panel
+                entity: alarm_control_panel.house
+                states:
+                  - arm_home
+                  - arm_away
+                  - arm_night
+
+              - type: entities
+                entities:
+                  - type: custom:fold-entity-row
+                    head:
+                      type: section
+                      label: Beta test
+                    group_config:
+                      secondary_info: last-changed
+                    items:
+                      - entity: device_tracker.isabella_s_iphone_x_beta
+                        name: Isa beta ios
+                        icon: mdi:apple
+                      - sensor.isa_activity
+                      - sensor.isa_average_active_pace
+                      - sensor.isa_bssid
+                      - sensor.isa_battery_level
+                      - sensor.isa_battery_state
+                      - sensor.isa_connection_type
+                      - sensor.isa_distance
+                      - sensor.isa_floors_ascended
+                      - sensor.isa_floors_descended
+                      - sensor.isa_geocoded_location
+                      - sensor.isa_last_update_trigger
+                      - sensor.isa_sim
+                      - sensor.isa_ssid
+                      - sensor.isa_steps
+
+ 
+                  - type: custom:fold-entity-row
+                    head:
+                      type: section
+                      label: Security
+                    group_config:
+                      secondary_info: last-changed
+                    items:
+                      - sensor.front_door
+                      - sensor.back_door
+                      - sensor.yard_door
+                      - sensor.balcony_door
+                      
+                      - sensor.dining_room_window
+                      - sensor.bedroom_window
+                      - sensor.bedroom_door
+                      - entity: sensor.living_room_axis_movement
+                        name: Living Room Movement
+                        secondary_info: last-changed
+                      - entity: sensor.living_room_axis_movement_2
+                        name: Living Room Movement 2
+                        secondary_info: last-changed
+                      - sensor.passage_movement
+                      - entity: sensor.upstairs_hallway_movement
+                        name: Stairs Movement
+                      - entity: sensor.stefans_office_movement
+                        name: Stefans Office Movement
+                      - sensor.ring_front_door_last_motion
+
+                  - type: custom:fold-entity-row
+                    head:
+                      type: section
+                      label: Presence
+                    group_config:
+                      secondary_info: last-changed
+                    items:
+                      - entity: sensor.isabellas_iphone_x_battery_level
+                        type: custom:secondaryinfo-entity-row
+                        secondary_info: "[[ sensor.isabellas_iphone_x_battery_state.state ]]"
+                      - entity: device_tracker.isa_addon_presence
+                        name: Isa presence
+                        secondary_info: last-changed
+                        icon: mdi:map-marker-circle
+                      - entity: device_tracker.isabellas_iphone_x
+                        type: custom:secondaryinfo-entity-row
+                        name: Isa ios
+                        icon: mdi:apple
+                        secondary_info: "[[ device_tracker.isabellas_iphone_x.attributes.timestamp ]]"
+                      - entity: device_tracker.isabellas_iphone_x_wifi
+                        name: Isa Wifi
+                        icon: mdi:wifi
+                        secondary_info: last-changed
+                      - entity: sensor.dining_room_isabellas_iphone_x_bt
+                        name: Isa bt dining room
+                        icon: mdi:bluetooth
+                        secondary_info: last-changed
+                      - entity: sensor.living_room_isabellas_iphone_x_bt
+                        name: Isa bt living room
+                        icon: mdi:bluetooth
+                        secondary_info: last-changed
+                      - entity: proximity.home_isa
+                        name: Proximity to home
+                        type: custom:multiple-entity-row
+                        primary:
+                          entity: proximity.home_isa
+                          attribute: dir_of_travel
+                          name: false
+                      
+                      - type: divider
+
+                      - entity: sensor.igrims_battery_level
+                        type: custom:secondaryinfo-entity-row
+                        secondary_info: "[[ sensor.igrims_battery_state.state ]]"
+                      - entity: device_tracker.stefan_addon_presence
+                        name: Stefan presence
+                        icon: mdi:map-marker-circle
+                        secondary_info: last-changed
+                      - entity: device_tracker.stefan_iphone_7
+                        name: Stefan ios
+                        icon: mdi:apple
+                        type: custom:secondaryinfo-entity-row
+                        secondary_info: "[[ device_tracker.stefan_iphone_7.attributes.timestamp ]]"
+                      - entity: device_tracker.stefan_iphone_7_wifi
+                        name: Stefan Wifi
+                        icon: mdi:wifi
+                        secondary_info: last-changed
+                      - entity: sensor.dining_room_stefan_iphone_7_bt
+                        name: Stefan bt dining room
+                        icon: mdi:bluetooth
+                        secondary_info: last-changed
+                      - entity: sensor.living_room_stefan_iphone_7_bt
+                        name: Stefan bt living room
+                        icon: mdi:bluetooth
+                        secondary_info: last-changed
+                      - entity: proximity.home_stefan
+                        name: Proximity to home
+                        type: custom:multiple-entity-row
+                        primary:
+                          entity: proximity.home_stefan
+                          attribute: dir_of_travel
+                          name: false
+                        
+                      - type: divider
+                      
+                      - entity: sensor.unlocked_by
+                        name: Front door last unlocked by
+                        secondary_info: last-changed
+                      - entity: sensor.monitor_dining_room
+                        name: Monitor status
+                        secondary_info: last-changed
+                      - entity: sensor.monitor_living_room
+                        name: Monitor Living Room status
+                        secondary_info: last-changed
+                      - entity: sensor.trash
+          - break
+          - type: vertical-stack
+            cards:
+
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      extrema: true
+                    entities:
+                      - sensor.temperature_bedroom
+                    height: 75
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      extrema: true
+                    entities:
+                      - sensor.temperature_stefan
+                    height: 75
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      extrema: true
+                    entities:
+                      - sensor.temperature_passage
+                    height: 75
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      extrema: true
+                    entities:
+                      - sensor.temperature_downstairs_bathroom
+                    height: 75
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      extrema: true
+                      fill: fade
+                    entities:
+                      - sensor.temperature_storage
+                    # height: 75
+                    color_thresholds:
+                      - value: -5
+                        color: "#66B2FF"
+                      - value: 3
+                        color: "#87c087"
+                      - value: 5
+                        color: "#389638"
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      extrema: true
+                    entities:
+                      - sensor.refrigerator
+                    height: 75
+                    color_thresholds:
+                      - value: -5
+                        color: "#66B2FF"
+                      - value: 0
+                        color: "#ff0000"
+                      - value: 2
+                        color: "#66B2FF"
+                      - value: 3
+                        color: "#0080FF"
+                      - value: 4
+                        color: "#389638"
+                      - value: 7
+                        color: "#FF9932"
+                      - value: 8
+                        color: "#ff0000"
+
+              - type: glance
+                show_header_toggle: false
+                columns: 3
+                entities:
+                  - entity: input_boolean.vacation_mode
+                    name: Vacation
+                  - entity: calendar.cleaning_day
+                    icon: mdi:broom
+                  - input_boolean.guest_mode
+                  - entity: input_boolean.isa_mode
+                    name: Isa Mode
+                    tap_action:
+                      action: toggle
+
+          - break
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      graph: false
+                      extrema: true
+                      icon: false
+                    entities:
+                      - sensor.humidity_bedroom
+                  - type: custom:mini-graph-card
+                    show:
+                      graph: false
+                      extrema: true
+                      icon: false
+                    entities:
+                      - sensor.humidity_stefan
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      graph: false
+                      extrema: true
+                      icon: false
+                    entities:
+                      - sensor.humidity_passage
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      graph: false
+                      extrema: true
+                    entities:
+                      - sensor.humidity_downstairs_bathroom
+                      
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      graph: false
+                      extrema: true
+                      icon: false
+                    entities:
+                      - sensor.storage_humidity
+                  - type: custom:mini-graph-card
+                    show:
+                      graph: false
+                      icon: false
+                      extrema: true
+                    entities:
+                      - sensor.humidity_refrigerator
+
+          - break
+          - type: vertical-stack
+            cards:
+              - type: custom:pollenkoll-card
+                city: Stockholm
+                title: false
+                compact: true
+                show_state: false
+                allergens:
+                  - björk
+                  - gråbo
+                  - gräs
+
+              - type: entities
+                entities:
+                  - device_tracker.tile_8b84f9654688b3ec
+                  - input_select.ebike_charger_status
+                  - sensor.ebike_charger
+                  - entity: switch.bike_charger
+                    type: custom:multiple-entity-row
+                    primary:
+                      entity: sensor.ebike_charger

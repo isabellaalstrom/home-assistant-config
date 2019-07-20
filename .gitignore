@@ -4,13 +4,8 @@
 *.crt
 *.key
 
-!/www
-/www/*
-!/www/custom-lovelace
-/www/custom-lovelace/upcoming-media-card/images/
-!custom_components/
-custom_components/*
-!/custom_components/google
+www/
+custom_components/
 test
 OZW_Log.txt
 home-assistant.log
@@ -50,7 +45,8 @@ removed_or_templates/
 ssh/
 zwcfg_0xca115759.xml
 ip_bans.yaml
-/lovelace/for_gen/*
+/lovelace/old/*
 esphome/
 haslcache.json
 appdaemon/compiled
+nodered/

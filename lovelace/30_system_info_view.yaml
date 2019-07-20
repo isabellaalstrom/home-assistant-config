@@ -1,0 +1,194 @@
+title: Info
+icon: mdi:lan
+path: info
+panel: true
+cards:  
+  - type: vertical-stack
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: picture-elements
+                image: /local/lovelace_ui/info/pi_background.jpg
+                elements:
+                  - type: custom:hui-glance-card
+                    show_state: false
+                    columns: 4
+                    entities:
+                      - entity: sensor.system_hass_rpi
+                        name: Hass RPi
+                      - entity: sensor.system_magic_mirror_rpi
+                        name: Dashboard
+                        icon: mdi:raspberry-pi
+                      - entity: sensor.system_dashboard_rpi
+                        name: '7"'
+                        icon: mdi:raspberry-pi
+                      - entity: sensor.system_rpi_zero
+                        name: RPi Zero
+                        icon: mdi:raspberry-pi
+                    style:
+                      --primary-text-color: white
+                      left: 50%
+                      top: 50%
+                      width: 100%
+                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
+                      --paper-item-icon-color: white
+                      color: rgb(0, 0, 0)
+              - type: picture-elements
+                image: /local/lovelace_ui/info/hubs_background.jpg
+                elements:
+                  - type: custom:hui-glance-card
+                    show_state: false
+                    columns: 4
+                    entities:
+                      - entity: sensor.system_ir_blaster
+                        name: Hallway
+                      - entity: sensor.system_ir_blaster_bedroom
+                        name: Bedroom
+                      - entity: sensor.system_ir_blaster_living_room
+                        name: Livingroom
+                      - entity: sensor.system_milight_hub
+                        name: Milight
+                      - entity: sensor.system_xiaomi_gateway
+                        name: Xiaomi
+                      - sensor.system_printer
+                      - sensor.system_nas
+                      - sensor.system_ipad
+                    style:
+                      --primary-text-color: white
+                      left: 50%
+                      top: 50%
+                      width: 100%
+                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
+                      --paper-item-icon-color: white
+                      color: rgb(0, 0, 0)
+          - break
+          - type: vertical-stack
+            cards:       
+              - type: picture-elements
+                image: /local/lovelace_ui/info/cameras_background.jpg
+                elements:
+                  - type: custom:hui-glance-card
+                    show_state: false
+                    columns: 2
+                    entities:
+                      - entity: sensor.system_ip_camera
+                        name: Sannce
+                      - entity: sensor.system_dafang
+                        name: Dafang
+                        icon: mdi:webcam
+                      - entity: sensor.system_axis_living_room
+                        name: Living Room
+                        icon: mdi:webcam
+                    style:
+                      --primary-text-color: white
+                      left: 50%
+                      top: 50%
+                      width: 100%
+                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
+                      --paper-item-icon-color: white
+                      color: rgb(0, 0, 0)
+                      
+              - type: picture-elements
+                image: /local/lovelace_ui/info/ring_background.jpg
+                elements:
+                  - type: custom:hui-glance-card
+                    columns: 4
+                    entities:
+                      - entity: sensor.ring_front_door_battery
+                        name: Ring battery
+                      - entity: sensor.ring_front_door_wifi_signal_category
+                        name: Ring wifi
+                      # - sensor.system_ring_doorbell
+                      - entity: sensor.system_ring_chime_pro
+                        name: Chime Pro
+                      - entity: sensor.system_ring_chime
+                        name: Chime
+                    style:
+                      --primary-text-color: white
+                      left: 50%
+                      top: 50%
+                      width: 100%
+                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
+                      --paper-item-icon-color: white
+                      color: rgb(0, 0, 0)
+
+          - break
+          - type: vertical-stack
+            cards:
+              - type: picture-elements
+                image: /local/lovelace_ui/info/computers_background.jpg
+                elements:
+                  - type: custom:hui-glance-card
+                    show_state: false
+                    columns: 4
+                    entities:
+                      - entity: sensor.system_isa_computer
+                        name: Isa
+                      - entity: sensor.system_isa_dell_xps
+                        name: Isa work laptop
+                      - entity: sensor.system_stefan_computer
+                        name: Stefan
+                      - entity: sensor.system_stefan_laptop
+                        name: Stefan work laptop
+                    style:
+                      --primary-text-color: white
+                      left: 50%
+                      top: 50%
+                      width: 100%
+                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
+                      --paper-item-icon-color: white
+                      color: rgb(0, 0, 0)
+  
+              - type: picture-elements
+                image: /local/lovelace_ui/info/tv_background.jpg
+                elements:
+                  - type: custom:hui-glance-card
+                    show_state: false
+                    columns: 3
+                    entities:
+                      - entity: sensor.system_samsung65
+                        name: TV
+                      - entity: sensor.system_movie_system
+                        name: Movie System
+                      - entity: sensor.system_shield
+                        name: Shield
+                      - entity: sensor.system_sonos
+                        name: Sonos
+                        icon: mdi:speaker-wireless
+                      - entity: sensor.system_samsung49
+                        name: Bed TV
+                      - entity: sensor.system_chromecast_bedroom
+                        name: Bed CC
+                    style:
+                      --primary-text-color: white
+                      left: 50%
+                      top: 50%
+                      width: 100%
+                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
+                      --paper-item-icon-color: white
+                      color: rgb(0, 0, 0)
+
+          - type: vertical-stack
+            cards:
+            - type: picture-elements
+              image: /local/lovelace_ui/info/router_background.jpg
+              elements:
+                - type: custom:hui-glance-card
+                  show_state: true
+                  columns: 2
+                  entities:
+                    - entity: sensor.system_asus_router
+                      name: Asus
+                    - entity: sensor.system_netgear_router
+                      name: Netgear
+                  style:
+                    --primary-text-color: white
+                    left: 50%
+                    top: 50%
+                    width: 100%
+                    --paper-card-background-color: rgba(0, 0, 0, 0.4)
+                    --paper-item-icon-color: white
+                    color: rgb(0, 0, 0)
