@@ -1,0 +1,54 @@
+  - name: All
+    platform: group
+    services:
+      - service: ios_isabellas_iphone_x
+      - service: ios_stefan_iphone_7
+
+  - platform: discord
+    name: Hass Discord
+    token: !secret discord_token
+    
+  - platform: rest
+    name: discord_home_hook
+    method: POST
+    message_param_name: content
+    title_param_name: username
+    data:
+      username: Home Assistant
+    resource: !secret discord_home_hook
+    
+  - platform: rest
+    name: discord_alarm_hook
+    method: POST
+    message_param_name: content
+    title_param_name: username
+    data:
+      username: Home Assistant
+    resource: !secret discord_alarm_hook
+    
+  - platform: rest
+    name: discord_krisinfo_hook
+    method: POST
+    message_param_name: content
+    title_param_name: username
+    data:
+      username: Home Assistant
+    resource: !secret discord_krisinfo_hook
+    
+  - platform: rest
+    name: discord_monitor_hook
+    method: POST
+    message_param_name: content
+    title_param_name: username
+    data:
+      username: Home Assistant
+    resource: !secret discord_monitor_hook
+    
+  - platform: rest
+    name: discord_system_hook
+    method: POST
+    message_param_name: content
+    title_param_name: username
+    data:
+      username: Home Assistant
+    resource: !secret discord_system_hook
