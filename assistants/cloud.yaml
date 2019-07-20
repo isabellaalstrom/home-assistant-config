@@ -1,0 +1,209 @@
+  # google_actions:
+  #   filter:
+  #     include_entities:
+  #       - scene.movie_time
+  #       - scene.morning_lights
+  #       - script.goodnight
+  #       - script.tv_on_off
+  #       - script.bedroom_tv_on_off
+  #       - media_player.living_room_sonos
+       
+  #     include_domains:
+  #       - light
+  #     exclude_entities:
+  #       - light.stefan_ceiling_light
+  #       - light.stefan_lightstrip
+  #       - light.walk_in_closet_1
+  #       - light.walk_in_closet_2
+  #       - light.walk_in_closet_3
+  #       - light.walk_in_closet_4
+  #       - light.stairs_bottom_spot
+  #       - light.stairs_middle_spot
+  #       - light.stairs_top_spot
+  #       - light.dining_room_ceiling_light_level_2
+  #       - light.dining_room_ceiling_light_level_3
+  #       - light.dining_room_ceiling_light_level_4
+  #       - light.kitchen_ceiling_spotlights_level_2
+  #       - light.living_room_ceiling_light_level_2
+  #       - light.living_room_spotlights_level_2
+  #       - light.passage_ceiling_spotlights_level_2
+  #       - light.upstairs_hallway_ceiling_light_level_2
+  #     exclude_domains:
+  #       - group
+  #       - automation
+  #       - alert
+  #       - media_player
+  #       - script
+  #       - switch
+  #       - scene
+  #   entity_config:
+  #     light.bedroom_ceiling_light:
+  #       name: "Bedroom light"
+  #       aliases: 
+  #         - "Bedroom ceiling light"
+  #       room: "Bedroom"
+  #     light.bedside_lamp:
+  #       room: "Bedroom"
+  #     light.dining_room_ceiling_light_level:
+  #       name: "Dining area light"
+  #       aliases:
+  #         - "Dining light"
+  #       room: "Dining area"
+  #     light.downstairs_lights:
+  #       name: "Downstairs lights"
+  #       aliases:
+  #         - "Downstairs"
+  #     light.floorlamp_reading_light:
+  #       name: "Floorlamp reading light"
+  #       aliases:
+  #         - "Small floorlamp"
+  #       room: "Dining area"
+  #     light.floorlamp_uplight:
+  #       name: "Floorlamp uplight"
+  #       aliases:
+  #         - "Floorlamp uplight"
+  #       room: "Dining area"
+  #     light.gateway_light_34ce008bfc4b:
+  #       name: "Nightlight"
+  #       room: "Upstairs hallway"
+  #     light.hallway_window_light:
+  #       name: "Hallway window light"
+  #       aliases:
+  #         - "Hallway light"
+  #         - "Hallway window lamp"
+  #       room: "Hallway"
+  #     light.isa_ceiling_light:
+  #       name: "Isas light"
+  #       aliases:
+  #         - "Isabellas light"
+  #       room: "Isas room"
+  #     light.kitchen_ceiling_spotlights_level:
+  #       name: "Kitchen lights"
+  #       aliases:
+  #         - "Kitchen spotlights"
+  #       room: "Kitchen"
+  #     light.living_room_ceiling_light_level:
+  #       name: "Living room light"
+  #       aliases:
+  #         - "Living room ceiling light"
+  #       room: "Living room"
+  #     light.living_room_spotlights_level:
+  #       name: "Living room spotlights"
+  #       room: "Living room"
+  #     light.outdoor_lights:
+  #       name: "Outdoor lights"
+  #       room: "Outdoor"
+  #     light.outdoor_yard_light_net:
+  #       name: "Light net"
+  #       room: "Outdoor"
+  #     light.passage_ceiling_spotlights_level:
+  #       name: "Passage lights"
+  #       room: "Passage"
+  #     light.stairs_lights:
+  #       name: "Stairs lights"
+  #       aliases:
+  #         - "Stairs"
+  #       room: "Stairs"
+  #     light.upstairs_hallway_ceiling_light_level:
+  #       name: "Upstairs hallway light"
+  #       room: "Upstairs hallway"
+  #     light.walk_in_closet_lights:
+  #       name: "Walk in closet lights"
+  #       aliases:
+  #         - "Walk in closet spotlights"
+  #       room: "Walk in closet"
+        
+  #     scene.movie_time:
+  #       name: "Movie time"
+  #       room: "Living room"
+  #     scene.morning_lights:
+  #       name: "Morning lights"
+        
+  #     script.goodnight:
+  #       name: "Good night"
+  #       room: "Bedroom"
+  #     script.tv_on_off:
+  #       name: "Living room tv"
+  #       aliases:
+  #         - "Tv"
+  #     script.bedroom_tv_on_off:
+  #       name: "Bedroom tv"
+  #       room: "Bedroom"
+        
+  #     media_player.living_room_sonos:
+  #       name: "Sonos"
+  #       room: "Living room"
+      
+  # alexa:
+  #   filter:
+  #     include_entities:
+  #       - light.lights_automation
+  #       - group.outdoor_lights_card
+  #       - light.stairs_lights
+  #       - light.walk_in_closet_lights
+  #       - script.goodnight
+  #       - script.goodmorning
+  #       - script.cleaning_music
+  #       - script.cleaning_time
+  #       - script.cleaning_time_over
+  #       - scene.movie_time
+  #       - script.turn_on_shield
+  #       - script.morning_news
+  #     include_domains:
+  #       - light
+  #     exclude_entities:
+  #       - light.stefan_ceiling_light
+  #       - light.stefan_lightstrip
+  #       - light.walk_in_closet_1
+  #       - light.walk_in_closet_2
+  #       - light.walk_in_closet_3
+  #       - light.walk_in_closet_4
+  #       - light.stairs_bottom_spot
+  #       - light.stairs_middle_spot
+  #       - light.stairs_top_spot
+  #     exclude_domains:
+  #       - group
+  #       - automation
+  #       - alert
+  #       - media_player
+  #       - script
+  #       - switch
+  #       - scene
+
+  #   entity_config:
+  #     light.lights_automation:
+  #       name: 'All lights'
+  #       display_categories: 'LIGHT'
+  #     group.outdoor_lights_card:
+  #       name: 'Outdoor lights'
+  #       display_categories: 'LIGHT'
+  #     light.stairs_lights:
+  #       name: 'Stairs lights'
+  #       display_categories: 'LIGHT'
+  #     light.walk_in_closet_lights:
+  #       name: 'Walk in closet lights'
+  #       display_categories: 'LIGHT'
+  #     script.goodnight:
+  #       name: 'Goodnight'
+  #       display_categories: 'SWITCH'
+  #     script.goodmorning:
+  #       name: 'Good morning'
+  #       display_categories: 'SWITCH'
+  #     script.cleaning_music:
+  #       name: 'Cleaning music'
+  #       display_categories: 'SWITCH'
+  #     script.cleaning_time:
+  #       name: 'Cleaning time'
+  #       display_categories: 'SWITCH'
+  #     script.cleaning_time_over:
+  #       name: 'Cleaning time over'
+  #       display_categories: 'SWITCH'
+  #     scene.movie_time:
+  #       name: 'Movie time'
+  #       display_categories: 'SWITCH'
+  #     script.turn_on_shield:
+  #       name: 'Living room tv'
+  #       display_categories: 'TV'
+  #     script.morning_news:
+  #       name: 'Morning news '
+  #       display_categories: 'TV'

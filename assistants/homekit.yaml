@@ -1,0 +1,64 @@
+  auto_start: false
+  filter:
+    include_entities:
+      - media_player.living_room_sonos
+
+      - scene.dark_lights_on
+      - scene.welcome_home
+      - scene.watch_tv
+      - scene.ceiling_lights
+      - scene.morning_lights
+
+      # - alarm_control_panel.house
+
+      - binary_sensor.yard_door
+      - binary_sensor.balcony_door
+      - binary_sensor.dining_room_window
+      - binary_sensor.front_door_homebridge
+      - binary_sensor.back_door
+
+      - input_boolean.sonos
+
+      - script.air_cleaner_quiet
+      - switch.stefan_radiator
+
+      - script.media_system_on_off
+      - script.bedroom_tv_on_off
+      - script.tv_on_off
+
+      - script.goodnight
+      - scene.movie_time
+
+      - sensor.temperature_bedroom
+      - sensor.temperature_passage
+      - sensor.temperature_downstairs_bathroom
+      - sensor.temperature_stefan
+      
+      - light.walk_in_closet_lights
+      - light.stairs_lights
+      - light.lights_automation
+      - light.hallway_window_light
+      - light.gateway_light_34ce008bfc4b
+      - light.outdoor_front_light
+      - light.outdoor_front_hanging_lights
+      - light.outdoor_plug
+      - light.outdoor_yard_light
+      - light.outdoor_hanging_lights
+      - light.outdoor_yard_light_net
+      - light.bedroom_ceiling_light
+      - light.bedside_lamp
+      - light.dining_room_ceiling_light_level
+      - light.floorlamp_reading_light
+      - light.floorlamp_uplight
+      - light.hallway_window_light
+      - light.isa_ceiling_light
+      - light.living_room_ceiling_light_level
+      - light.living_room_spotlights_level
+      - light.passage_ceiling_spotlights_level
+      - light.stefan_lightstrip
+      - light.upstairs_hallway_ceiling_light_level
+      - light.kitchen_ceiling_spotlights_level
+
+  entity_config:
+    alarm_control_panel.home_alarm:
+      code: !secret alarm_control_panel_code
