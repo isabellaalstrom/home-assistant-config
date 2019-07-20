@@ -1,0 +1,8 @@
+charging_station:
+  module: charging_station
+  class: ChargingStation
+  global_dependencies: globals
+  constrain_input_boolean: input_boolean.ad_bike_charger,on
+  dependencies:
+    - presence_helper
+    - notification_manager
