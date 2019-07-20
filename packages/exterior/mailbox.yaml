@@ -1,0 +1,19 @@
+homeassistant:
+  customize:
+    binary_sensor.mailbox_package:
+      friendly_name: Mailbox Package Door
+    binary_sensor.mailbox_letter:
+      friendly_name: Mailbox Letter Slot
+  customize_glob:
+    input_select.mailbox_status:
+      templates:
+        hs_color: "if (state === 'Empty') return [0, 0];
+        else return [0, 85];"
+input_select:  
+  mailbox_status:
+    name: Mailbox Status
+    options:
+      - Empty
+      - Mail
+      - Package
+      - Package and mail
