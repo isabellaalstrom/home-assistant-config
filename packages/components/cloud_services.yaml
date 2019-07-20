@@ -1,0 +1,16 @@
+verisure:
+  username: !secret verisure_username
+  password: !secret verisure_password
+  alarm: 0
+  locks: 1
+
+ring:
+  username: !secret ring_username
+  password: !secret ring_password  
+
+ifttt:
+  key: !secret ifttt_key
+
+google:
+  client_id: !secret google_id
+  client_secret: !secret google_secret

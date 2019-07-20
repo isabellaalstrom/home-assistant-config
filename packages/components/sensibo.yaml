@@ -1,0 +1,4 @@
+
+climate:
+  - platform: sensibo
+    api_key: !secret sensibo_key
