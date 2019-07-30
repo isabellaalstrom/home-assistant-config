@@ -4,7 +4,8 @@
 *.crt
 *.key
 
-www/
+www/*
+
 custom_components/
 test
 OZW_Log.txt
@@ -54,6 +55,3 @@ zones/
 resources/
 node-red/
 appdaemon/apps/security/
-
-/www/*
-!/www/modified-lovelace-cards/*
