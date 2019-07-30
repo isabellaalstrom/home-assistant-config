@@ -55,4 +55,4 @@ resources/
 node-red/
 appdaemon/apps/security/
 
-!/www/modified-lovelace-cards
+!www/modified-lovelace-cards/*
