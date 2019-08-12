@@ -71,6 +71,8 @@ panel_custom: !include panels/panel_custom.yaml
 
 hacs:
   token: !secret github_access_token
+  appdaemon: true
+  
 
 browser_mod:
   devices:
