@@ -16,11 +16,10 @@ cards:
             cards:
               - type: horizontal-stack
                 cards:
-                  - type: custom:decluttering-card
+                  - type: custom:button-card
                     template: nest_picture_button
-                    variables:
-                      - entity: person.stefan
-                      - entity_picture: !secret stefan_image
+                    entity: person.stefan
+                    entity_picture: !secret stefan_image
                   - type: custom:decluttering-card
                     template: nest_button
                     variables:
@@ -47,11 +46,33 @@ cards:
                             styles:
                               icon:
                                 - animation: blink 2s ease infinite
-                  - type: custom:decluttering-card
+                  - type: custom:button-card
                     template: nest_picture_button
-                    variables:
-                      - entity: person.isa
-                      - entity_picture: !secret isa_image
+                    entity: person.isa
+                    entity_picture: !secret isa_image
+                    styles:
+                      grid:
+                        - position: relative
+                      custom_fields:
+                        notification:
+                          - background-color: >
+                              [[[
+                                if (states['sensor.isabellas_iphone_x_battery_level'].state > 50)
+                                  return "#87c087";
+                                return "#FF8000";
+                              ]]]
+                          - border-radius: 50%
+                          - position: absolute
+                          - left: 60%
+                          - top: 0
+                          - height: 20px
+                          - width: 20px
+                          - font-size: 8px
+                          - line-height: 20px
+                          - color: white
+                    custom_fields:
+                      notification: >
+                        [[[ return states['sensor.isabellas_iphone_x_battery_level'].state ]]]
               - type: markdown
                 content: >
                     # [[ sensor.time.state ]]
@@ -74,7 +95,7 @@ cards:
                   }
               - type: custom:smhi-forecast-card
                 entity: weather.smhi_home
-                icons: "/local/icons/weather_icons/animated/"
+                icons: "/local/icons/weather_icons/static/"
                 style: |
                   ha-card {
                     background-color: rgba(0, 0, 0, 0);
@@ -543,12 +564,17 @@ cards:
                         cards:
                           - type: 'custom:home-feed-card'
                             title: Home Feed
-                            show_empty: false
+                            scrollbars_enabled: false
+                            max_item_count: 7
                             entities:
                               - entity: input_select.dryer_status
                                 name: Dryer
+                                icon: mdi:tumble-dryer
+                                include_history: true
                               - entity: input_select.washing_machine_status
                                 name: Washer
+                                icon: mdi:washing-machine
+                                include_history: true
                               - sensor.front_door
                               - sensor.back_door
                               - sensor.yard_door
@@ -557,10 +583,10 @@ cards:
                               - sensor.bedroom_window
                               - sensor.bedroom_door
                               - entity: sensor.living_room_axis_movement
-                                name: Living Room
+                                name: Living Room Left
                                 secondary_info: last-changed
                               - entity: sensor.living_room_axis_movement_2
-                                name: Living Room 2
+                                name: Living Room Right
                                 secondary_info: last-changed
                               - entity: sensor.passage_movement
                                 name: Passage
@@ -570,6 +596,7 @@ cards:
                                 name: Stefans Office
                               - entity: switch.bike_charger
                                 name: E-bike charger
+                                include_history: true
                             style: |
                               ha-card {
                                 height: 545px;

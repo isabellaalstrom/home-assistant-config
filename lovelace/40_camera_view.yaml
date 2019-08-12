@@ -15,36 +15,30 @@ cards:
             show_name: false
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.hallway_window_light
-                  - icon: mdi:ceiling-light
-              - type: custom:decluttering-card
+                entity: light.hallway_window_light
+                icon: mdi:ceiling-light
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.sannce_down
-                  - icon: mdi:chevron-down
-              - type: custom:decluttering-card
+                entity: script.sannce_down
+                icon: mdi:chevron-down
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.sannce_up
-                  - icon: mdi:chevron-up
-              - type: custom:decluttering-card
+                entity: script.sannce_up
+                icon: mdi:chevron-up
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.sannce_left
-                  - icon: mdi:chevron-left
-              - type: custom:decluttering-card
+                entity: script.sannce_left
+                icon: mdi:chevron-left
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.sannce_right
-                  - icon: mdi:chevron-right
-              - type: custom:decluttering-card
+                entity: script.sannce_right
+                icon: mdi:chevron-right
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.sannce_calibrate
-                  - icon: mdi:reload
+                entity: script.sannce_calibrate
+                icon: mdi:reload
           - type: entities
             entities:
               - type: custom:fold-entity-row
@@ -85,31 +79,26 @@ cards:
             show_name: false
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.living_room_spotlights_level
-                  - icon: bha:ceiling-lamp-plafond
-              - type: custom:decluttering-card
+                entity: light.living_room_spotlights_level
+                icon: bha:ceiling-lamp-plafond
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.living_room_ceiling_light_level
-                  - icon: bha:ceiling-lamp-round
-              - type: custom:decluttering-card
+                entity: light.living_room_ceiling_light_level
+                icon: bha:ceiling-lamp-round
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.candles
-                  - icon: mdi:candle
-              - type: custom:decluttering-card
+                entity: light.candles
+                icon: mdi:candle
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.outdoor_yard_light
-                  - icon: bha:outdoor-lamp
-              - type: custom:decluttering-card
+                entity: light.outdoor_yard_light
+                icon: bha:outdoor-lamp
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.outdoor_hanging_lights
-                  - icon: bha:light-string
+                entity: light.outdoor_hanging_lights
+                icon: bha:light-string
               - type: custom:button-card
                 color_type: blank-card
               - type: custom:button-card
@@ -146,21 +135,18 @@ cards:
             show_name: false
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.passage_ceiling_spotlights_level
-                  - icon: mdi:track-light
-              - type: custom:decluttering-card
+                entity: light.passage_ceiling_spotlights_level
+                icon: mdi:track-light
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.floorlamp_uplight
-                  - icon: mdi:floor-lamp
-              - type: custom:decluttering-card
+                entity: light.floorlamp_uplight
+                icon: mdi:floor-lamp
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.stairs_lights
-                  - icon: mdi:stairs
+                entity: light.stairs_lights
+                icon: mdi:stairs
               - type: custom:button-card
                 color_type: blank-card
               - type: custom:button-card
@@ -198,36 +184,30 @@ cards:
             show_name: false
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: light.isa_ceiling_light
-                  - icon: mdi:ceiling-light
-              - type: custom:decluttering-card
+                entity: light.isa_ceiling_light
+                icon: mdi:ceiling-light
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.dafang_down
-                  - icon: mdi:chevron-down
-              - type: custom:decluttering-card
+                entity: script.dafang_down
+                icon: mdi:chevron-down
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.dafang_up
-                  - icon: mdi:chevron-up
-              - type: custom:decluttering-card
+                entity: script.dafang_up
+                icon: mdi:chevron-up
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.dafang_left
-                  - icon: mdi:chevron-left
-              - type: custom:decluttering-card
+                entity: script.dafang_left
+                icon: mdi:chevron-left
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.dafang_right
-                  - icon: mdi:chevron-right
-              - type: custom:decluttering-card
+                entity: script.dafang_right
+                icon: mdi:chevron-right
+              - type: custom:button-card
                 template: camera_button
-                variables:
-                  - entity: script.dafang_calibrate
-                  - icon: mdi:reload
+                entity: script.dafang_calibrate
+                icon: mdi:reload
               - type: custom:button-card
                 color_type: blank-card
           - type: entities
