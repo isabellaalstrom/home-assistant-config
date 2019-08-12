@@ -464,7 +464,12 @@ cards:
                         style: 'orange'
                       - value: 10
                         style: 'var(--label-badge-red)'
-
+          - type: custom:xiaomi-vacuum-card
+            entity: vacuum.roborock
+            image: /local/lovelace_ui/vacuum.png
+            name: Xiaomi Vacuum
+            buttons: true
+            
           - break
           - type: vertical-stack
             cards:
@@ -499,7 +504,6 @@ cards:
                 titleSize: 130
               - type: 'custom:home-feed-card'
                 title: Home Feed
-                show_empty: false
                 entities:
                   - sensor.front_door
                   - sensor.back_door
@@ -509,17 +513,27 @@ cards:
                   - sensor.bedroom_window
                   - sensor.bedroom_door
                   - entity: sensor.living_room_axis_movement
-                    name: Living Room Movement
+                    name: Living Room Left
                     secondary_info: last-changed
                   - entity: sensor.living_room_axis_movement_2
-                    name: Living Room Movement 2
+                    name: Living Room Right
                     secondary_info: last-changed
                   - sensor.passage_movement
                   - entity: sensor.upstairs_hallway_movement
-                    name: Stairs Movement
+                    name: Stairs
                   - entity: sensor.stefans_office_movement
-                    name: Stefans Office Movement
-
+                    name: Stefans Office
+                  - entity: switch.bike_charger
+                    name: E-bike charger
+                    include_history: true
+                  - entity: input_select.dryer_status
+                    name: Dryer
+                    icon: mdi:tumble-dryer
+                    include_history: true
+                  - entity: input_select.washing_machine_status
+                    name: Washer
+                    icon: mdi:washing-machine
+                    include_history: true
           - break
           - type: vertical-stack
             cards:

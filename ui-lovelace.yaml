@@ -116,7 +116,8 @@ resources:
     type: module
   - url: /local/custom-lovelace/smhi-forecast-card.js
     type: module
-
+  - url: /community_plugin/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+    type: js
     
 cch:
   disable: false
@@ -134,29 +135,55 @@ cch:
     - conditions:
         user: dashboard
       config:
-        show_tabs: 10
+        show_tabs: 9
         kiosk_mode: true
 
-decluttering_templates:
+button_card_templates:
   camera_button:
-    card:
-      type: custom:button-card
-      entity: '[[entity]]'
-      icon: '[[icon]]'
-      show_state: false
-      show_icon: true
-      show_name: false
-      tap_action:
-        action: toggle
-      style: |
-        ha-card {
-          # font-family: 'Open Sans', sans-serif;
-          padding-top: 10px !important;
-          background-color: rgba(0, 0, 0, 0);
-          -webkit-box-shadow: none;
-          -moz-box-shadow: none;
-          box-shadow: none;
-        }    
+    show_state: false
+    show_icon: true
+    show_name: false
+    tap_action:
+      action: toggle
+    style: |
+      ha-card {
+        # font-family: 'Open Sans', sans-serif;
+        padding-top: 10px !important;
+        background-color: rgba(0, 0, 0, 0);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      } 
+  nest_picture_button:
+    show_state: true
+    show_icon: true
+    show_name: false
+    show_entity_picture: true
+    tap_action:
+      action: more-info
+    style: |
+      ha-card {
+        font-family: 'Open Sans', sans-serif;
+        padding-top: 15px !important;
+        background-color: rgba(0, 0, 0, 0);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
+      img {
+        width: 100% !important;
+      }
+      #img-cell {
+        background-color: #F5F5F5;
+        border-radius: 50px;
+        height: 50px !important;
+        width: 50px !important;
+      }
+      #state {
+        padding-top: 5px;
+      }
+
+decluttering_templates:
   nest_button:
     default:
       - show_state: true
@@ -242,6 +269,5 @@ views:
   - !include lovelace/40_camera_view.yaml
   - !include lovelace/3d_printer.yaml
   - !include lovelace/80_automations_view.yaml
-  - !include lovelace/101_dashboard.yaml
   - !include lovelace/99_settings_view.yaml
   - !include lovelace/102_nest_dashboard.yaml
