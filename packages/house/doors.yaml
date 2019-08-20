@@ -73,7 +73,7 @@ sensor:
           {% if is_state('binary_sensor.balcony_door', 'on') or is_state("binary_sensor.yard_door", "on") or is_state("binary_sensor.front_door", "on") %}
             Door open
           {% elif is_state("binary_sensor.back_door", "on") %}
-            Back door open
+            Back door
           {% else %}
             Closed
           {% endif %}

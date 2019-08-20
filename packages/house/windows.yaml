@@ -27,9 +27,9 @@ sensor:
         entity_id: binary_sensor.bedroom_window, binary_sensor.dining_room_window
         value_template: >-
           {% if is_state("binary_sensor.dining_room_window", "on") %}
-            Dining room window open
+            Dining room
           {% elif is_state("binary_sensor.bedroom_window", "on") %}
-            Bedroom window open
+            Bedroom
           {% else %}
             Closed
           {% endif %}

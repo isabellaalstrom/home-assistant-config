@@ -21,7 +21,36 @@ ios:
             activationMode: 'background'
             destructive: yes
 
+sensor:
+  - platform: template
+    sensors:
+      vacuums:
+        friendly_name: 'Vacuums'
+        entity_id: vacuum.roomba, vacuum.roborock
+        value_template: >-
+          {% if is_state('vacuum.roomba', 'docked') and is_state("vacuum.roborock", "docked") %}
+            Docked
+          {% elif is_state('vacuum.roomba', 'idle') and is_state("vacuum.roborock", "idle") %}
+            Idle
+          {% elif is_state('vacuum.roomba', 'cleaning') and is_state("vacuum.roborock", "cleaning") %}
+            Cleaning
+          {% elif is_state('vacuum.roomba', 'cleaning') %}
+            Upstairs
+          {% elif is_state('vacuum.roborock', 'cleaning') %}
+            Downstairs
+          {% elif is_state('vacuum.roomba', 'returning') or is_state("vacuum.roborock", "returning") %}
+            Returning
+          {% elif is_state('vacuum.roomba', 'error') and is_state("vacuum.roborock", "error") %}
+            Error
+          {% else %}
+            Unknown
+          {% endif %}
+
 vacuum:
+  - platform: xiaomi_miio
+    host: !secret roborock_host
+    token: !secret roborock_token
+    name: Roborock
   - platform: template
     vacuums:
       roomba:
@@ -79,8 +108,8 @@ automation:
     action:
       - service: notify.ios_isabellas_iphone_x
         data:
-          message: ''
-          title: 'Vacuum today?'
+          message: 'Where do you want to vacuum?'
+          title: 'Vacuuming'
           data:
             push:
               category: "vacuum"

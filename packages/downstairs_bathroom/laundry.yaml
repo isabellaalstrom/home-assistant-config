@@ -67,7 +67,17 @@ sensor:
         friendly_name: Dryer Idle
         entity_id: "sensor.dryer_plug_power"
         value_template: "{{ states('sensor.dryer_plug_power') | int < 3.4 }}"
-
+      laundry:
+        friendly_name: 'Laundry'
+        entity_id: input_select.washing_machine_status, input_select.dryer_status
+        value_template: >-
+          {% if is_state('input_select.washing_machine_status', 'Clean') or is_state("input_select.dryer_status", "Clean") %}
+            Clean
+          {% elif is_state('input_select.washing_machine_status', 'Running') or is_state("input_select.dryer_status", "Running") %}
+            Running
+          {% else %}
+            Idle
+          {% endif %}
 automation:
   - alias: '[Temperature] Notification on high humidity in downstairs bathroom'
     initial_state: 'on'

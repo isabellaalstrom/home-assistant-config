@@ -36,7 +36,7 @@ sensor:
         entity_id: binary_sensor.passage_pir_sensor, binary_sensor.upstairs_hallway_pir_sensor, binary_sensor.stefans_room_motion, binary_sensor.living_room_axis_motion_0, binary_sensor.passage_axis_motion_0
         value_template: >-
           {% if is_state('binary_sensor.passage_pir_sensor', 'on') or is_state("binary_sensor.upstairs_hallway_pir_sensor", "on") or is_state("binary_sensor.stefans_room_motion", "on") or is_state("binary_sensor.living_room_axis_motion_0", "on") or is_state("binary_sensor.passage_axis_motion_0", "on") %}
-            Movement detected
+            Detected
           {% else %}
             No movement
           {% endif %}
