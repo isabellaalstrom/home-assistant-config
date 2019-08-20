@@ -1,0 +1,292 @@
+title: Media
+icon: mdi:movie
+path: media
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: back_button
+      # - type: custom:decluttering-card
+      #   template: header_text
+      #   variables:
+      #     - content: '## Media'
+      - type: custom:swipe-card
+        parameters:
+          effect: 'coverflow'
+          grabCursor: true
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:mini-media-player
+                entity: media_player.living_room_sonos
+                artwork: cover
+                hide:
+                  icon_state: false
+                  power_state: false
+                  source: false
+
+              - type: entities
+                entities:
+                  - type: custom:mini-media-player
+                    entity: media_player.living_room_nvidia_shield
+                    icon: mdi:android
+                    group: true
+                    artwork: cover
+                    hide:
+                      power_state: false
+                      
+                  - type: custom:mini-media-player
+                    entity: media_player.shield_3
+                    group: true
+                    artwork: cover
+                    hide:
+                      power_state: false
+                  - type: custom:mini-media-player
+                    entity: media_player.living_room_chromecast
+                    group: true
+                    artwork: cover
+                    hide:
+                      power_state: false
+
+                  - entity: switch.livingroom_tv
+                    name: Tv
+                    icon: mdi:television-classic
+                    type: custom:toggle-lock-entity-row
+                  - entity: switch.livingroom_movie_system
+                    name: Movie system
+                    icon: mdi:movie
+                    type: custom:toggle-lock-entity-row
+              - type: entities
+                entities:
+                  - type: custom:mini-media-player
+                    entity: media_player.bedroom_chromecast
+                    group: true
+                    artwork: cover
+                    hide:
+                      power_state: false
+                      progress: true
+          - type: vertical-stack
+            cards:
+              - type: custom:upcoming-media-card
+                entity: sensor.recently_added_tv
+                title: Tv shows
+                date: ddmm
+                clock: 24
+                max: 3
+                image_style: poster
+                flag: false
+                hide_unflagged: true
+                icon: none
+                all_shadows: false
+
+                flag_color: "#e5a00d"
+                border_color: "#ffffff"
+                accent_color: "#ffffff"
+                title_color: "#636B75"
+                line_color: "#636B75"
+
+                title_size: large
+                line_size: medium
+
+                title_text: "$title"
+                line1_text: "$number - $episode"
+                line2_text: "$runtime - $rating - $genres"
+                line3_text: "Released: $aired"
+                line4_text: "Added: $release"
+                style: |
+                  .plex_fan_fanart {
+                    -webkit-box-shadow: none;
+                    -moz-box-shadow: none;
+                    box-shadow: none !important;
+                    height: 100px;
+                  }
+                  ha-card {
+                    margin-top: 10px;
+                    font-family: 'Open Sans', sans-serif;
+                    height: 560px;
+                  }
+                  .card-header {
+                    padding-bottom: 8px;
+                  }
+                  .plex_poster {
+                    margin: 0 !important;
+                  }
+
+          - type: vertical-stack
+            cards:
+              - type: custom:upcoming-media-card
+                entity: sensor.recently_added_movies
+                title: Movies
+                date: ddmm
+                clock: 24
+                max: 3
+                image_style: poster
+                flag: false
+                hide_unflagged: true
+                icon: none
+                all_shadows: false
+
+                flag_color: "#e5a00d"
+                border_color: "#ffffff"
+                accent_color: "#ffffff"
+                title_color: "#636B75"
+                line_color: "#636B75"
+
+                title_size: large
+                line_size: medium
+
+                title_text: "$title"
+                line1_text: "$number - $episode"
+                line2_text: "$runtime - $rating - $genres"
+                line3_text: "Released: $aired"
+                line4_text: "Added: $release"
+                style: |
+                  .plex_fan_fanart {
+                    -webkit-box-shadow: none;
+                    -moz-box-shadow: none;
+                    box-shadow: none !important;
+                    height: 100px;
+                  }
+                  ha-card {
+                    margin-top: 10px;
+                    font-family: 'Open Sans', sans-serif;
+                    height: 560px;
+                  }
+                  .card-header {
+                    padding-bottom: 8px;
+                  }
+                  .plex_poster {
+                    margin: 0 !important;
+                  }
+
+          - type: vertical-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  ## first row
+                  - type: horizontal-stack
+                    cards:
+                    - type: "custom:button-card"
+                      icon: mdi:power
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.shield
+                          command: POWER
+                    - type: "custom:button-card"
+                      color_type: icon
+                      icon: mdi:chevron-up
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "UP"
+                    - type: "custom:button-card"
+                      icon: mdi:sleep
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.shield
+                          command: SLEEP
+
+                    ## second row
+                  - type: horizontal-stack
+                    cards:
+                    - type: "custom:button-card"
+                      icon: mdi:chevron-left
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "LEFT"
+                    - type: "custom:button-card"
+                      icon: mdi:circle
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "ENTER"
+                    - type: "custom:button-card"
+                      icon: mdi:chevron-right
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "RIGHT"
+
+                ## third row
+                  - type: horizontal-stack
+                    cards:
+                    - type: "custom:button-card"
+                      icon: mdi:backburger
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "BACK"
+                    - type: "custom:button-card"
+                      icon: mdi:chevron-down
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "DOWN"
+                    - type: "custom:button-card"
+                      icon: mdi:home-circle
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "HOME"
+                ## forth row
+                  - type: horizontal-stack
+                    cards:
+                    - type: "custom:button-card"
+                      icon: mdi:plex
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "am start -a android.intent.action.VIEW -d -n com.plexapp.android/com.plexapp.plex.activities.SplashActivity"
+                    - type: "custom:button-card"
+                      icon: mdi:numeric-4-box
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "am start -a android.intent.action.VIEW -d -n se.tv4.tv4playtab/se.tv4.tv4play.startup.SplashActivity"
+                    - type: "custom:button-card"
+                      icon: mdi:netflix
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.living_room_nvidia_shield
+                          command: "am start -a android.intent.action.VIEW -d -n com.netflix.ninja/.MainActivity"
+                    - type: "custom:button-card"
+                      icon: mdi:youtube
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.shield
+                          command: "am start -a android.intent.action.VIEW -d -n com.google.android.youtube.tv/com.google.android.apps.youtube.tv.activity.ShellActivity"
+                    - type: "custom:button-card"
+                      icon: mdi:twitch
+                      tap_action:
+                        action: call-service
+                        service: androidtv.adb_command
+                        service_data:
+                          entity_id: media_player.shield
+                          command: "am start -a android.intent.action.VIEW -d -n tv.twitch.android.app/tv.twitch.android.apps.TwitchActivity"

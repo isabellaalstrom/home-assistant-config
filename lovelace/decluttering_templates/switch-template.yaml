@@ -1,0 +1,592 @@
+# Default Config
+default:
+  # Button Options
+  - lock: false
+  - aspect_ratio: 1/1
+  - opacity: 0.4
+  - opacity_on: 1.0
+  - border-radius: var(--border-radius)
+
+  # Label
+  - label: '&nbsp;'
+
+  # Icon Options
+  - color: auto
+  - size: 25%
+  # - margin-right: 70%
+  - margin-left: -55%
+  - variable: spin
+  - spin: false
+  - off_variable: spin
+  - off_spin: false
+
+  # Show Options
+  - show_name: true
+  - show_state: true
+  - show_label: true
+  - show_icon: true
+  - show_last_changed: false
+
+  # Tap and Hold Actions
+  - tap_action:
+      action: toggle
+      haptic: light
+  - hold_action:
+      action: more-info
+      haptic: heavy
+  
+  # Button 'Off' Options
+  - off_icon_color: var(--icon-color-off)
+  - off_name_color: var(--name-color-off)
+  - off_state_color: var(--state-color-off)
+  - off_label_color: var(--label-color-off)
+
+  # Button 'On' Options
+  - on_name_color: var(--name-color-on)
+  - on_state_color: var(--state-color-on)
+  - on_label_color: var(--label-color-on)
+  - on_card_color: var(--homekit-card-on)
+
+  # Name and Label Options
+  - margin-top-name: 0px
+  - label_font_size: 11px
+  - label_font_weight: normal
+  - justify-self-name: start
+  - padding-left-name: 10px
+
+  # Grid # Changed/Added in 0.11.2
+  - grid: # Changed/Added in 0.11.2
+    - grid-template-areas: '"i" "n" "s" "l"' # Changed/Added in 0.11.2
+    - grid-template-columns: 1fr # Changed/Added in 0.11.2
+    - grid-template-rows: 1fr min-content min-content # Changed/Added in 0.11.2
+#### #### #### #### #### #### #### #### #### #### #### #
+
+# Card Config
+# Do NOT change this unless you know what you are doing!
+card:
+  type: custom:button-card
+  name: '[[name]]'
+  deep_press: true
+  icon: 'mdi:[[icon]]'
+  size: '[[size]]'
+  color: '[[color]]'
+  lock: '[[lock]]'
+  aspect_ratio: '[[aspect_ratio]]'
+  entity: '[[entity]]'
+  label: '[[label]]'
+  show_name: '[[show_name]]'
+  show_icon: '[[show_icon]]'
+  show_state: '[[show_state]]'
+  show_label: '[[show_label]]'
+  show_last_changed: '[[show_last_changed]]'
+  tap_action: '[[tap_action]]'
+  hold_action: '[[hold_action]]'
+  styles:
+    card:
+      - border-radius: '[[border-radius]]'
+      - --ha-card-background: var(--homekit-card-off)
+    label:
+      - font-size: 11px
+      - font-family: Helvetica
+      - padding: 0px 10px
+      - justify-self: start
+      - color: var(--label-color-off)
+    state:
+      - font-size: 11px
+      - font-family: Helvetica
+      - padding: 0px 10px
+      - justify-self: start
+      - text-transform: capitalize
+      # - font-weight: bold
+      - padding-left: 10px
+      - color: var(--upcoming-color)
+    grid: '[[grid]]' # Changed/Added in 0.11.2
+    img_cell:
+      - align-self: start
+      - text-align: start
+      - margin-right: '[[margin-right]]'
+      - margin-left: '[[margin-left]]'
+    name:
+      - color: var(--upcoming-color)
+      - justify-self: '[[justify-self-name]]'
+      - padding-left: '[[padding-left-name]]'
+      - font-weight: bold
+      - font-family: Helvetica 
+      - font-size: 13px
+      - margin-top: '[[margin-top-name]]'
+    icon:
+      - color: var(--upcoming-color)
+  state:
+    - value: "on" 
+      '[[variable]]': '[[spin]]'  
+      styles:
+        card:
+          - --ha-card-background: '[[on_card_color]]'
+          - opacity: '[[opacity_on]]'
+        name:
+          - color: '[[on_name_color]]'
+        state:
+          - color: '[[on_state_color]]'
+        lock:
+          - color: var(--lock-color-on)
+        label:
+          - color: '[[on_label_color]]'
+    - value: "off"
+      '[[off_variable]]': '[[off_spin]]'
+      styles:
+        card:
+          - opacity: '[[opacity]]'
+        icon:
+          - color: '[[off_icon_color]]'
+        name:
+          - color: '[[off_name_color]]'
+        state:
+          - color: '[[off_state_color]]'
+        label:
+          - color: '[[off_label_color]]'
+          - font-size: '[[label_font_size]]'
+          - font-weight: '[[label_font_weight]]'
+        lock:
+          - color: var(--lock-color-off)
+    - value: "idle"
+      styles:
+        card:
+          - opacity: 0.8
+        name:
+          - color: var(--name-color-off)
+        label:
+          - color: var(--label-color-off)
+        icon:
+          - color: var(--icon-color-off)
+        lock:
+          - color: var(--lock-color-off)
+    - value: "unavailable"
+      styles:
+        card:
+          - opacity: 0.2
+        name:
+          - color: var(--name-color-off)
+        label:
+          - color: var(--label-color-off)
+        state:
+          - color: var(--state-color-off)
+        icon:
+          - color: var(--icon-color-off)
+        lock:
+          - color: var(--lock-color-off)
+    - value: "disarmed"
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+    - value: "armed_home"
+      icon: "mdi:shield-home"
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(251, 210, 41)
+    - value: "armed_away"
+      icon: "mdi:shield-alert"
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(255, 0, 0)
+    - value: "pending"
+      icon: "mdi:clock-alert-outline"
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: orange
+          - animation: blink 2s ease infinite
+    - value: 'triggered'
+      icon: mdi:shield-alert
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(255, 0, 0)
+          - animation: blink 2s ease infinite
+    - value: 'Closed'
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+    - value: 'Back door'
+      icon: mdi:door-open
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(251, 210, 41)
+    - value: 'Door open'
+      icon: mdi:door-open
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(255, 0, 0)
+    - value: 'Closed'
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+    - value: 'Bedroom'
+      icon: mdi:window-open
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(251, 210, 41)
+    - value: 'Dining room'
+      icon: mdi:window-open
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(255, 0, 0)
+
+    - value: 'No movement'
+      icon: mdi:walk
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+    - value: 'Detected'
+      icon: mdi:motion-sensor
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(251, 210, 41)
+
+    - value: 'Put out'
+      icon: mdi:delete-restore
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(255, 0, 0)
+    - value: 'Home'
+      icon: mdi:delete-outline
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+    - value: 'Take in'
+      icon: mdi:delete-restore
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(251, 210, 41)
+    - value: 'Out'
+      icon: mdi:delete-empty-outline
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+
+    - value: 'Package and mail'
+      icon: mdi:mailbox-up
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Mail'
+      icon: mdi:mailbox-up
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Package'
+      icon: mdi:mailbox-up
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Empty'
+      icon: mdi:mailbox-outline
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+          
+    - value: 'Clean'
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(255, 0, 0)
+    - value: 'Running'
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Idle'
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+
+    - value: 'Docked'
+      styles:
+        card:
+          - opacity: 0.8
+          - --ha-card-background: var(--homekit-card-off)
+        name:
+          - color: var(--name-color-off)
+        state:
+          - color: var(--state-color-off)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(169,169,169)
+
+    - value: 'Cleaning'
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Downstairs'
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Upstairs'
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Returning'
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(152,251,152)
+    - value: 'Error'
+      icon: alert-circle-outline
+      styles:
+        card:
+          - --ha-card-background: var(--homekit-card-on)
+        name:
+          - color: var(--name-color-on)
+        state:
+          - color: var(--label-color-on)
+          - justify-self: '[[justify-self-name]]'
+          - padding-left: '[[padding-left-name]]'
+        icon:
+          - color: rgb(255, 0, 0)
+
+    - operator: 'default'
+      styles:
+        icon:
+          - color: gray
+    - operator: '<'
+      value: 10
+      styles:
+        icon:
+          - color: red
+    - operator: '<'
+      value: 25
+      styles:
+        icon:
+          - color: orange
+    - operator: '<='
+      value: 100
+      styles:
+        icon:
+          - color: green

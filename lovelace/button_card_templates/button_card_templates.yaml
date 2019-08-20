@@ -1,0 +1,43 @@
+  camera_button:
+    show_state: false
+    show_icon: true
+    show_name: false
+    tap_action:
+      action: toggle
+    style: |
+      ha-card {
+        # font-family: 'Open Sans', sans-serif;
+        padding-top: 10px !important;
+        background-color: rgba(0, 0, 0, 0);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      } 
+  nest_picture_button:
+    show_state: true
+    show_icon: true
+    show_name: false
+    show_entity_picture: true
+    tap_action:
+      action: more-info
+    style: |
+      ha-card {
+        font-family: 'Open Sans', sans-serif;
+        padding-top: 15px !important;
+        background-color: rgba(0, 0, 0, 0);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
+      img {
+        width: 100% !important;
+      }
+      #img-cell {
+        background-color: #F5F5F5;
+        border-radius: 50px;
+        height: 50px !important;
+        width: 50px !important;
+      }
+      #state {
+        padding-top: 5px;
+      }

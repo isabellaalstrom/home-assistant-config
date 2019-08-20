@@ -2,9 +2,9 @@ title: Home
 icon: mdi:information-outline
 panel: true
 path: home
-background: center / cover no-repeat url("/local/lovelace_ui/tiny_dashboard/clear-background.jpeg") fixed
+# background: center / cover no-repeat url("/local/lovelace_ui/tiny_dashboard/clear-background.jpeg") fixed
 
-popup_cards: !include home_view_popup_cards.yaml
+popup_cards: !include popup-cards/home_view_popup_cards.yaml
 
 cards:
   - type: vertical-stack
@@ -464,11 +464,6 @@ cards:
                         style: 'orange'
                       - value: 10
                         style: 'var(--label-badge-red)'
-          - type: custom:xiaomi-vacuum-card
-            entity: vacuum.roborock
-            image: /local/lovelace_ui/vacuum.png
-            name: Xiaomi Vacuum
-            buttons: true
             
           - break
           - type: vertical-stack

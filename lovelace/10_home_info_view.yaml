@@ -10,44 +10,6 @@ cards:
         cards:
           - type: vertical-stack
             cards:
-              - type: horizontal-stack
-                cards:
-                  ## Air cleaner
-                  - type: custom:button-card
-                    entity: script.air_cleaner_quiet
-                    icon: mdi:fan-off
-                    name: AC bed
-                    # size: 50%
-                    color: rgb(220,220,220)
-                    color_off: rgb(220,220,220)
-                  - type: custom:button-card
-                    entity: script.air_cleaner_auto
-                    icon: mdi:fan
-                    name: AC bed
-                    # size: 50%
-                    color: rgb(220,220,220)
-                    color_off: rgb(220,220,220)
-                  - type: custom:button-card
-                    entity: script.air_cleaner_turbo
-                    icon: mdi:run-fast
-                    name: AC bed
-                    # size: 50%
-                    color: rgb(220,220,220)
-                    color_off: rgb(220,220,220)
-                  - type: custom:button-card
-                    entity: script.ac_off
-                    icon: mdi:fan-off
-                    name: AC
-                    # size: 50%
-                    color: rgb(220,220,220)
-                    color_off: rgb(220,220,220)
-                  - type: custom:button-card
-                    entity: script.ac_on
-                    icon: mdi:fan
-                    name: AC
-                    # size: 50%
-                    color: rgb(220,220,220)
-                    color_off: rgb(220,220,220)
               - type: alarm-panel
                 entity: alarm_control_panel.house
                 states:

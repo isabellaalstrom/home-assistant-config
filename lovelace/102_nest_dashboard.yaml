@@ -605,7 +605,7 @@ cards:
                                 font-family: 'Open Sans', sans-serif;
                               }
                           - type: custom:upcoming-media-card
-                            entity: sensor.plex_recently_added
+                            entity: sensor.recently_added_tv
                             title: To watch
                             date: ddmm
                             clock: 24

@@ -1,0 +1,685 @@
+title: Home
+icon: mdi:information-outline
+panel: true
+path: homekit
+# background: center / cover no-repeat url("/local/lovelace_ui/tiny_dashboard/clear-background.jpeg") fixed
+
+popup_cards: !include popup-cards/home_view_popup_cards.yaml
+
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: picture-entity
+                entity: person.isa
+                image: !secret isa_square
+                show_name: false
+                tap_action:
+                  action: more-info
+                style: |
+                  ha-card {
+                    border-radius: 12px;
+                  }
+              - type: picture-entity
+                entity: person.stefan
+                image: !secret stefan_square
+                show_name: false
+                tap_action:
+                  action: more-info
+                style: |
+                  ha-card {
+                    border-radius: 12px;
+                  }
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - name: Cameras
+                  - entity: input_boolean.test
+                  - label: View
+                  - icon: cctv
+                  - show_state: false
+                  - opacity: 0.8
+                  - tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/cameras
+                      haptic: light
+                  - hold_action:
+                      action: navigate
+                      navigation_path: /lovelace/cameras
+                      haptic: light
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - name: Light
+                  - entity: input_boolean.test
+                  - label: Control
+                  - icon: floor-lamp
+                  - show_state: false
+                  - tap_action: 
+                      action: navigate
+                      navigation_path: /lovelace/lights
+                      haptic: light
+                  - hold_action: 
+                      action: navigate
+                      navigation_path: /lovelace/lights
+                      haptic: light
+                  - entity: input_boolean.dummy1
+                  - margin-left: -65%
+                  - opacity: 0.8
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: alarm_control_panel.house
+                  - show_label: false
+                  - name: Alarm
+                  - icon: shield-off
+                  - tap_action: 
+                      action: call-service
+                      service: browser_mod.command
+                      service_data:
+                        command: popup
+                        title: Alarm
+                        card:
+                          type: alarm-panel
+                          entity: alarm_control_panel.house
+                        deviceID:
+                          - this
+                      haptic: heavy
+                  - hold_action: 
+                      action: call-service
+                      service: browser_mod.command
+                      service_data:
+                        command: popup
+                        title: Alarm
+                        card:
+                          type: alarm-panel
+                          entity: alarm_control_panel.house
+                        deviceID:
+                          - this
+                      haptic: heavy
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.outer_doors
+                  - show_label: false
+                  - name: Doors
+                  - icon: door-closed
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.outer_windows
+                  - show_label: false
+                  - name: Windows
+                  - icon: window-closed
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.house_movement
+                  - show_label: false
+                  - name: Motion
+                  - icon: walk
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+        
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: input_select.mailbox_status
+                  - show_label: false
+                  - name: Mailbox
+                  - icon: mailbox-outline
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: input_select.trash_status
+                  - show_label: false
+                  - name: Trash
+                  - icon: delete-empty-outline
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.laundry
+                  - show_label: false
+                  - name: Laundry
+                  - icon: washing-machine
+                  - tap_action: 
+                      action: call-service
+                      service: browser_mod.command
+                      service_data:
+                        command: popup
+                        title: Laundry
+                        card:
+                          type: entities
+                          entities:
+                            - input_select.dryer_status
+                            - input_select.washing_machine_status
+
+                            
+                          # type: horizontal-stack
+                          # cards:
+                          #   - type: custom:decluttering-card
+                          #     template: switch_button_card
+                          #     variables:
+                          #       - entity: input_select.washing_machine_status
+                          #       - show_label: false
+                          #       - name: Washer
+                          #       - icon: washing-machine
+                          #       - tap_action: 
+                          #           action: more-info
+                          #       - margin-left: -65%
+                          #       - opacity: 0.8
+
+                          #   - type: custom:decluttering-card
+                          #     template: switch_button_card
+                          #     variables:
+                          #       - entity: input_select.dryer_status
+                          #       - show_label: false
+                          #       - name: Dryer
+                          #       - icon: tumble-dryer
+                          #       - tap_action: 
+                          #           action: more-info
+                          #       - margin-left: -65%
+                          #       - opacity: 0.8
+                        deviceID:
+                          - this
+                      haptic: heavy
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.vacuums
+                  - show_label: false
+                  - name: Vacuums
+                  - icon: robot-vacuum
+                  - tap_action: 
+                      action: call-service
+                      service: browser_mod.command
+                      service_data:
+                        command: popup
+                        title: Alarm
+                        card:
+                          type: vertical-stack
+                          cards:
+                            - type: custom:xiaomi-vacuum-card
+                              entity: vacuum.roborock
+                              image: /local/lovelace_ui/vacuum.png
+                              name: Xiaomi Vacuum
+                              buttons: true
+
+                            - type: entities
+                              entities:
+                                - vacuum.roomba
+                        deviceID:
+                          - this
+                      haptic: heavy
+                  - margin-left: -65%
+                  - opacity: 0.8
+              # - type: custom:button-card
+              #   entity: input_select.roomba_mode
+              #   show_state: false
+              #   show_icon: true
+              #   show_name: false
+              #   state:
+              #     - value: 'Not Today'
+              #       icon: mdi:robot-vacuum
+              #       color: rgb(251, 210, 41)
+              #     - value: 'Waiting'
+              #       icon: mdi:robot-vacuum
+              #       color: rgb(169,169,169)
+              #     - value: 'Vacuuming'
+              #       icon: mdi:robot-vacuum
+              #       color: rgb(152,251,152)
+              #     - value: 'Has Vacuumed'
+              #       icon: mdi:robot-vacuum
+              #       color: rgb(169,169,169)
+              #   tap_action:
+              #     action: more-info
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - name: Climate
+                  - label: Control
+                  - entity: input_boolean.test
+                  - icon: thermostat
+                  - show_state: false
+                  - tap_action: 
+                      action: call-service
+                      service: browser_mod.command
+                      service_data:
+                        command: popup
+                        title: Climate
+                        card:
+                          type: vertical-stack
+                          cards:
+                            - type: thermostat
+                              entity: climate.sanyo
+                            - type: horizontal-stack
+                              cards:
+                                ## Air cleaner
+                                - type: custom:button-card
+                                  entity: script.air_cleaner_quiet
+                                  show_name: false
+                                  icon: mdi:fan-off
+                                  color: rgb(220,220,220)
+                                  color_off: rgb(220,220,220)
+                                - type: custom:button-card
+                                  entity: script.air_cleaner_auto
+                                  icon: mdi:fan
+                                  show_name: false
+                                  color: rgb(220,220,220)
+                                  color_off: rgb(220,220,220)
+                                - type: custom:button-card
+                                  entity: script.air_cleaner_turbo
+                                  icon: mdi:run-fast
+                                  show_name: false
+                                  color: rgb(220,220,220)
+                                  color_off: rgb(220,220,220)
+                            - type: custom:pollenkoll-card
+                              city: stockholm
+                              title: false
+                              show_state: false
+                              # threshold: 1
+                              compact: true
+                              allergens:
+                                - björk
+                                - gräs
+                                - gråbo
+                            - type: horizontal-stack
+                              cards:
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - sensor.temperature_bedroom
+                                  show:
+                                    icon: false
+                                  height: 75
+                                  color_thresholds:
+                                    - value: 0
+                                      color: "#CCE5FF"
+                                    - value: 10
+                                      color: "#66B2FF"
+                                    - value: 15
+                                      color: "#0080FF"
+                                    - value: 18
+                                      color: "#87c087"
+                                    - value: 21
+                                      color: "#389638"
+                                    - value: 24
+                                      color: "#FF9932"
+                                    - value: 25
+                                      color: "#FF8000"
+                                    - value: 26
+                                      color: "#ff0000"
+
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - sensor.temperature_stefan
+                                  show:
+                                    icon: false
+                                  color_thresholds:
+                                    - value: 0
+                                      color: "#CCE5FF"
+                                    - value: 10
+                                      color: "#66B2FF"
+                                    - value: 18
+                                      color: "#0080FF"
+                                    - value: 20
+                                      color: "#87c087"
+                                    - value: 21
+                                      color: "#389638"
+                                    - value: 24
+                                      color: "#FF9932"
+                                    - value: 25
+                                      color: "#FF8000"
+                                    - value: 26
+                                      color: "#ff0000"
+
+                            - type: horizontal-stack
+                              cards:
+                                - type: custom:mini-graph-card
+                                  show:
+                                    icon: false
+                                  entities:
+                                    - sensor.temperature_passage
+                                  height: 75
+                                  color_thresholds:
+                                    - value: 0
+                                      color: "#CCE5FF"
+                                    - value: 10
+                                      color: "#66B2FF"
+                                    - value: 18
+                                      color: "#0080FF"
+                                    - value: 20
+                                      color: "#87c087"
+                                    - value: 21
+                                      color: "#389638"
+                                    - value: 24
+                                      color: "#FF9932"
+                                    - value: 25
+                                      color: "#FF8000"
+                                    - value: 26
+                                      color: "#ff0000"
+                                - type: custom:mini-graph-card
+                                  show:
+                                    icon: false
+                                  entities:
+                                    - sensor.temperature_downstairs_bathroom
+                                  height: 75
+                                  color_thresholds:
+                                    - value: 0
+                                      color: "#CCE5FF"
+                                    - value: 10
+                                      color: "#66B2FF"
+                                    - value: 18
+                                      color: "#0080FF"
+                                    - value: 20
+                                      color: "#87c087"
+                                    - value: 21
+                                      color: "#389638"
+                                    - value: 24
+                                      color: "#FF9932"
+                                    - value: 25
+                                      color: "#FF8000"
+                                    - value: 26
+                                      color: "#ff0000"
+                            - type: horizontal-stack
+                              cards:
+                                - type: custom:mini-graph-card
+                                  show:
+                                    icon: false
+                                    fill: fade
+                                  entities:
+                                    - sensor.temperature_storage
+                                  # height: 75
+                                  color_thresholds:
+                                    - value: -5
+                                      color: "#66B2FF"
+                                    - value: 3
+                                      color: "#87c087"
+                                    - value: 5
+                                      color: "#389638"
+                                - type: custom:mini-graph-card
+                                  show:
+                                    icon: false
+                                  entities:
+                                    - sensor.refrigerator
+                                  height: 75
+                                  color_thresholds:
+                                    - value: -5
+                                      color: "#66B2FF"
+                                    - value: 0
+                                      color: "#ff0000"
+                                    - value: 2
+                                      color: "#66B2FF"
+                                    - value: 3
+                                      color: "#0080FF"
+                                    - value: 4
+                                      color: "#389638"
+                                    - value: 7
+                                      color: "#FF9932"
+                                    - value: 8
+                                      color: "#ff0000"
+                        deviceID:
+                          - this
+                      haptic: heavy
+                  - margin-left: -65%
+                  - opacity: 0.8
+              
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - name: House mode
+                  - show_state: false
+                  - label: Control
+                  - entity: input_boolean.test
+                  - icon: home-outline
+                  - tap_action: 
+                      action: call-service
+                      service: browser_mod.command
+                      service_data:
+                        command: popup
+                        title: House Modes
+                        card:
+                          type: vertical-stack
+                          cards:
+                            - type: horizontal-stack
+                              cards:
+                                - type: custom:button-card
+                                  entity: input_boolean.guest_mode
+                                  show_state: false
+                                  show_icon: true
+                                  show_name: false
+                                  state:
+                                    - value: 'on'
+                                      icon: mdi:account-group-outline
+                                      color: rgb(152,251,152)
+                                    - value: 'off'
+                                      icon: mdi:account-group-outline
+                                      color: rgb(169,169,169)
+                                  tap_action:
+                                    action: more-info
+                                - type: custom:button-card
+                                  entity: calendar.cleaning_day
+                                  show_state: false
+                                  show_icon: true
+                                  show_name: false
+                                  state:
+                                    - value: 'on'
+                                      icon: mdi:broom
+                                      color: rgb(152,251,152)
+                                    - value: 'off'
+                                      icon: mdi:broom
+                                      color: rgb(169,169,169)
+                                  tap_action:
+                                    action: more-info
+                                - type: custom:button-card
+                                  entity: input_select.house_mode
+                                  show_state: false
+                                  show_icon: true
+                                  show_name: false
+                                  state:
+                                    - value: 'Morning'
+                                      icon: mdi:weather-sunset-up
+                                      color: rgb(169,169,169)
+                                    - value: 'Day'
+                                      icon: mdi:weather-sunny
+                                      color: rgb(169,169,169)
+                                    - value: 'Evening'
+                                      icon: mdi:weather-sunset-down
+                                      color: rgb(169,169,169)
+                                    - value: 'Night'
+                                      icon: mdi:weather-night
+                                      color: rgb(169,169,169)
+                                  tap_action:
+                                    action: more-info
+                        deviceID:
+                          - this
+                      haptic: heavy
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - name: Cameras
+                  - label: View
+                  - entity: input_boolean.test
+                  - icon: movie
+                  - show_state: false
+                  - opacity: 0.8
+                  - tap_action:
+                      action: navigate
+                      navigation_path: /lovelace/media
+                      haptic: light
+                  - hold_action:
+                      action: navigate
+                      navigation_path: /lovelace/media
+                      haptic: light
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - name: Bike
+                  - label: View
+                  - entity: input_select.ebike_charger_status
+                  - icon: bike
+                  - show_state: true
+                  - show_label: false
+                  - opacity: 0.8
+                  - tap_action:
+                      action: more-info
+
+          - type: custom:krisinfo-card
+            entity: sensor.krisinformation_stockholm
+            only_alerts: true
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: custom:bignumber-card
+                    title: Downstairs litterbox
+                    entity: counter.litterbox_downstairs_visits
+                    scale: 30px
+                    from: bottom
+                    min: 0
+                    max: 10
+                    severity:
+                      - value: 2
+                        style: 'var(--label-badge-green)'
+                      - value: 3
+                        style: 'var(--label-badge-yellow)'
+                      - value: 4
+                        style: 'orange'
+                      - value: 10
+                        style: 'var(--label-badge-red)'
+
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: custom:bignumber-card
+                    title: Upstairs litterbox
+                    entity: counter.litterbox_upstairs_visits
+                    scale: 30px
+                    min: 0
+                    max: 10
+                    from: bottom
+                    severity:
+                      - value: 2
+                        style: 'var(--label-badge-green)'
+                      - value: 3
+                        style: 'var(--label-badge-yellow)'
+                      - value: 4
+                        style: 'orange'
+                      - value: 10
+                        style: 'var(--label-badge-red)'
+
+          - !include notifications/notifications.yaml
+
+          - break
+          - type: vertical-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                cards:
+                - type: entity-filter
+                  show_empty: false
+                  entities:
+                    - sensor.kitchen_sink
+                    - entity: binary_sensor.upstairs_hallway_smoke_alarm
+                      icon: bha:smoke-detector
+                    - entity: binary_sensor.dining_room_smoke_alarm
+                      icon: bha:smoke-detector
+                    - entity: binary_sensor.walk_in_closet_smoke_alarm
+                      icon: bha:smoke-detector
+                  state_filter:
+                    - 'Open'
+                    - 'Movement detected'
+                    - 'Leaking'
+                    - 'Unlocked'
+                    - 'on'
+                    # - 'Unknown'
+                  card: 
+                    type: glance
+                    show_state: false
+              - type: "custom:atomic-calendar"
+                title: "Calendar"
+                hoursFormat: 24h
+                entities:
+                  - entity: calendar.isabella_alstrom
+                dateSize: 120
+                titleSize: 130
+              - type: 'custom:home-feed-card'
+                title: Home Feed
+                entities:
+                  - sensor.front_door
+                  - sensor.back_door
+                  - sensor.yard_door
+                  - sensor.balcony_door
+                  - sensor.dining_room_window
+                  - sensor.bedroom_window
+                  - sensor.bedroom_door
+                  - entity: sensor.living_room_axis_movement
+                    name: Living Room Left
+                    secondary_info: last-changed
+                  - entity: sensor.living_room_axis_movement_2
+                    name: Living Room Right
+                    secondary_info: last-changed
+                  - sensor.passage_movement
+                  - entity: sensor.upstairs_hallway_movement
+                    name: Stairs
+                  - entity: sensor.stefans_office_movement
+                    name: Stefans Office
+                  - entity: switch.bike_charger
+                    name: E-bike charger
+                    include_history: true
+                  - entity: input_select.dryer_status
+                    name: Dryer
+                    icon: mdi:tumble-dryer
+                    include_history: true
+                  - entity: input_select.washing_machine_status
+                    name: Washer
+                    icon: mdi:washing-machine
+                    include_history: true
+          - break
+          - type: vertical-stack
+            cards:
+              - type: custom:grocy-chores-card
+                title: All chores
+                # show_quantity: 7
+                # show_days: 7
+                entity: sensor.grocy
+
+        style: |
+          .column {
+            margin: 25px;
+          }

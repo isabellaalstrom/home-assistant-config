@@ -1,0 +1,167 @@
+type: vertical-stack
+cards:
+  # - type: custom:decluttering-card
+  #   template: header_text
+  #   variables:
+  #     - content: '##### Notifications and Events'
+
+# error - red
+
+  # - type: conditional
+  #   conditions:
+  #     - entity: binary_sensor.remote_ui
+  #       state_not: 'on'
+  #   card:
+  #     type: custom:decluttering-card
+  #     template: notification_card
+  #     variables:
+  #       - icon: alert
+  #       - color: rgba(255, 0, 0, 0.5)
+  #       - content: 'Remote connection till NabuCasa är nere'
+
+  - type: conditional
+    conditions:
+      - entity: sensor.krisinformation_stockholm
+        state: 'Alert'
+    card:
+      type: custom:decluttering-card
+      template: notification_card
+      variables:
+        - color: rgba(255, 0, 0, 0.5)
+        - icon: alert
+        - content: 'VMA in Stockholm: https://www.krisinformation.se/'
+
+
+  # - type: conditional
+  #   conditions:
+  #     - entity: sensor.all_lights_check
+  #       state_not: '0'
+  #   card:
+  #     type: custom:decluttering-card
+  #     template: notification_card
+  #     variables:
+  #       - color: rgba(255, 0, 0, 0.5)
+  #       - icon: alert
+  #       - content: 'En lampa är unavailable'
+
+  # - type: conditional
+  #   conditions:
+  #     - entity: sensor.frontdoor
+  #       state_not: 'Stängt'
+  #   card:
+  #     type: custom:decluttering-card
+  #     template: notification_card
+  #     variables:
+  #       - color: rgba(255, 0, 0, 0.5)
+  #       - content: Ytterdörren är öppen!
+
+  - type: conditional
+    conditions:
+      - entity: vacuum.roborock
+        state: 'error'
+    card:
+      type: custom:decluttering-card
+      template: notification_card
+      variables:
+        - color: rgba(255, 0, 0, 0.5)
+        - icon: robot-vacuum
+        - content: Roborock has an error!
+
+
+# # Gula
+
+
+#   - type: conditional
+#     conditions:
+#       - entity: sensor.nr_open_doors_and_windows
+#         state_not: '0'
+#     card:
+#       type: custom:decluttering-card
+#       template: notification_card
+#       variables:
+#         - color: rgb(251, 210, 41)
+#         - icon: alert-circle-outline
+#         - content: '[[ sensor.nr_open_doors_and_windows.state ]] st dörrar/Fönster är öppna'
+
+  - type: conditional
+    conditions:
+      - entity: sensor.hacs
+        state_not: '0'
+    card:
+      type: custom:decluttering-card
+      template: notification_card
+      variables:
+        - color: rgb(251, 210, 41)
+        - icon: home-assistant
+        - content: '[[ sensor.hacs.state ]] updates in HACS'
+
+#   - type: conditional
+#     conditions:
+#       - entity: input_boolean.hass_update
+#         state: 'on'
+#     card:
+#       type: custom:decluttering-card
+#       template: notification_card
+#       variables:
+#         - color: rgb(251, 210, 41)
+#         - icon: home-assistant
+#         - content: Home Assistant version [[ sensor.ha_latest_version.state ]] är nu tillgänglig
+
+#   - type: conditional
+#     conditions:
+#       - entity: sensor.potential_breaking_changes
+#         state_not: '0'
+#     card:
+#       type: custom:decluttering-card
+#       template: notification_card
+#       variables:
+#         - color: rgba(255, 0, 0, 0.5)
+#         - icon: home-assistant
+#         - content: Det finns potentiella breaking changes
+
+
+#   - type: conditional
+#     conditions:
+#       - entity: plant.tomaten
+#         state: 'problem'
+#     card:
+#       type: custom:decluttering-card
+#       template: notification_card
+#       variables:
+#         - color: rgb(251, 210, 41)
+#         - icon: alert-circle-outline
+#         - content: 'Det är något problem med tomatblomman'
+
+
+# ## Gröna
+
+  - type: conditional
+    conditions:
+      - entity: vacuum.roborock
+        state: 'cleaning'
+    card:
+      type: custom:decluttering-card
+      template: notification_card
+      variables:
+        - color: rgba(0, 255, 0, 0.5)
+        - icon: robot-vacuum
+        - content: 'Roborock has vacuumed [[ vacuum.roborock.attributes.cleaned_area ]]m² in [[ vacuum.roborock.attributes.cleaning_time ]] minutes'
+
+# #  - type: conditional
+# #    conditions:
+# #      - entity: sensor.time_at_day
+# #        state: 'natt'
+# #    card:
+# #      type: custom:decluttering-card
+# #      template: notification_card
+# #      variables:
+# #        - color: rgba(0, 255, 0, 0.5)
+# #        - icon: robot-vacuum
+# #        - content: 'Det är [[ sensor.dark_sky_summary.state ]] och [[ sensor.temp_ute_filtrerad.state ]] grader i Mölnlycke. Prognosen för idag är [[ sensor.dark_sky_hourly_summary.state ]], som varmast kommer det bli [[ sensor.dark_sky_daytime_high_temperature_0d.state ]] grader och som lägst [[ sensor.dark_sky_overnight_low_temperature_0d.state ]] grader.'
+
+
+
+
+
+
+# #Det är [[ sensor.dark_sky_summary.state ]] och [[ states.sensor.temp_ute_filtrerad.state|round ]] grader i Mölnlycke. Prognosen för idag är [[ sensor.dark_sky_hourly_summary.state|replace(".", "") ]], som varmast kommer det bli [[ sensor.dark_sky_daytime_high_temperature_0d.state|round ]] grader och som lägst [[ sensor.dark_sky_overnight_low_temperature_0d.state|round ]] grader.
