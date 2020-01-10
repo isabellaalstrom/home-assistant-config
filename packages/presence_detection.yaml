@@ -1,15 +1,15 @@
-## From https://philhawthorne.com/making-home-assistants-presence-detection-not-so-binary/
+
 homeassistant:
   customize:     
     sensor.trash:
       icon: mdi:delete
-    sensor.dining_room_stefan_iphone_7_bt:
+    sensor.dining_room_stefan_iphone_11_bt:
       source_type: bluetooth
     sensor.dining_room_isabellas_iphone_x_bt:
       source_type: bluetooth
     sensor.living_room_isabellas_iphone_x_bt:
       source_type: bluetooth
-    sensor.living_room_stefan_iphone_7_bt:
+    sensor.living_room_stefan_iphone_11_bt:
       source_type: bluetooth
 
 sensor:
@@ -44,7 +44,7 @@ sensor:
       not_home
      {% endif %}
     json_attributes_topic: 'monitor/dining_room/stefan'
-    name: dining_room_stefan_iphone_7_bt
+    name: dining_room_stefan_iphone_11_bt
 
   - platform: mqtt
     state_topic: 'monitor/living_room/stefan'
@@ -55,7 +55,7 @@ sensor:
       not_home
      {% endif %}
     json_attributes_topic: 'monitor/living_room/stefan'
-    name: living_room_stefan_iphone_7_bt
+    name: living_room_stefan_iphone_11_bt
 
   - platform: mqtt
     state_topic: 'monitor/dining_room/trash'
@@ -80,33 +80,19 @@ group:
   persons:
     view: no
     entities:
-      - device_tracker.isabellas_iphone_x
-      - device_tracker.isabellas_iphone_x_wifi
-      - sensor.isabellas_iphone_x_bt
-      - device_tracker.stefan_iphone_7_wifi
-      - device_tracker.stefan_iphone_7
-      - sensor.stefan_iphone_7_bt
+      - person.isa
+      - person.stefan
       
   isabella:
     name: Isabella
     entities:
       - device_tracker.isabellas_iphone_x
       - device_tracker.isabellas_iphone_x_wifi
-      - sensor.isabellas_iphone_x_bt
   stefan:
     name: Stefan
     entities:
-      - device_tracker.stefan_iphone_7_wifi
-      - device_tracker.stefan_iphone_7
-      - sensor.stefan_iphone_7_bt
-   
-input_boolean:
-  isa_home:
-    name: Isa Homekit
-    # icon: mdi:
-  stefan_home:
-    name: Stefan Homekit
-    # icon: mdi:
+      - device_tracker.igrims
+      - device_tracker.igrims_3
 
 proximity:
   home_isa: 
@@ -118,7 +104,7 @@ proximity:
   home_stefan: 
     zone: home
     devices:
-      - device_tracker.stefan_iphone_7
+      - device_tracker.igrims_3
     tolerance: 50
     unit_of_measurement: km
 
@@ -151,7 +137,7 @@ automation:
       - condition: template
         value_template: '{{ states.proximity.home_isa.attributes.dir_of_travel == "towards" }}'
     action:
-      - service: notify.ios_isabellas_iphone_x
+      - service: notify.mobile_app_isabella_s_iphone_x
         data_template:
           title: "{{ trigger.to_state.name | title }}"
           message: "{{ trigger.to_state.state }}"
