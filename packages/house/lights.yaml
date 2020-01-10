@@ -99,6 +99,13 @@ scene:
         state: on
         brightness: 50
         transition: 30
+      light.living_room_lightstrip:
+        state: on
+        transition: 30
+
+  # - name: Goodnight Lights
+  #   entities:
+      
 
   - name: Dark Lights On
     entities:
@@ -131,43 +138,43 @@ scene:
       light.outdoor_hanging_lights: off
       light.outdoor_front_hanging_lights: off
 
-  - name: Evening Lights
-    entities:
-      light.living_room_ceiling_light_level:
-        state: on
-        brightness_pct: 50
-      light.passage_ceiling_spotlights_level:
-        state: on
-        brightness_pct: 20
-      light.upstairs_hallway_ceiling_light_level:
-        state: on
-        brightness_pct: 20
-      light.floorlamp_uplight:
-        state: on
-        brightness_pct: 50
+  # - name: Evening Lights
+  #   entities:
+  #     light.living_room_ceiling_light_level:
+  #       state: on
+  #       brightness_pct: 50
+  #     light.passage_ceiling_spotlights_level:
+  #       state: on
+  #       brightness_pct: 20
+  #     light.upstairs_hallway_ceiling_light_level:
+  #       state: on
+  #       brightness_pct: 20
+  #     light.floorlamp_uplight:
+  #       state: on
+  #       brightness_pct: 50
       
-  - name: Ceiling lights
-    entities:
-      light.living_room_ceiling_light_level:
-        state: on
-        brightness: 50
-        transition: 30
-      light.living_room_spotlights_level:
-        state: on
-        brightness: 30
-        transition: 30
-      light.passage_ceiling_spotlights_level:
-        state: on
-        brightness: 50
-        transition: 30
-      light.upstairs_hallway_ceiling_light_level:
-        state: on
-        brightness: 50
-        transition: 30
-      light.dining_room_ceiling_light_level:
-        state: on
-        brightness: 50
-        transition: 30
+  # - name: Ceiling lights
+  #   entities:
+  #     light.living_room_ceiling_light_level:
+  #       state: on
+  #       brightness: 50
+  #       transition: 30
+  #     light.living_room_spotlights_level:
+  #       state: on
+  #       brightness: 30
+  #       transition: 30
+  #     light.passage_ceiling_spotlights_level:
+  #       state: on
+  #       brightness: 50
+  #       transition: 30
+  #     light.upstairs_hallway_ceiling_light_level:
+  #       state: on
+  #       brightness: 50
+  #       transition: 30
+  #     light.dining_room_ceiling_light_level:
+  #       state: on
+  #       brightness: 50
+  #       transition: 30
         
   - name: Welcome Home
     entities:
@@ -222,6 +229,7 @@ scene:
           
 light:
   - platform: rfxtrx
+    automatic_add: False
     signal_repetitions: 5
     devices:
       0b11000273bc0cfe08010f70:
@@ -230,6 +238,13 @@ light:
         name: Outdoor front hanging lights
       0b11000261bc0cfe05010f70:
         name: Outdoor yard light net
+      0b110000037de34210000060: # Telldus round 1
+        name: Globe
+      0b110009037de3420f010f70: # Telldus round 2
+        name: Candles
+      0b11000a037de3420e010f70: # Telldus round 3
+        name: Telldus 3
+
   - platform: group
     name: Walk in closet lights
     entities:
@@ -237,14 +252,27 @@ light:
       - light.walk_in_closet_2
       - light.walk_in_closet_3
       - light.walk_in_closet_4
+
   - platform: group
     name: 'Outdoor lights'
     entities:
-      - light.outdoor_plug
+      # - light.outdoor_plug
       - light.outdoor_front_light
       - light.outdoor_yard_light
       - light.outdoor_hanging_lights
       - light.outdoor_front_hanging_lights
+
+  - platform: group
+    name: 'Outdoor Light Strings'
+    entities:
+      - light.outdoor_hanging_lights
+      - light.outdoor_front_hanging_lights
+
+  - platform: group
+    name: 'Outdoor Wall Lamps'
+    entities:
+      - light.outdoor_front_light
+      - light.outdoor_yard_light
 
   - platform: group
     name: 'Inside lights'
@@ -276,6 +304,8 @@ light:
       - light.passage_ceiling_spotlights_level
       - light.living_room_ceiling_light_level
       - light.living_room_spotlights_level
+      - light.living_room_lightstrip
+      - light.candles
 
   - platform: group
     name: 'Upstairs lights'
@@ -284,11 +314,9 @@ light:
       - light.bedside_lamp
       - light.isa_ceiling_light
       - light.walk_in_closet_lights
-      # - light.stefan_ceiling_light
-      # - light.stefan_lightstrip
       - light.upstairs_hallway_ceiling_light_level
-      # - light.gateway_light_34ce008bfc4b
 
+  # light.lights_automation
   - platform: group
     name: 'Lights automation'
     entities:
@@ -303,7 +331,7 @@ light:
       - light.floorlamp_reading_light
       - light.floorlamp_uplight
       - light.gateway_light_34ce008bfc4b
-      - light.kitchen_sink_light
       - light.stairs_lights
       - light.walk_in_closet_lights
       - light.kitchen_ceiling_spotlights_level
+      - light.living_room_lightstrip
