@@ -1,24 +1,33 @@
 resources:
   !include lovelace/resources/resources.yaml
 
-cch:
-  disable: false
-  header: true
-  menu: show
-  sidebar_swipe: true
-  notifications: show
-  voice: hide
-  options: clock
-  clock_format: 24
-  clock_date: true
-  date_locale: sv-SE
-  swipe: true
+custom_header:
+  compact_mode: true
+  hide_unused: true
+  hide_config: true
+  hidden_tab_redirect: false
+  hide_tabs: "10,11,12,13"
   exceptions:
     - conditions:
         user: dashboard
       config:
         show_tabs: 9
         kiosk_mode: true
+    - conditions:
+        media_query: "(min-width: 600px)"
+      config:
+        button_text:
+          options: '{{ hours24LZ }}:{{ minutesLZ }}<br>{{ dayNumLZ }}/{{ monthNumLZ }}'
+    - conditions:
+        user_agent: Mobile
+        media_query: "(max-width: 600px)"
+      config:
+        footer_mode: true
+        hide_tabs: "9,10,11,12,13"
+        button_icons:
+          options: mdi:dots-vertical
+        menu_hide: true
+        header_css: 'padding-bottom: 20px !important;'
 
 button_card_templates:
   !include lovelace/button_card_templates/button_card_templates.yaml
@@ -39,6 +48,10 @@ views:
   - !include lovelace/80_automations_view.yaml
   - !include lovelace/99_settings_view.yaml
   - !include lovelace/102_nest_dashboard.yaml
-  - !include lovelace/01_homekit_view.yaml
 
   - !include lovelace/media.yaml
+  - !include lovelace/isa.yaml
+  - !include lovelace/stefan.yaml
+  - !include lovelace/climate.yaml
+  - !include lovelace/surveillance.yaml
+  - !include lovelace/cats.yaml
