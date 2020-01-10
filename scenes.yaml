@@ -1,0 +1,16 @@
+- id: '1576672925628'
+  name: Evening Lights
+  entities:
+    light.floorlamp_uplight:
+      brightness: 179
+      color_temp: 366
+      state: 'on'
+    light.living_room_ceiling_light_level:
+      brightness: 100
+      state: 'on'
+    light.passage_ceiling_spotlights_level:
+      brightness: 13
+      state: 'on'
+    light.upstairs_hallway_ceiling_light_level:
+      brightness: 49
+      state: 'on'
