@@ -7,7 +7,6 @@
       - sun
       - calendar
       # - sensor
-      - device_tracker
       - group
       - switch
       - script
@@ -39,18 +38,11 @@
       - sensor.nuc_containers_active
       - sensor.last_boot
   include:
+    domains:
+      - device_tracker
+
     entities:
-      - device_tracker.desktop39i618g
-      - device_tracker.isa_addon_presence
-      - device_tracker.isabellas_iphone_x
-      - device_tracker.isabellas_iphone_x_wifi
-      - device_tracker.isa_laptop
-      - device_tracker.isa_computer
-      - device_tracker.isabellas_iphone_x_beta
-      - sensor.isabellas_iphone_x_bt
-      - sensor.stefan_iphone_7_bt
-      - device_tracker.cnstefang
-      - device_tracker.stefan_addon_presence
-      - device_tracker.stefan_iphone_7
-      - device_tracker.stefan_iphone_7_wifi
-      - device_tracker.stefan_computer
+      - sensor.dining_room_isabellas_iphone_x_bt
+      - sensor.living_room_isabellas_iphone_x_bt
+      - sensor.dining_room_stefan_iphone_11_bt
+      - sensor.living_room_stefan_iphone_11_bt

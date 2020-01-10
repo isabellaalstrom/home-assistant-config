@@ -54,6 +54,6 @@
       - sensor.stefan_iphone_7_bt
       - device_tracker.cnstefang
       - device_tracker.stefan_addon_presence
-      - device_tracker.stefan_iphone_7
-      - device_tracker.stefan_iphone_7_wifi
+      - device_tracker.igrims_3
+      - device_tracker.igrims
       - device_tracker.stefan_computer
