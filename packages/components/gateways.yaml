@@ -1,10 +1,10 @@
 zwave:
   usb_path: /dev/ttyACM0
   
-deconz:
-  host: !secret deconz_ip
-  port: !secret deconz_port
-  api_key: !secret deconz_api
+# deconz:
+#   host: !secret deconz_ip
+#   port: !secret deconz_port
+#   api_key: !secret deconz_api
   
 rfxtrx:
   device: /dev/ttyUSB.RFX
