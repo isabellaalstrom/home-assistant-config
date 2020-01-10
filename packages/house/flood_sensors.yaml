@@ -29,7 +29,7 @@ alert:
     repeat: 60
     skip_first: False
     notifiers:
-      - ios_isabellas_iphone_x
+      - mobile_app_isabella_s_iphone_x
 
   kitchen_sink_flooding:
     name: The kitchen sink is leaking!
@@ -38,4 +38,4 @@ alert:
     repeat: 60
     skip_first: False
     notifiers:
-      - ios_isabellas_iphone_x
+      - mobile_app_isabella_s_iphone_x

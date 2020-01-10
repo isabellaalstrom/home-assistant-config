@@ -1,12 +1,12 @@
 homeassistant:
   customize:
-    sensor.temperature_bedroom:
+    sensor.bedroom_temperature:
       friendly_name: Bedroom
-    sensor.temperature_passage:
+    sensor.passage_temperature:
       friendly_name: Passage
-    sensor.temperature_downstairs_bathroom:
+    sensor.downstairs_bathroom_temperature:
       friendly_name: Downstairs Bathroom
-    sensor.temperature_stefan:
+    sensor.stefan_temperature:
       friendly_name: Stefans Room
 
     sensor.humidity_158d0001fd83e7:

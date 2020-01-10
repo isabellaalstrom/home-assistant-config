@@ -83,7 +83,7 @@ automation:
     initial_state: 'on'
     trigger:
       - platform: numeric_state
-        entity_id: sensor.humidity_downstairs_bathroom
+        entity_id: sensor.downstairs_bathroom_humidity
         above: 43
     condition:
       condition: and
@@ -95,7 +95,7 @@ automation:
           after: '09:00:00'
           before: '23:00:00'
     action:
-    - service: notify.ios_isabellas_iphone_x
+    - service: notify.mobile_app_isabella_s_iphone_x
       data:
         title: 'High humidity in downstairs bathroom'
         message: 'Turn on the fan'

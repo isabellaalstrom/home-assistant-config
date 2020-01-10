@@ -44,4 +44,4 @@ alert:
     can_acknowledge: True
     skip_first: True
     notifiers:
-      - ios_isabellas_iphone_x
+      - mobile_app_isabella_s_iphone_x

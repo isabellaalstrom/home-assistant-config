@@ -85,7 +85,7 @@ sensor:
 #       for:
 #         minutes: 1
 #     action:
-#       - service: notify.ios_isabellas_iphone_x
+#       - service: notify.mobile_app_isabella_s_iphone_x
 #         data:
 #           title: 'Lock open'
 #           message: 'Yard door'

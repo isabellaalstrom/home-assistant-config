@@ -1,88 +1,88 @@
 
-sensor:
-  - platform: min_max
-    name: Greenhouse temperature
-    type: mean
-    entity_ids:
-      - sensor.small_chili_temperature
-      - sensor.big_chili_temperature
-      - sensor.herbs_temperature
+# sensor:
+#   - platform: min_max
+#     name: Greenhouse temperature
+#     type: mean
+#     entity_ids:
+#       - sensor.small_chili_temperature
+#       - sensor.big_chili_temperature
+#       - sensor.herbs_temperature
 
-      ## Mi flora 1
-  - platform: miflora
-    mac: "C4:7C:8D:60:A5:B3"
-    name: Mint
-    median: 3
-    force_update: false
-    monitored_conditions:
-      - temperature
-      - light
-      - moisture
-      - conductivity
-      - battery
+#       ## Mi flora 1
+#   - platform: miflora
+#     mac: "C4:7C:8D:60:A5:B3"
+#     name: Mint
+#     median: 3
+#     force_update: false
+#     monitored_conditions:
+#       - temperature
+#       - light
+#       - moisture
+#       - conductivity
+#       - battery
 
-      ## Mi flora 2
-  - platform: miflora
-    mac: "C4:7C:8D:63:13:9B"
-    name: Basil
-    median: 3
-    force_update: false
-    monitored_conditions:
-      - temperature
-      - light
-      - moisture
-      - conductivity
-      - battery
+#       ## Mi flora 2
+#   - platform: miflora
+#     mac: "C4:7C:8D:63:13:9B"
+#     name: Basil
+#     median: 3
+#     force_update: false
+#     monitored_conditions:
+#       - temperature
+#       - light
+#       - moisture
+#       - conductivity
+#       - battery
 
-      ## Mi flora 3
-  - platform: miflora
-    mac: "C4:7C:8D:65:C3:A6"
-    name: Tomato
-    median: 3
-    force_update: false
-    monitored_conditions:
-      - temperature
-      - light
-      - moisture
-      - conductivity
-      - battery
+#       ## Mi flora 3
+#   - platform: miflora
+#     mac: "C4:7C:8D:65:C3:A6"
+#     name: Tomato
+#     median: 3
+#     force_update: false
+#     monitored_conditions:
+#       - temperature
+#       - light
+#       - moisture
+#       - conductivity
+#       - battery
 
-plant:
-  basil:
-    sensors:
-      moisture: sensor.basil_moisture
-      battery: sensor.basil_battery
-      temperature: sensor.basil_temperature
-      conductivity: sensor.basil_conductivity
-      brightness: sensor.basil_light_intensity
-    min_moisture: 20
-    max_moisture: 60
-    min_battery: 10
-    min_conductivity: 500
-    max_conductivity: 3000
+# plant:
+#   basil:
+#     sensors:
+#       moisture: sensor.basil_moisture
+#       battery: sensor.basil_battery
+#       temperature: sensor.basil_temperature
+#       conductivity: sensor.basil_conductivity
+#       brightness: sensor.basil_light_intensity
+#     min_moisture: 20
+#     max_moisture: 60
+#     min_battery: 10
+#     min_conductivity: 500
+#     max_conductivity: 3000
 
-  mint:
-    sensors:
-      moisture: sensor.mint_moisture
-      battery: sensor.mint_battery
-      temperature: sensor.mint_temperature
-      conductivity: sensor.mint_conductivity
-      brightness: sensor.mint_light_intensity
-    min_moisture: 20
-    max_moisture: 60
-    min_battery: 10
-    min_conductivity: 500
-    max_conductivity: 3000 
+#   mint:
+#     sensors:
+#       moisture: sensor.mint_moisture
+#       battery: sensor.mint_battery
+#       temperature: sensor.mint_temperature
+#       conductivity: sensor.mint_conductivity
+#       brightness: sensor.mint_light_intensity
+#     min_moisture: 20
+#     max_moisture: 60
+#     min_battery: 10
+#     min_conductivity: 500
+#     max_conductivity: 3000 
 
-  tomato:
-    sensors:
-      moisture: sensor.tomato_moisture
-      battery: sensor.tomato_battery
-      temperature: sensor.tomato_temperature
-      conductivity: sensor.tomato_conductivity
-      brightness: sensor.tomato_light_intensity
-    min_moisture: 20
-    max_moisture: 60
-    min_battery: 10
-    min_conductivity: 500
-    max_conductivity: 3000      
+#   tomato:
+#     sensors:
+#       moisture: sensor.tomato_moisture
+#       battery: sensor.tomato_battery
+#       temperature: sensor.tomato_temperature
+#       conductivity: sensor.tomato_conductivity
+#       brightness: sensor.tomato_light_intensity
+#     min_moisture: 20
+#     max_moisture: 60
+#     min_battery: 10
+#     min_conductivity: 500
+#     max_conductivity: 3000      

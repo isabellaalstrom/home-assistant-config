@@ -24,48 +24,48 @@ input_boolean:
 
 
 
-automation:
-- alias: '[House] Guest Mode On By Presence'
-  initial_state: 'on'
-  trigger:
-    - platform: state
-      entity_id: device_tracker.naprapajsvenzon, device_tracker.marek, device_tracker.anette, device_tracker.mareksiphonex, device_tracker.00d9d1f2c9c7 #emelie
-      to: home
-  action:
-    - service: homeassistant.turn_on
-      entity_id: input_boolean.guest_mode
-    - service: notify.ios_isabellas_iphone_x
-      data_template:
-        title: 'You have a guest!'
-        message: >
-          '{{ trigger.to_state.name }} is here'
+# automation:
+# - alias: '[House] Guest Mode On By Presence'
+#   initial_state: 'on'
+#   trigger:
+#     - platform: state
+#       entity_id: device_tracker.naprapajsvenzon, device_tracker.marek, device_tracker.anette, device_tracker.mareksiphonex, device_tracker.00d9d1f2c9c7 #emelie
+#       to: home
+#   action:
+#     - service: homeassistant.turn_on
+#       entity_id: input_boolean.guest_mode
+#     - service: notify.mobile_app_isabella_s_iphone_x
+#       data_template:
+#         title: 'You have a guest!'
+#         message: >
+#           '{{ trigger.to_state.name }} is here'
 
-- alias: '[House] Guest Mode On'
-  initial_state: 'on'
-  trigger:
-      - platform: state
-        entity_id: input_boolean.guest_mode
-        to: 'on'
-  action:
-    - service: automation.turn_off
-      entity_id: automation.ring_doorbell_motion_lights
-    - service: notify.ios_isabellas_iphone_x
-      data_template:
-        title: 'Guest mode on'
-        message: >
-          'Some automations turned off'
+# - alias: '[House] Guest Mode On'
+#   initial_state: 'on'
+#   trigger:
+#       - platform: state
+#         entity_id: input_boolean.guest_mode
+#         to: 'on'
+#   action:
+#     - service: automation.turn_off
+#       entity_id: automation.ring_doorbell_motion_lights
+#     - service: notify.mobile_app_isabella_s_iphone_x
+#       data_template:
+#         title: 'Guest mode on'
+#         message: >
+#           'Some automations turned off'
 
-- alias: '[House] Guest Mode Off'
-  initial_state: 'on'
-  trigger:
-      - platform: state
-        entity_id: input_boolean.guest_mode
-        to: 'off'
-  action:
-    - service: automation.turn_on
-      entity_id: automation.ring_doorbell_motion_lights
-    - service: notify.ios_isabellas_iphone_x
-      data_template:
-        title: 'Guest mode off'
-        message: >
-          'Automations turned on again'
+# - alias: '[House] Guest Mode Off'
+#   initial_state: 'on'
+#   trigger:
+#       - platform: state
+#         entity_id: input_boolean.guest_mode
+#         to: 'off'
+#   action:
+#     - service: automation.turn_on
+#       entity_id: automation.ring_doorbell_motion_lights
+#     - service: notify.mobile_app_isabella_s_iphone_x
+#       data_template:
+#         title: 'Guest mode off'
+#         message: >
+#           'Automations turned on again'

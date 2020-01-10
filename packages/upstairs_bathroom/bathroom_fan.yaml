@@ -1,0 +1,42 @@
+# homeassistant:
+#   customize:
+#     sensor.fan_temperature:
+#       homebridge_visible: true
+#     sensor.fan_light:
+#       icon: mdi:theme-light-dark
+#     sensor.fan_humidity:
+#       icon: mdi:water-percent   
+      
+# sensor:
+#   - platform: template
+#     sensors:
+#       fan_humidity:
+#         value_template: "{% set list = states.sensor.fanSensors.state.split(' ') %} {{ list[0] }}"
+#         friendly_name: 'Bath Fan Humidity'
+#       fan_temperature:
+#         value_template: "{% set list = states.sensor.fanSensors.state.split(' ') %} {{ list[1] }}"
+#         friendly_name: 'Bath Fan Temperature'
+#         unit_of_measurement: "°C"
+#       fan_light:
+#         value_template: "{% set list = states.sensor.fanSensors.state.split(' ') %} {{ list[2] }}"
+#         friendly_name: 'Bath Fan Light'
+#       fan_speed:
+#         value_template: "{% set list = states.sensor.fanSensors.state.split(' ') %} {{ list[3] }}"
+#         friendly_name: 'Bath Fan Speed'
+#         unit_of_measurement: "RPM"
+
+#   - platform: command_line
+#     name: fanSensors
+#     command: "python3 /home/pi/pycalima-master/pycalima/read_calima_sensors.py | grep Temp | awk -F'[,=]' ' { print $2,$4,$6,$8 } '"
+#     scan_interval: 30
+
+#   # - platform: command_line
+#   #   name: Bathroom fan temperature
+#   #   command: "python3 /home/pi/pycalima-master/pycalima/read_calima_sensors.py | grep Temp | awk -F'[,=]' ' { print $4 } '"
+#   #   unit_of_measurement: 'C'
+#   #   scan_interval: 30
+
+#   # dessa kommandon manipulerar output från pythonscriptet. Grep Temp tar bara med rader som innehåller Temp. 
+#   # awk använder jag sedan för att plocka ut vissa fält i den rader som är separerade med antingen = eller ,(komma). 
+#   # Och sedan skriver jag ut dessa i en viss ordning ($1 t.ex. är fält nr 1). 
+#   # Lite svårt att förklara såhär, finns bra introduktioner till scriptning om man googlar (bash scripting).

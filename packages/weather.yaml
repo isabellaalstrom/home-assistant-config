@@ -27,9 +27,12 @@ sensor:
 camera:
   - platform: generic
     name: "Fisksätra meteogram"
-    still_image_url: https://www.yr.no/place/Sweden/Stockholm/Nacka_Kommun/meteogram.svg
+    still_image_url: https://www.yr.no/place/Sweden/Stockholm/Nacka_Kommun/avansert_meteogram.svg
     content_type: 'image/svg+xml'
   - platform: generic
     name: "Stockholm meteogram"
-    still_image_url: https://www.yr.no/place/Sweden/Stockholm/Stockholm/meteogram.svg
+    still_image_url: https://www.yr.no/place/Sweden/Stockholm/Stockholm/avansert_meteogram.svg
     content_type: 'image/svg+xml'
+
+
+# sensor smhialert found in packages/custom_components/

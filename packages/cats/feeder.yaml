@@ -1,18 +1,18 @@
-input_number:
-  cat_feeder_stepper_control:
-    name: Cat Feeder Stepper Control
-    initial: 0
-    min: -1000
-    max: 1000
-    step: 1
-    mode: slider
+# input_number:
+#   cat_feeder_stepper_control:
+#     name: Cat Feeder Stepper Control
+#     initial: 0
+#     min: -1000
+#     max: 1000
+#     step: 1
+#     mode: slider
 
-automation:
-  - alias: Write Stepper Value to ESP
-    trigger:
-      platform: state
-      entity_id: input_number.cat_feeder_stepper_control
-    action:
-      - service: esphome.cat_feeder_control_stepper
-        data_template:
-          target: '{{ trigger.to_state.state | int }}'
+# automation:
+#   - alias: Write Stepper Value to ESP
+#     trigger:
+#       platform: state
+#       entity_id: input_number.cat_feeder_stepper_control
+#     action:
+#       - service: esphome.cat_feeder_control_stepper
+#         data_template:
+#           target: '{{ trigger.to_state.state | int }}'

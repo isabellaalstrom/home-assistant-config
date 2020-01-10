@@ -1,21 +1,21 @@
-light:
-  - platform: template
-    lights:
-      candles:
-        friendly_name: "Candles"
-        turn_on:
-          service: broadlink.send
-          data:
-            host: 192.168.1.90
-            packet:
-              - 'JgBYAAABJ5QTEhMSExITEhMSExITEhMSEzcSNxM2EzcSNxM2EjgSNxM2ExITEhMSExITExITEhMSExI3EzYTNhM3EzYTNhM3EwAFHgABJUsSAAxSAAEnShIADQU'
+# light:
+#   - platform: template
+#     lights:
+#       candles:
+#         friendly_name: "Candles"
+#         turn_on:
+#           service: broadlink.send
+#           data:
+#             host: 192.168.1.90
+#             packet:
+#               - 'JgBYAAABJ5QTEhMSExITEhMSExITEhMSEzcSNxM2EzcSNxM2EjgSNxM2ExITEhMSExITExITEhMSExI3EzYTNhM3EzYTNhM3EwAFHgABJUsSAAxSAAEnShIADQU'
 
-        turn_off:
-          service: broadlink.send
-          data:
-            host: 192.168.1.90
-            packet:
-              - 'JgBQAAABJpQSFBEUERQSExITExISExITEjcSOBI1FDcSOBI3EjcSOBM2FBEUNhMSEhMUERITFBESExI4ExITNhQ1FDYTNhI3FAAFHgABJ0kTAA0FAAAAAAAAAAA'
+#         turn_off:
+#           service: broadlink.send
+#           data:
+#             host: 192.168.1.90
+#             packet:
+#               - 'JgBQAAABJpQSFBEUERQSExITExISExITEjcSOBI1FDcSOBI3EjcSOBM2FBEUNhMSEhMUERITFBESExI4ExITNhQ1FDYTNhI3FAAFHgABJ0kTAA0FAAAAAAAAAAA'
 
 
 switch:
@@ -60,21 +60,21 @@ switch:
 
 
 script:
-  ac_off:
-    sequence:
-      - service: broadlink.send
-        data:
-          host: 192.168.1.90
-          packet:
-            - 'JgA2AWw4DQ8NDwwPDQ8NDwwPDSoNDw0ODQ8NDwwPDQ8MDw0PDQ8MDw0PDSoNDg0rDQ4NDw0PDA8NDwwPDQ8NDwwPDQ8MKw0ODSsMKw0qDQ8MKw0qDQ8MKw0ODSoNDw0PDA8NDw0ODQ8NKg0rDA8NDwwrDQ8MKwwPDQ8NKg0qDQ8MKw0qDSoNKg0rDA8NDw0ODQ8NDwwPDQ8NDg0PDQ8MDw0qDSsNDg0PDQ4NDw0PDSoNKg0PDA8NDwwrDQ8MKwwrDSoNDw0qDQ4NKwwPDQ8NDg0PDQ8MDw0qDQ8NDw0ODQ8NDg0PDQ8MDw0PDA8NDw0PDA8NDw0ODQ8NDg0PDQ8MDw0PDQ4NDw0PDQ4NDw0ODQ8NDw0ODQ8NDg0PDQ8NDg0PDQ4NDw0PDQ4NDw0ODQ8NKg0qDSsMDw0ADQUAAA=='
+#   ac_off:
+#     sequence:
+#       - service: broadlink.send
+#         data:
+#           host: 192.168.1.90
+#           packet:
+#             - 'JgA2AWw4DQ8NDwwPDQ8NDwwPDSoNDw0ODQ8NDwwPDQ8MDw0PDQ8MDw0PDSoNDg0rDQ4NDw0PDA8NDwwPDQ8NDwwPDQ8MKw0ODSsMKw0qDQ8MKw0qDQ8MKw0ODSoNDw0PDA8NDw0ODQ8NKg0rDA8NDwwrDQ8MKwwPDQ8NKg0qDQ8MKw0qDSoNKg0rDA8NDw0ODQ8NDwwPDQ8NDg0PDQ8MDw0qDSsNDg0PDQ4NDw0PDSoNKg0PDA8NDwwrDQ8MKwwrDSoNDw0qDQ4NKwwPDQ8NDg0PDQ8MDw0qDQ8NDw0ODQ8NDg0PDQ8MDw0PDA8NDw0PDA8NDw0ODQ8NDg0PDQ8MDw0PDQ4NDw0PDQ4NDw0ODQ8NDw0ODQ8NDg0PDQ8NDg0PDQ4NDw0PDQ4NDw0ODQ8NKg0qDSsMDw0ADQUAAA=='
  
-  ac_on:
-    sequence:
-      - service: broadlink.send
-        data:
-          host: 192.168.1.90
-          packet:
-            - 'JgA2AW04DQ8MDw0PDQ4NDw0PDCsNDg0PDQ8MDw0PDQ4NDw0PDQ4NDw0ODSsMDw0rDA8NDwwPDQ8NDg0PDQ8MDw0PDQ4NKg0PDSoNKwwrDQ4NKg0rDQ4NDw0qDSoNDw0ODQ8NDwwPDQ8NKg0qDQ8NDg0rDA8NKg0rDA8NKg0rDA8NKg0qDSsNKg0qDQ8NDg0PDSoNDw0ODQ8NDg0PDQ8MDw0qDSsMDw0PDQ8MDw0PDCsNKg0PDA8NDwwrDQ8MKw0qDSoNDw0qDQ8MKwwPDQ8NDwwPDQ8NDg0rDA8NDwwPDQ8NDwwPDQ8MDw0PDQ4NDw0PDA8NDw0ODQ8NDwwPDQ8NDg0PDQ8MDw0PDQ4NDw0PDA8NDw0ODQ8NDwwPDQ8NDg0PDQ8MDw0PDQ4NDw0qDQ8NKg0qDSoNDw0ADQUAAA=='
+#   ac_on:
+#     sequence:
+#       - service: broadlink.send
+#         data:
+#           host: 192.168.1.90
+#           packet:
+#             - 'JgA2AW04DQ8MDw0PDQ4NDw0PDCsNDg0PDQ8MDw0PDQ4NDw0PDQ4NDw0ODSsMDw0rDA8NDwwPDQ8NDg0PDQ8MDw0PDQ4NKg0PDSoNKwwrDQ4NKg0rDQ4NDw0qDSoNDw0ODQ8NDwwPDQ8NKg0qDQ8NDg0rDA8NKg0rDA8NKg0rDA8NKg0qDSsNKg0qDQ8NDg0PDSoNDw0ODQ8NDg0PDQ8MDw0qDSsMDw0PDQ8MDw0PDCsNKg0PDA8NDwwrDQ8MKw0qDSoNDw0qDQ8MKwwPDQ8NDwwPDQ8NDg0rDA8NDwwPDQ8NDwwPDQ8MDw0PDQ4NDw0PDA8NDw0ODQ8NDwwPDQ8NDg0PDQ8MDw0PDQ4NDw0PDA8NDw0ODQ8NDwwPDQ8NDg0PDQ8MDw0PDQ4NDw0qDQ8NKg0qDSoNDw0ADQUAAA=='
 
   media_system_on_off:
     sequence:

@@ -45,7 +45,7 @@ automation:
               entity_id: person.stefan
               state: 'Just left'
     action:
-      - service: notify.ios_isabellas_iphone_x
+      - service: notify.mobile_app_isabella_s_iphone_x
         data:
           title: 'Home alone!'
           message: 'Turn on mode?'
@@ -84,7 +84,7 @@ automation:
     action:
       - service: homeassistant.turn_off
         entity_id: input_boolean.isa_mode
-      - service: notify.ios_isabellas_iphone_x
+      - service: notify.mobile_app_isabella_s_iphone_x
         data:
           title: 'No more alone time'
           message: 'Stefan is home'

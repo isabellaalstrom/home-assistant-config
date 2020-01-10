@@ -17,25 +17,25 @@ automation:
       entity_id: binary_sensor.smoke_sensor_158d0001d37bdd, binary_sensor.dining_room_smoke_alarm, binary_sensor.smoke_sensor_158d0001d37c82
       to: 'on'
   action:
-    - service: notify.ios_isabellas_iphone_x
+    - service: notify.mobile_app_isabella_s_iphone_x
       data_template:
         title: '{{ trigger.to_state.name }} triggered'
         message: >
-          {% if is_state('group.persons', 'home') %}{% if is_state('device_tracker.stefan', 'Home') %}Stefan is {{states.device_tracker.stefan.state}} {% endif %}{% if is_state('device_tracker.isabella', 'Home')%}Isabella is {{states.device_tracker.isabella.state}}{% endif %}{% else %}No one is home.
+          {% if is_state('group.persons', 'home') %}{% if is_state('person.stefan', 'Home') %}Stefan is {{states.person.stefan.state}} {% endif %}{% if is_state('person.isabella', 'Home')%}Isabella is {{states.person.isabella.state}}{% endif %}{% else %}No one is home.
           {% endif %}
-          Passage: {{states.sensor.temperature_passage.state_with_unit}}
-          Bathroom: {{states.sensor.temperature_downstairs_bathroom.state}}
-          Stefan: {{states.sensor.temperature_stefan.state}}
-          Bedroom: {{states.sensor.temperature_bedroom.state}}
+          Passage: {{states.sensor.passage_temperature.state_with_unit}}
+          Bathroom: {{states.sensor.downstairs_bathroom_temperature.state}}
+          Stefan: {{states.sensor.stefan_temperature.state}}
+          Bedroom: {{states.sensor.bedroom_temperature.state}}
 
 - alias: '[Temperature] High Temperatures'
   initial_state: 'on'
   trigger:
     - platform: numeric_state
-      entity_id: sensor.temperature_passage, sensor.temperature_downstairs_bathroom, sensor.temperature_stefan, sensor.temperature_bedroom
+      entity_id: sensor.passage_temperature, sensor.downstairs_bathroom_temperature, sensor.stefan_temperature, sensor.bedroom_temperature
       above: 35.0
   action:
-    - service: notify.ios_isabellas_iphone_x
+    - service: notify.mobile_app_isabella_s_iphone_x
       data_template:
         title: '{{ trigger.to_state.name }}'
         message: '{{ trigger.to_state.state }}'
