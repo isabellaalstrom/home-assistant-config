@@ -4,6 +4,8 @@ input_boolean:
     name: Presence notify
   ad_camera_motion_notification:
     name: Camera motion notify
+  ad_camera_motion_snapshots:
+    name: Camera motion snapshots
   ad_air_cleaner_schedule:
     name: Air cleaner schedule
   ad_bike_charger:
@@ -12,3 +14,19 @@ input_boolean:
     name: Medicine Reminder
   ad_trash:
     name: Trash app
+  ad_light_schedule:
+    name: Light Schedule
+  ad_sensor_lights:
+    name: Sensor Lights
+  ad_laundry:
+    name: Laundry
+  ad_litterboxes:
+    name: Litterboxes
+  ad_mailbox:
+    name: Mailbox
+  ad_alarm:
+    name: Alarm
+  ad_summaries:
+    name: Summary Notifications
+  ad_vacuuming:
+    name: Vacuuming
