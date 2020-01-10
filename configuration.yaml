@@ -6,12 +6,13 @@ homeassistant:
   unit_system: metric
   time_zone: !secret time_zone
   customize_glob: !include customglob.yaml
+  customize: !include customize.yaml
   packages: !include_dir_named packages
   auth_providers:
     - type: homeassistant
     - type: trusted_networks
       trusted_networks:
-        - !secret trusted_network_1
+        # - !secret trusted_network_1
         - !secret trusted_network_2
         - !secret trusted_network_3
         - !secret trusted_network_4
@@ -22,6 +23,7 @@ homeassistant:
   whitelist_external_dirs:
     - !secret motion_dir
     - !secret recording_dir
+
 config:
 hassio:
 system_health:
@@ -54,6 +56,9 @@ mobile_app:
 # ########################################
 # ###                GUI               ###
 # ########################################
+
+lovelace_gen:
+
 lovelace:
   mode: yaml
 
@@ -78,10 +83,24 @@ browser_mod:
   devices:
     24d2e744-aee3dfdb:
       name: Isa laptop
+      disable:
+        - light
+        - media_player
+        - sensor
     82ce1407-06ba38e8:
       name: Dashboard
+      disable:
+        - light
+        - media_player
+        - sensor
     49b3d945-27efcb05:
       name: Isa PC
+      disable:
+        - light
+        - media_player
+        - sensor
+  disable:
+    - all
       
 # ########################################
 # ###              LOGGING             ###
@@ -100,13 +119,14 @@ media_player: !include entities/media_player.yaml
 device_tracker: !include entities/device_tracker.yaml
 zone: !include_dir_merge_list zones/
 alarm_control_panel: !include resources/bwalarm/bwalarm.yaml
-
+scene: !include scenes.yaml
+script: !include scripts.yaml
+automation: !include automations.yaml
 
 # ########################################
 # ###             SERVICES             ###
 # ########################################
 sun:
-shopping_list:
 notify: !include notify/notify.yaml
 
 python_script:
