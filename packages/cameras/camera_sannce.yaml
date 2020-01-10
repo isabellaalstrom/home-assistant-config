@@ -1,12 +1,7 @@
 camera:
-  - platform: generic
+  - platform: mjpeg
     name: Hallway
-    still_image_url: !secret sannce_stream_still_image_url
-    stream_source: !secret sannce_stream_source
-binary_sensor:
-  - platform: ffmpeg_motion
-    name: Hallway motion
-    input: !secret sannce_stream_source
+    mjpeg_url: !secret sannce_url
 
 cover:
   - platform: command_line

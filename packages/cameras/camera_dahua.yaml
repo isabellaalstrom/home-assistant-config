@@ -1,0 +1,6 @@
+amcrest:
+  - host: !secret dahua_ip
+    name: Yard
+    username: !secret dahua_username
+    password: !secret dahua_password
+    resolution: high

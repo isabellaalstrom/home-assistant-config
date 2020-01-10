@@ -1,16 +1,3 @@
-homeassistant:
-  customize:
-    script.dafang_up:
-      icon: mdi:chevron-up
-    script.dafang_down:
-      icon: mdi:chevron-down
-    script.dafang_left:
-      icon: mdi:chevron-left
-    script.dafang_right:
-      icon: mdi:chevron-right
-    switch.dafang_h264_rtsp_server:
-      icon: mdi:power-standby
-      name: Dafang switch
 binary_sensor:
   - platform: ffmpeg_motion
     name: Attic motion
@@ -19,7 +6,6 @@ camera:
   - platform: generic
     name: Attic
     still_image_url: !secret dafang_stream_still_image_url
-    stream_source: !secret dafang_stream_source
     verify_ssl: false
     username: "root"
     password: !secret dafang_password

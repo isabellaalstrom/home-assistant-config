@@ -5,6 +5,13 @@ homeassistant:
 
 binary_sensor:
   - platform: ring
+  - platform: template
+    sensors:
+      ring_low_battery:
+        friendly_name: 'Ring Doorbell Low Battery'
+        entity_id: "sensor.ring_front_door_battery"
+        device_class: battery
+        value_template: "{{ states('sensor.ring_front_door_battery')|float < 20 }}"
 sensor:
   - platform: ring
   - platform: template
@@ -26,7 +33,7 @@ automation:
         entity_id: 'sensor.ring_front_door_battery'
         below: '15'
     action:
-      - service: notify.ios_isabellas_iphone_x
+      - service: notify.mobile_app_isabella_s_iphone_x
         data:
           title: 'Ring Doorbell'
           message: 'Low Battery'
