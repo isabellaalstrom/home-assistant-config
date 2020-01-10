@@ -33,3 +33,14 @@ push:
             title: 'No'
             activationMode: 'background'
 
+      - name: Alarm Triggered Sound Alarm
+        identifier: 'alarm_triggered'
+        actions:
+          - identifier: 'SOUND_ALARM'
+            title: 'Sound Alarm'
+            activationMode: 'background'
+            destructive: yes
+            authenticationRequired: true
+          - identifier: 'SILENCE_ALARM'
+            title: 'Silence Alarm'
+            activationMode: 'background'
