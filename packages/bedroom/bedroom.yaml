@@ -7,70 +7,70 @@ script:
           packet:
             - 'JgCMAJaTEzYUNhQ1FBEUERQRFBETEhM2FDYTNhQRFBEUERMSExEUERQ2ExITERQRFBEUERQREzYUERQ2EzYUNhM2FDYUNRQABgCWkxM2FDYUNRQRFBEUERQRExEUNhQ2EzYUERQRFBETERQRFBEUNhMRFBEUERQRFBEUERM2FBEUNRQ2FDYTNhQ2FDUUAA0FAAAAAAAAAAAAAAAA'
 
-automation:
-  - alias: '[Lights] Notification on window open and lights on'
-    initial_state: 'on'
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.bedroom_window
-        to: 'on'
-        for:
-          minutes: 10
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: sun.sun
-          state: below_horizon
-        - condition: or
-          conditions:
-            - condition: state
-              entity_id: light.bedroom_ceiling_light 
-              state: 'on'
-            - condition: state
-              entity_id: light.bedside_lamp
-              state: 'on'
-    action:
-      - service: notify.ios_isabellas_iphone_x
-        data:
-          title: 'Bedroom window open'
-          message: 'Do you want to turn off lights?'
-          data:
-            push:
-              badge: 0
-              category: "lights_off_bedroom"
+# automation:
+#   - alias: '[Lights] Notification on window open and lights on'
+#     initial_state: 'on'
+#     trigger:
+#       - platform: state
+#         entity_id: binary_sensor.bedroom_window
+#         to: 'on'
+#         for:
+#           minutes: 10
+#     condition:
+#       condition: and
+#       conditions:
+#         - condition: state
+#           entity_id: sun.sun
+#           state: below_horizon
+#         - condition: or
+#           conditions:
+#             - condition: state
+#               entity_id: light.bedroom_ceiling_light 
+#               state: 'on'
+#             - condition: state
+#               entity_id: light.bedside_lamp
+#               state: 'on'
+#     action:
+#       - service: notify.mobile_app_isabella_s_iphone_x
+#         data:
+#           title: 'Bedroom window open'
+#           message: 'Do you want to turn off lights?'
+#           data:
+#             push:
+#               badge: 0
+#               category: "lights_off_bedroom"
 
-  - alias: '[Lights] Lights off when bedroom window open'
-    initial_state: 'on'
-    trigger:
-      platform: event
-      event_type: ios.notification_action_fired
-      event_data:
-        actionName: LIGHTS_OFF_BEDROOM
-    action:
-      - service: light.turn_off
-        entity_id: light.bedroom_ceiling_light, light.bedside_lamp
+#   - alias: '[Lights] Lights off when bedroom window open'
+#     initial_state: 'on'
+#     trigger:
+#       platform: event
+#       event_type: ios.notification_action_fired
+#       event_data:
+#         actionName: LIGHTS_OFF_BEDROOM
+#     action:
+#       - service: light.turn_off
+#         entity_id: light.bedroom_ceiling_light, light.bedside_lamp
 
-  - alias: '[House] Notification on high temp in bedroom'
-    initial_state: 'on'
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.temperature_bedroom
-        above: 26
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: person.isa
-          state: 'Home'
-        - condition: state
-          entity_id: binary_sensor.bedroom_window
-          state: 'off'
-        - condition: time
-          after: '12:00:00'
-          before: '23:00:00'
-    action:
-    - service: notify.ios_isabellas_iphone_x
-      data:
-        title: 'Bedroom temp high'
-        message: 'Open the window!'
+#   - alias: '[House] Notification on high temp in bedroom'
+#     initial_state: 'on'
+#     trigger:
+#       - platform: numeric_state
+#         entity_id: sensor.bedroom_temperature
+#         above: 26
+#     condition:
+#       condition: and
+#       conditions:
+#         - condition: state
+#           entity_id: person.isa
+#           state: 'Home'
+#         - condition: state
+#           entity_id: binary_sensor.bedroom_window
+#           state: 'off'
+#         - condition: time
+#           after: '12:00:00'
+#           before: '23:00:00'
+#     action:
+#     - service: notify.mobile_app_isabella_s_iphone_x
+#       data:
+#         title: 'Bedroom temp high'
+#         message: 'Open the window!'

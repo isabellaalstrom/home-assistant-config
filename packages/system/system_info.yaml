@@ -227,36 +227,52 @@ sensor:
           friendly_name: 'Axis Passage'
           entity_id: "device_tracker.axis_00408cd5bad6"
           value_template: "{{ 'Online' if is_state('device_tracker.axis_00408cd5bad6', 'home') else 'Offline' }}"
-automation:
-  - alias: '[System] Device Status'
-    initial_state: 'on'
-    trigger:
-         - platform: state
-           entity_id:
-              - sensor.system_asus_router
-              - sensor.system_netgear_router
-              - sensor.system_printer
-              - sensor.system_nas
-              # - sensor.system_hue_hub
-              - sensor.system_ir_blaster
-              - sensor.system_ir_blaster_bedroom
-              - sensor.system_ip_camera
-            #  - sensor.system_ir_blaster_living_room
-              - sensor.system_xiaomi_gateway
-              - sensor.system_milight_hub
-              - sensor.system_ring_doorbell
-              - sensor.system_ring_chime_pro
-              - sensor.system_ring_chime
-              - sensor.system_axis_living_room
-              - sensor.system_dafang
-              - sensor.system_ip_camera
+# automation:
+  # - alias: '[System] Device Status'
+  #   initial_state: 'on'
+  #   trigger:
+  #        - platform: state
+  #          entity_id:
+  #             - sensor.system_asus_router
+  #             - sensor.system_netgear_router
+  #             - sensor.system_printer
+  #             - sensor.system_nas
+  #             - sensor.system_ir_blaster
+  #             - sensor.system_ir_blaster_bedroom
+  #             - sensor.system_ip_camera
+  #             - sensor.system_xiaomi_gateway
+  #             - sensor.system_milight_hub
+  #             # - sensor.system_ring_doorbell
+  #             # - sensor.system_ring_chime_pro
+  #             # - sensor.system_ring_chime
+  #             - sensor.system_axis_living_room
+  #             - sensor.system_axis_passage
+  #             - sensor.system_dafang
+  #             - sensor.system_ip_camera
               
-           to: 'Offline'
-           for:
-             minutes: 5
-    action:
-      - service: notify.ios_isabellas_iphone_x
-        data_template:
-          title: 'Device {{ trigger.to_state.name }} is'
-          message: >
-            '{{ trigger.to_state.state }}'
+  #          to: 'Offline'
+  #          for:
+  #            minutes: 5
+  #   action:
+  #     - service: notify.mobile_app_isabella_s_iphone_x
+  #       data_template:
+  #         title: 'Device {{ trigger.to_state.name }} is'
+  #         message: >
+  #           '{{ trigger.to_state.state }}'
+            
+  # - alias: '[System] Monitor Status'
+  #   initial_state: 'on'
+  #   trigger:
+  #        - platform: state
+  #          entity_id:
+  #             - sensor.monitor_dining_room
+  #             - sensor.monitor_living_room
+  #          to: 'offline'
+  #          for:
+  #            minutes: 5
+  #   action:
+  #     - service: notify.mobile_app_isabella_s_iphone_x
+  #       data_template:
+  #         title: '{{ trigger.to_state.name }} is'
+  #         message: >
+  #           '{{ trigger.to_state.state }}'

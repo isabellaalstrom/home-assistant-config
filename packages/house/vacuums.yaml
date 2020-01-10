@@ -1,3 +1,23 @@
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret roborock_host
+    token: !secret roborock_token
+    name: Roborock
+  - platform: template
+    vacuums:
+      roomba:
+        value_template: "{% if is_state('binary_sensor.roomba', 'on') %}cleaning{% else %}docked{% endif %}"
+        start:
+          - service: switch.turn_on
+            data:
+              entity_id: switch.roomba_vacuum
+        stop:
+          - service: switch.turn_off
+            data:
+              entity_id: switch.roomba_vacuum
+        # return_to_base:
+            # service: script.vacuum_return_to_base
+
 ios:
   push:
     categories:
@@ -20,6 +40,14 @@ ios:
             title: 'Not today'
             activationMode: 'background'
             destructive: yes
+
+input_boolean:
+  vacuum_downstairs_scheduled:
+    name: Vacuum Downstairs Scheduled
+  vacuum_upstairs_scheduled:
+    name: Vacuum Upstairs Scheduled
+  ad_vacuum_schedule:
+    name: Vacuuming Schedule
 
 sensor:
   - platform: template
@@ -45,26 +73,6 @@ sensor:
           {% else %}
             Unknown
           {% endif %}
-
-vacuum:
-  - platform: xiaomi_miio
-    host: !secret roborock_host
-    token: !secret roborock_token
-    name: Roborock
-  - platform: template
-    vacuums:
-      roomba:
-        value_template: "{% if is_state('binary_sensor.roomba', 'on') %}cleaning{% else %}docked{% endif %}"
-        start:
-          - service: switch.turn_on
-            data:
-              entity_id: switch.roomba_vacuum
-        stop:
-          - service: switch.turn_off
-            data:
-              entity_id: switch.roomba_vacuum
-        # return_to_base:
-            # service: script.vacuum_return_to_base
 
 switch:
   - platform: broadlink
@@ -93,100 +101,100 @@ input_select:
      - 'Not Today'
     icon: mdi:robot-vacuum
 
-automation:
-  - alias: '[House] Vacuum Ask In The Morning'
-    initial_state: 'on'
-    trigger:
-      platform: time
-      at: "06:45:00"
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: calendar.cleaning_day
-          state: 'off'
-    action:
-      - service: notify.ios_isabellas_iphone_x
-        data:
-          message: 'Where do you want to vacuum?'
-          title: 'Vacuuming'
-          data:
-            push:
-              category: "vacuum"
+# automation:
+  # - alias: '[House] Vacuum Ask In The Morning'
+  #   initial_state: 'on'
+  #   trigger:
+  #     platform: time
+  #     at: "06:45:00"
+  #   condition:
+  #     condition: and
+  #     conditions:
+  #       - condition: state
+  #         entity_id: calendar.cleaning_day
+  #         state: 'off'
+  #   action:
+  #     - service: notify.mobile_app_isabella_s_iphone_x
+  #       data:
+  #         message: 'Where do you want to vacuum?'
+  #         title: 'Vacuuming'
+  #         data:
+  #           push:
+  #             category: "vacuum"
 
 
-  - alias: '[House] Vacuum Downstairs Selected'
-    initial_state: 'on'
-    trigger:
-      platform: event
-      event_type: ios.notification_action_fired
-      event_data:
-        actionName: VACUUM_DOWNSTAIRS
-    action:
-      - service: vacuum.start
-        entity_id: vacuum.roborock
-      - service: notify.ios_isabellas_iphone_x
-        data:
-          message: 'Telling Roborock to start vacuuming'
+  # - alias: '[House] Vacuum Downstairs Selected'
+  #   initial_state: 'on'
+  #   trigger:
+  #     platform: event
+  #     event_type: ios.notification_action_fired
+  #     event_data:
+  #       actionName: VACUUM_DOWNSTAIRS
+  #   action:
+  #     - service: vacuum.start
+  #       entity_id: vacuum.roborock
+  #     - service: notify.mobile_app_isabella_s_iphone_x
+  #       data:
+  #         message: 'Telling Roborock to start vacuuming'
 
-  - alias: '[House] Vacuum Upstairs Selected'
-    initial_state: 'on'
-    trigger:
-      platform: event
-      event_type: ios.notification_action_fired
-      event_data:
-        actionName: VACUUM_UPSTAIRS
-    action:
-      - service: vacuum.start
-        entity_id: vacuum.roomba
-      - service: input_select.select_option
-        data:
-          entity_id: input_select.roomba_mode
-          option: 'Vacuuming'
-      - service: notify.ios_isabellas_iphone_x
-        data:
-          message: 'Telling Roomba to start vacuuming'
+  # - alias: '[House] Vacuum Upstairs Selected'
+  #   initial_state: 'on'
+  #   trigger:
+  #     platform: event
+  #     event_type: ios.notification_action_fired
+  #     event_data:
+  #       actionName: VACUUM_UPSTAIRS
+  #   action:
+  #     - service: vacuum.start
+  #       entity_id: vacuum.roomba
+  #     - service: input_select.select_option
+  #       data:
+  #         entity_id: input_select.roomba_mode
+  #         option: 'Vacuuming'
+  #     - service: notify.mobile_app_isabella_s_iphone_x
+  #       data:
+  #         message: 'Telling Roomba to start vacuuming'
 
-  - alias: '[House] Vacuum Both Selected'
-    initial_state: 'on'
-    trigger:
-      platform: event
-      event_type: ios.notification_action_fired
-      event_data:
-        actionName: VACUUM_BOTH
-    action:
-      - service: vacuum.start
-        entity_id: vacuum.roomba
-      - service: input_select.select_option
-        data:
-          entity_id: input_select.roomba_mode
-          option: 'Vacuuming'
-      - service: vacuum.start
-        entity_id: vacuum.roborock
-      - service: notify.ios_isabellas_iphone_x
-        data:
-          message: 'Telling Roomba and Roborock to start vacuuming'
+  # - alias: '[House] Vacuum Both Selected'
+  #   initial_state: 'on'
+  #   trigger:
+  #     platform: event
+  #     event_type: ios.notification_action_fired
+  #     event_data:
+  #       actionName: VACUUM_BOTH
+  #   action:
+  #     - service: vacuum.start
+  #       entity_id: vacuum.roomba
+  #     - service: input_select.select_option
+  #       data:
+  #         entity_id: input_select.roomba_mode
+  #         option: 'Vacuuming'
+  #     - service: vacuum.start
+  #       entity_id: vacuum.roborock
+  #     - service: notify.mobile_app_isabella_s_iphone_x
+  #       data:
+  #         message: 'Telling Roomba and Roborock to start vacuuming'
 
-  ## Reset the vacuumed today check each night
-  - alias: '[House] Vacuum Reset At Midnight'
-    initial_state: 'on'
-    trigger:
-      platform: time
-      at: '23:59:00'
-    action:
-      - service: input_select.select_option
-        data:
-          entity_id: input_select.roomba_mode
-          option: 'Waiting'
-      - service: homeassistant.turn_off
-        entity_id: switch.roomba
+  # ## Reset the vacuumed today check each night
+  # - alias: '[House] Vacuum Reset At Midnight'
+  #   initial_state: 'on'
+  #   trigger:
+  #     platform: time
+  #     at: '23:59:00'
+  #   action:
+  #     - service: input_select.select_option
+  #       data:
+  #         entity_id: input_select.roomba_mode
+  #         option: 'Waiting'
+  #     - service: homeassistant.turn_off
+  #       entity_id: switch.roomba
 
-  - alias: '[House] Vacuum Now'
-    initial_state: 'on'
-    trigger:
-      platform: state
-      entity_id: input_select.roomba_mode
-      to: 'Vacuum Now'
-    action:
-      - service: vacuum.start
-        entity_id: vacuum.roomba
+  # - alias: '[House] Vacuum Now'
+  #   initial_state: 'on'
+  #   trigger:
+  #     platform: state
+  #     entity_id: input_select.roomba_mode
+  #     to: 'Vacuum Now'
+  #   action:
+  #     - service: vacuum.start
+  #       entity_id: vacuum.roomba
