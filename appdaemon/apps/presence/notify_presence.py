@@ -10,4 +10,5 @@ class NotifyPresence(hass.Hass):
 
     def notify(self, entity, attribute, old, new, kwargs):
         if (new != old and new != None):
-            self.call_service("notify/ios_isabellas_iphone_x", message = "{} was {}, is now {}".format(self.friendly_name(entity), old, new))
+            self.call_service("notify/mobile_app_isabella_s_iphone_x", message = "{} was {}, is now {}".format(self.friendly_name(entity), old, new))
+            # self.notification_manager.log_monitor(message = f"Device tracker change. {entity} was {old}, now {new}")

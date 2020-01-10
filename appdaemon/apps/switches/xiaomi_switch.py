@@ -14,7 +14,7 @@ class XiaomiDimmer(hass.Hass):
     self.click_type=data["event"]
     
     if self.click_type == 1002:
-      if self.light is not "none":
+      if self.light:
         self.log('Button release')
         if self.table_hold == False or self.get_state(self.light) == "off":
           self.table_pressed = False
@@ -25,7 +25,7 @@ class XiaomiDimmer(hass.Hass):
         self.table_hold = False
     
     elif self.click_type == 1000:
-      if self.light is not "none":
+      if self.light:
         self.log('Button push')
         self.table_pressed = True
         time.sleep(0.3)
@@ -36,12 +36,12 @@ class XiaomiDimmer(hass.Hass):
           self.table_dim = not self.table_dim
     
     elif self.click_type == 1004:
-      if self.secondLight is not "none":
+      if self.secondLight:
         self.log('Button double click')
         self.toggle(self.secondLight)
 
     elif self.click_type == 1005:
-      if self.light is not "none":
+      if self.light:
         self.log('Button triple click')
         self.turn_on(self.light, color_temp = 366, brightness = 150)
 

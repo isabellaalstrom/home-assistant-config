@@ -80,4 +80,4 @@ class Trash(Base):
             self.log("Reminder canceled")
             self.cancel_timer(self.reminder_handle)
             self.reminder_handle = None
-            self.notification_manager.log_home(message = "Trash status is good, reminder canceled.")
+            self.notification_manager.log_home(message = "🗑 Trash status is good, reminder canceled.")

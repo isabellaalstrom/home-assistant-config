@@ -22,7 +22,7 @@ class UnlockedBy(hass.Hass):
             if (new == 'Stefan'):
                 device = self.get_state(entity=self.args["stefan"], attribute="all")
                 deviceState = self.get_state(self.args["stefan"])
-                self.set_state("device_tracker.stefan_iphone_7", state = "Home")
+                self.set_state("device_tracker.igrims_3", state = "Home")
                 attributes["lock_last_updated"] = now
                 if (deviceState != 'Home' and deviceState != 'Just arrived'):
                     self.set_state(self.args["stefan"], state='Just arrived', attributes=attributes)
@@ -60,7 +60,7 @@ class MendGps(hass.Hass):
         bt_state = self.get_state(self.bt)
         
         if gps_state == 'home' and wifi_state == 'not_home' and bt_state == 'not_home':
-            self.call_service("notify/ios_isabellas_iphone_x", message = f"Bt and wifi is not home, set {self.gps} to not home")
+            self.call_service("notify/mobile_app_isabella_s_iphone_x", message = f"Bt and wifi is not home, set {self.gps} to not home")
             self.set_state(self.gps, state = 'not_home')
         else:
             self.log("Conditions not met")

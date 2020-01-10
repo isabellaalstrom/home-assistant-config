@@ -1,0 +1,9 @@
+vacuuming_schedule:
+  module: vacuuming_schedule
+  class: VacuumingSchedule
+  constrain_input_boolean: input_boolean.ad_vacuuming,on
+  dependencies:
+    - notification_manager
+    - presence_helper
+    - scheduler
+    - tts_manager

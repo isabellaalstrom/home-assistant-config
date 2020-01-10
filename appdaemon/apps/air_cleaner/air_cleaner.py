@@ -39,14 +39,14 @@ class AirCleanerSchedule(Base):
         if not self.presence_helper.anyone_home():
             self.turn_on('script.air_cleaner_auto')
             self.log('Air cleaner set to auto')
-            self.notification_manager.log_home(message = "Air cleaner set to auto.")
+            self.notification_manager.log_home(message = "💨 Air cleaner set to auto.")
         
     def turbo_at_19_pollen(self, kwargs):
         self.turn_on('script.air_cleaner_turbo')
         self.log('Air cleaner set to turbo')
-        self.notification_manager.log_home(message = "Air cleaner set to turbo.")
+        self.notification_manager.log_home(message = "💨 Air cleaner set to turbo.")
         
     def quiet_at_21(self, kwargs):
         self.turn_on('script.air_cleaner_quiet')
         self.log('Air cleaner set to quiet')
-        self.notification_manager.log_home(message = "Air cleaner set to quiet.")
+        self.notification_manager.log_home(message = "💨 Air cleaner set to quiet.")

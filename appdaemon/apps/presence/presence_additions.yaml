@@ -10,14 +10,14 @@ mend_gps_tracker_stefan:
   module: presence_additions
   class: MendGps
   global_dependencies: globals
-  gps: device_tracker.stefan_iphone_7
+  gps: device_tracker.igrims_3
   bt: sensor.stefan_iphone_7_bt
-  wifi: device_tracker.stefan_iphone_7_wifi
+  wifi: device_tracker.igrims
   
 mend_gps_tracker_isa:
   module: presence_additions
   class: MendGps
   global_dependencies: globals
-  gps: device_tracker.isabellas_iphone_x
+  gps: device_tracker.isabella_s_iphone_x
   bt: sensor.isabellas_iphone_x_bt
   wifi: device_tracker.isabellas_iphone_x_wifi

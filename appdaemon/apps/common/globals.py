@@ -2,9 +2,6 @@ from enum import Enum
 
 # Global variables
 
-ios_isa = 'ios_isabellas_iphone_x'
-notify_ios_isa = "notify/ios_isabellas_iphone_x"
-
 isa = "person.isa"
 stefan = "person.stefan"
 
@@ -26,17 +23,26 @@ presence_state["just_left"] = "Just left"
 presence_state["away"] = "Away"
 presence_state["extended_away"] = "Extended away"
 
-
 PEOPLE = {
     'Isa': {
+        'person': 'person.isa',
         'device_tracker': 'device_tracker.isa_addon_presence',
         'proximity': 'proximity.home_isa',
-        'notifier': 'ios_isabellas_iphone_x'
+        'notifier': 'mobile_app_isabella_s_iphone_x',
+        'notify/service': 'notify/mobile_app_isabella_s_iphone_x',
+        'wifi_tracker': 'device_tracker.isabellas_iphone_x_wifi',
+        'bt_tracker_dining_room': 'sensor.dining_room_isabellas_iphone_x_bt',
+        'bt_tracker_living_room': 'sensor.living_room_isabellas_iphone_x_bt'
     },
     'Stefan': {
+        'person': 'person.stefan',
         'device_tracker': 'device_tracker.stefan_addon_presence',
         'proximity': 'proximity.home_stefan',
-        'notifier': 'ios_stefan_iphone_7'
+        'notifier': 'notify.mobile_app_igrims',
+        'notify/service': 'notify/notify.mobile_app_igrims',
+        'wifi_tracker': 'device_tracker.igrims',
+        'bt_tracker_dining_room': 'sensor.dining_room_stefan_iphone_11_bt',
+        'bt_tracker_living_room': 'sensor.living_room_stefan_iphone_11_bt'
     }
 }
 

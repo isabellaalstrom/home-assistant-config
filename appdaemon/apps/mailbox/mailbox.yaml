@@ -6,6 +6,7 @@ mailbox:
   mail_door_sensor: binary_sensor.mailbox_package
   mail_status: input_select.mailbox_status 
   door: sensor.front_door
+  constrain_input_boolean: input_boolean.ad_mailbox,on
   dependencies:
     - presence_helper
     - notification_manager

@@ -6,6 +6,7 @@ washer:
   input_select: input_select.washing_machine_status
   hatch_sensor: binary_sensor.washer_hatch
   light: light.floorlamp_uplight
+  constrain_input_boolean: input_boolean.ad_laundry,on
   dependencies:
     - presence_helper
     - notification_manager
@@ -18,6 +19,7 @@ dryer:
   input_select: input_select.dryer_status
   hatch_sensor: binary_sensor.dryer_hatch
   light: light.floorlamp_uplight
+  constrain_input_boolean: input_boolean.ad_laundry,on
   dependencies:
     - presence_helper
     - notification_manager

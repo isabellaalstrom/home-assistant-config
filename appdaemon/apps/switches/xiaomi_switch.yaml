@@ -31,6 +31,6 @@ outdoor_switch:
   class: XiaomiDimmer
   event: deconz_event
   id: outdoor_switch
-  lightId: none
+  lightId:
   # only_on: true
   secondLightId: light.outdoor_yard_light_net

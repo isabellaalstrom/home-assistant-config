@@ -10,3 +10,9 @@ notify_presence_stefan:
   constrain_input_boolean: input_boolean.ad_presence,on 
   global_dependencies: globals
   device: person.stefan
+notify_presence_igrims:
+  module: notify_presence
+  class: NotifyPresence
+  constrain_input_boolean: input_boolean.ad_presence,on 
+  global_dependencies: globals
+  device: device_tracker.igrims

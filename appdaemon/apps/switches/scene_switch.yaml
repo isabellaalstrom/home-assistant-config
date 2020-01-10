@@ -1,0 +1,5 @@
+# goodnight_scene_switch:
+#   module: scene_switch
+#   class: SceneSwitch
+#   event: deconz_event
+#   id: tradfri_on_off_switch

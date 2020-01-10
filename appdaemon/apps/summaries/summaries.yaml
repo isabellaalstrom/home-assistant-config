@@ -1,3 +1,4 @@
 coming_home_summary:
   module: summaries
   class: Summary
+  constrain_input_boolean: input_boolean.ad_summaries,on

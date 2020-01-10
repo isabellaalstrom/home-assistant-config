@@ -8,6 +8,7 @@ upstairs_litterbox:
   input_select: input_select.ulitterbox_state
   switch: upstairs_litterbox_switch
   camera: camera.upstairs
+  constrain_input_boolean: input_boolean.ad_litterboxes,on
   dependencies:
     - notification_manager
     - presence_helper
@@ -23,6 +24,7 @@ downstairs_litterbox:
   counter_total: counter.all_litterbox_visits_today
   input_select: input_select.dlitterbox_state
   switch: downstairs_litterbox_switch
+  constrain_input_boolean: input_boolean.ad_litterboxes,on
   dependencies:
     - notification_manager
     - presence_helper

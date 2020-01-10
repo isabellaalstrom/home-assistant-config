@@ -28,10 +28,16 @@ class NotificationManager(Base):
 
             else:
                 self.log("Sending notification during quiet time")
-                self.notify(message, title = title, name = PEOPLE[person]['notifier'])
+                self.notify(message, title = title, name = PEOPLE[person]['notifier'], data = data)
         else:
             self.log(f"{person} is not home, not sending notification.")
-        
+    
+    def notify_critical(self, person:str, message:str, title:str="", data:dict={"push": { "thread-id":"home-assistant"}}, **kwargs:dict):
+        data["push"]["sound"] = {"critical": 1, "name": "default", "volume": 0.1 }
+        self.log(data)
+        self.log(f"Sending critical notification to {person}")
+        self.notify(message, title = title, name = PEOPLE[person]['notifier'], data = data)
+
     def quiet_time(self) -> bool:
         if self.get_state("binary_sensor.workday_sensor") == "on":
             return self.now_is_between(globals.notification_mode["start_quiet_weekday"], globals.notification_mode["stop_quiet_weekday"])

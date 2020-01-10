@@ -20,7 +20,7 @@ downstairs_litterbox_persistence:
     - scheduler
     - tts_manager
 
-upstairs_litterbox_persistence:
+all_litterbox_persistence:
   module: counter_persistence
   class: CounterPersistence
   counter: counter.all_litterbox_visits_today

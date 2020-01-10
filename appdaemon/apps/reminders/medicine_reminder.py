@@ -18,7 +18,8 @@ class MedicineReminder(Base):
         self.reminder_handle = None
 
         self.listen_event(self.cancel_reminder, "ios.notification_action_fired", actionName = "MEDICINE_TAKEN")
-        
+        self.beta_data = {"push":{"sound": {"critical": 1, "name": "default", "volume": 0.1 },"category": "MEDICINE", "thread-id": "medicine"}}    
+        self.notify("Take the pill", title = "Medicine!", name = 'mobile_app_isabella_s_iphone_x', data = self.beta_data)
         runtime = self.parse_time(self.remind_time)
         self.run_daily(self.start_reminder, runtime)
 
@@ -32,8 +33,8 @@ class MedicineReminder(Base):
     def remind(self, kwargs):
         self.notification_manager.log_home(message = "Remind about medicine")
 
-        self.beta_data = {"push":{"sound": {"critical": 1, "name": "default", "volume": 0.1 },"category": "MEDICINE", "thread-id": "medicine"}}    
-        self.notify("Take the pill", title = "Medicine!", name = 'ios_isabellas_iphone_x_beta', data = self.beta_data)
+        self.beta_data = {"push":{"sound": {"critical": 1, "name": "default", "volume": 0.1 },"category": "MEDICINE", "thread-id": "medicine"}}
+        self.notify("Take the pill", title = "Medicine!", name = 'mobile_app_isabella_s_iphone_x', data = self.beta_data)
         
     def cancel_reminder(self, event_name, data, kwargs):
         self.cancel_timer(self.reminder_handle)

@@ -56,7 +56,7 @@ class Mailbox(Base):
                     self.notification_manager.notify_if_home(person = "Isa", message = "📬 You've got {}".format(self.newState))
                     self.just_notified = True
                     self.run_in(self.reset_notification, 60)
-                    self.notification_manager.log_home(message = "You've got {}".format(self.newState))
+                    self.notification_manager.log_home(message = "📬 You've got {}".format(self.newState))
                 self.select_option(self.mail_status, self.newState)
 
             elif (entity == self.door_sensor):
@@ -72,12 +72,12 @@ class Mailbox(Base):
                 self.new_package()
         
     def mailbox_emptied(self):
-        self.notification_manager.notify_if_home(person = "Isa", message = "Mailbox emptied")
+        self.notification_manager.notify_if_home(person = "Isa", message = "📭 Mailbox emptied")
 
         self.newState = "Empty"
         self.select_option(self.mail_status, self.newState)
         self.log("Mailbox emptied")
-        self.notification_manager.log_home(message = "📪 Mailbox emptied")
+        self.notification_manager.log_home(message = "📭 Mailbox emptied")
     
     def new_package(self):
         if (self.state == "Package" or self.state == "Empty" or self.state is None):
@@ -88,10 +88,10 @@ class Mailbox(Base):
             self.log("Package. Old state: {} - New state: {}".format(self.state, self.newState))
             
         if (self.state != self.newState and self.just_notified is False):
-            self.notification_manager.notify_if_home(person = "Isa", message = "You've got {}".format(self.newState))
+            self.notification_manager.notify_if_home(person = "Isa", message = "📦 You've got {}".format(self.newState))
             self.just_notified = True
             self.run_in(self.reset_notification, 60)
-            self.notification_manager.log_home(message = "You've got {}".format(self.newState))  
+            self.notification_manager.log_home(message = "📦 You've got {}".format(self.newState))  
 
         self.select_option(self.mail_status, self.newState)
         self.log("Check mail")

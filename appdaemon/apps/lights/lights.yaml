@@ -6,12 +6,4 @@ light_schedule:
     - presence_helper
     - scheduler
     - tts_manager
-    
-# morning_lights:
-#   module: morning_lights
-#   class: MorningLights
-#   dependencies:
-#     - notification_manager
-#     - presence_helper
-#     - scheduler
-#     - tts_manager
+  constrain_input_boolean: input_boolean.ad_light_schedule,on

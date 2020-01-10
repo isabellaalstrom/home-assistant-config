@@ -4,7 +4,7 @@
 #   medicine_kind: "pill"
 #   remind_time: "19:00:00"
 #   constrain_input_boolean: input_boolean.ad_medicine_reminder,on
-#   notify_target: "ios_isabellas_iphone_x_beta"
+#   notify_target: "mobile_app_isabella_s_iphone_x"
 #   dependencies:
 #     - notification_manager
 #     - presence_helper

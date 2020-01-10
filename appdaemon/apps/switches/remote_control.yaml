@@ -1,0 +1,8 @@
+remote_control_isa:
+  module: remote_control
+  class: RemoteControlSelectLight
+  remote: isa_remote
+  primary:
+    - light.isa_ceiling_light
+    - light.isa_filament
+  dim_all_lights: True
