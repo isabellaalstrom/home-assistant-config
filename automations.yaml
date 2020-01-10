@@ -1,0 +1,366 @@
+- id: '1578060156228'
+  alias: '[System] New Repo In Hacs'
+  description: ''
+  trigger:
+  - event_data:
+      action: registration
+    event_type: hacs/repository
+    platform: event
+  condition:
+  - condition: template
+    value_template: '"{{ trigger.event.data.repository is defined }}"'
+  action:
+  - data_template:
+      message: '{% set repo = trigger.event.data.repository %} {% set id = trigger.event.data.repository_id
+        %} [{{ repo }}](/hacs/repository/{{ id }}) was just added to HACS.'
+      title: New repository in HACS
+    service: persistent_notification.create
+- id: '1578061745449'
+  alias: '[System] Device Status'
+  description: ''
+  trigger:
+  - entity_id:
+    - sensor.system_asus_router
+    - sensor.system_netgear_router
+    - sensor.system_printer
+    - sensor.system_nas
+    - sensor.system_ir_blaster
+    - sensor.system_ir_blaster_bedroom
+    - sensor.system_ip_camera
+    - sensor.system_xiaomi_gateway
+    - sensor.system_milight_hub
+    - sensor.system_axis_living_room
+    - sensor.system_axis_passage
+    - sensor.system_dafang
+    - sensor.system_ip_camera
+    for:
+      minutes: 5
+    platform: state
+    to: Offline
+  condition: []
+  action:
+  - data_template:
+      message: '''{{ trigger.to_state.state }}''
+
+        '
+      title: Device {{ trigger.to_state.name }} is
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578062059785'
+  alias: '[System] Monitor Status'
+  description: ''
+  trigger:
+  - entity_id:
+    - sensor.monitor_dining_room
+    - sensor.monitor_living_room
+    for:
+      minutes: 5
+    platform: state
+    to: offline
+  condition: []
+  action:
+  - data:
+      data_template:
+        message: '''{{ trigger.to_state.state }}''
+
+          '
+        title: '{{ trigger.to_state.name }} is'
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578062752026'
+  alias: '[System] Hass Started'
+  description: ''
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      topic: monitor/scan/arrive
+    service: mqtt.publish
+  - data:
+      message: '@here Hass.io Online'
+      target:
+      - '510402538898718728'
+    service: notify.hass_discord
+  - data:
+      name: palms
+    service: frontend.set_theme
+- id: '1578062963561'
+  alias: '[System] Z-wave Ready'
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: zwave.network_ready
+    platform: event
+  condition: []
+  action:
+  - data:
+      message: Z-wave network ready
+      target:
+      - '510402538898718728'
+    service: notify.hass_discord
+  - delay: 00:05
+  - service: homekit.start
+- id: '1578063417620'
+  alias: '[System] Hass Stopped'
+  description: ''
+  trigger:
+  - event: shutdown
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      message: '@here Hass.io Offline'
+      target:
+      - '510402538898718728'
+    service: notify.hass_discord
+- id: '1578063765052'
+  alias: '[System] Hass New Device Tracked'
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: device_tracker_new_device
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      message: 'New Device Tracked: {{trigger.event.data.host_name}} ({{trigger.event.data.entity_id}})
+
+        '
+      target:
+      - '510402538898718728'
+    service: notify.hass_discord
+- id: '1578063986693'
+  alias: '[System] Hass New Platform Discovered'
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: PLATFORM_DISCOVERED
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      message: 'New Platform Discovered: {{trigger.event.data.service}} ({{trigger.event.data.discovered}})'
+      target:
+      - '510402538898718728'
+    service: notify.hass_discord
+- id: '1578064209397'
+  alias: '[System] Hass Updater'
+  description: ''
+  trigger:
+  - entity_id: sensor.version_available
+    platform: state
+  condition:
+  - condition: template
+    value_template: "{{\n  states('sensor.version_available')\n  !=\n  states('sensor.version_current')\n\
+      }}"
+  action:
+  - data_template:
+      message: Hass.io version {{ states('sensor.version_available') }} is now available!
+      title: Upgrade time!
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578064427379'
+  alias: '[System] Ip Ban Notify'
+  description: ''
+  trigger:
+  - entity_id: persistent_notification.ipban
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state != off }}'
+  action:
+  - data_template:
+      message: '@here {{ trigger.state.attributes.message }}. Ip address has been
+        banned.'
+      title: Upgrade time!
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578064572241'
+  alias: '[Cats] Litterbox All Counter Reset At Midnight'
+  description: ''
+  trigger:
+  - at: '23:59:00'
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: counter.all_litterbox_visits_today
+    service: counter.reset
+- id: '1578065031464'
+  alias: '[House] Cleaning Mode'
+  description: ''
+  trigger:
+  - entity_id: sensor.unlocked_by
+    platform: state
+    to: '''Cleaners'''
+  condition:
+  - condition: state
+    entity_id: calendar.cleaning_day
+    state: 'on'
+  action:
+  - entity_id: script.cleaning_time
+    service: script.turn_on
+  - entity_id: input_boolean.ec_lights_on_ring_control
+    service: input_boolean.turn_on
+  - data: {}
+    entity_id: input_boolean.ad_litterboxes
+    service: input_boolean.turn_off
+  - data:
+      message: Cleaners have arrived
+      title: Cleaning time
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578065709121'
+  alias: '[House] Cleaning Mode Off'
+  description: ''
+  trigger:
+  - entity_id: calendar.house_cleaning
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sensor.house_movement
+    for:
+      minutes: 10
+    state: 'off'
+  action:
+  - entity_id: input_boolean.ec_lights_on_ring_control
+    service: input_boolean.turn_off
+  - entity_id: input_boolean.ad_litterboxes
+    service: input_boolean.turn_on
+  - data:
+      message: ''
+      title: Cleaning time over
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578066403796'
+  alias: '[House] Guest Mode On'
+  description: ''
+  trigger:
+  - entity_id: input_boolean.guest_mode
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - entity_id: input_boolean.ec_lights_on_ring_control
+    service: input_boolean.turn_on
+  - data:
+      message: Some automations turned off
+      title: Guest mode on
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578066455390'
+  alias: '[House] Guest Mode Off'
+  description: ''
+  trigger:
+  - entity_id: input_boolean.guest_mode
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - entity_id: input_boolean.ec_lights_on_ring_control
+    service: input_boolean.turn_on
+  - data:
+      message: Automations turned on again
+      title: Guest mode turned off
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578088757483'
+  alias: '[Lights] Living room led strip on when Shield on'
+  description: Turn on the led strip in the TV bench when Shield is turned on
+  trigger:
+  - entity_id: media_player.living_room_nvidia_shield
+    platform: state
+    to: standby
+  condition: []
+  action:
+  - entity_id: light.living_room_lightstrip
+    service: light.turn_on
+- id: '1578088861602'
+  alias: '[Lights] Living room led strip off when Shield off'
+  description: Turn off the TV bench led strip when Shield is turned off
+  trigger:
+  - entity_id: media_player.living_room_nvidia_shield
+    platform: state
+    to: 'off'
+  - entity_id: media_player.living_room_nvidia_shield
+    platform: state
+    to: idle
+  condition: []
+  action:
+  - entity_id: light.living_room_lightstrip
+    service: light.turn_off
+- id: '1578138454661'
+  alias: '[Lights] Notification on window open and lights on'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.bedroom_window
+    for: 0:10:00
+    platform: state
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: light.bedroom_ceiling_light
+        state: 'on'
+      - condition: state
+        entity_id: light.bedside_lamp
+        state: 'on'
+  action:
+  - data:
+      data:
+        push:
+          badge: 0
+          category: lights_off_bedroom
+      message: Do you want to turn off lights?
+      title: Bedroom window open
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578147075758'
+  alias: '[Lights] Lights off when bedroom window open'
+  description: ''
+  trigger:
+  - event_data:
+      actionName: LIGHTS_OFF_BEDROOM
+    event_type: ios.notification_action_fired
+    platform: event
+  condition: []
+  action:
+  - entity_id: light.bedroom_ceiling_light
+    service: light.turn_off
+- id: '1578147522103'
+  alias: '[House] Notification on high temp in bedroom'
+  description: ''
+  trigger:
+  - above: '26'
+    entity_id: sensor.bedroom_temperature
+    platform: numeric_state
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.isa
+      state: Home
+    - condition: state
+      entity_id: binary_sensor.bedroom_window
+      state: 'off'
+  action:
+  - data:
+      message: Open the window!
+      title: Bedroom temp high
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578147585636'
+  alias: '[House] Notification on low temp in bedroom'
+  description: ''
+  trigger:
+  - below: '21'
+    entity_id: sensor.bedroom_temperature
+    platform: numeric_state
+  condition:
+  - condition: state
+    entity_id: person.isa
+    state: Home
+  action:
+  - data:
+      message: Turn up the radiator!
+      title: Bedroom temperature low
+    service: notify.mobile_app_isabella_s_iphone_x
