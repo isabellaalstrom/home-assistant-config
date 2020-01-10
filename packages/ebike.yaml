@@ -10,6 +10,7 @@ input_select:
   ebike_charger_status:
     name: E-bike Charger Status
     options:
+      - Away
       - Waiting
       - Charging
       - Charged
