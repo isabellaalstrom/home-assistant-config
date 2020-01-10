@@ -1,9 +1,3 @@
-  - name: All
-    platform: group
-    services:
-      - service: ios_isabellas_iphone_x
-      - service: ios_stefan_iphone_7
-
   - platform: discord
     name: Hass Discord
     token: !secret discord_token
