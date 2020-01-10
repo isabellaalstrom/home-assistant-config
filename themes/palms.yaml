@@ -1,0 +1,44 @@
+background: 'center / cover no-repeat url("/local/lovelace_ui/background-plants.jpeg") fixed'
+# General
+primary-color: "#ec9ba3"
+accent-color: "#ddadb2"
+dark-primary-color: var(--accent-color)
+light-primary-color: var(--accent-color)
+# Cards
+ha-card-border-radius: "10px"
+ha-card-box-shadow: "0px 5px 5px rgba(0,0,0,0.3)"
+border-radius: '12px'
+### Text ###
+primary-text-color: "#aa8674"
+secondary-text-color: var(--accent-color)
+text-primary-color: "#ffffff"
+disabled-text-color: "#efdfd8"
+# Switches
+paper-toggle-button-checked-button-color: var(--paper-card-background-color)
+paper-toggle-button-checked-bar-color: var(--primary-color)
+paper-toggle-button-checked-ink-color: var(--primary-color)
+paper-toggle-button-unchecked-button-color: var(--paper-card-background-color)
+paper-toggle-button-unchecked-bar-color: "#e2c6c8"
+paper-toggle-button-unchecked-ink-color: "#e2c6c8"
+# Paper card
+paper-card-header-color: var(--accent-color)
+paper-card-background-color: "rgba(252,244,240,0.97)"
+paper-dialog-background-color: var(--paper-card-background-color)
+paper-item-icon-color: "#e5b3b8"
+paper-item-icon-active-color: "#af6a71"
+paper-item-icon_-_color: "red"
+paper-item-selected_-_background-color: "red"
+paper-tabs-selection-bar-color: "red"
+paper-listbox-background-color: var(--primary-background-color)
+### Sliders ###
+paper-slider-knob-color: "#ec9ba3"
+paper-slider-knob-start-color: var(--paper-slider-knob-color)
+paper-slider-pin-color: var(--paper-slider-knob-color)
+paper-slider-active-color: var(--paper-slider-knob-color)
+paper-slider-secondary-color: "#ec9ba3"
+paper-slider-container-color: var(--disabled-text-color)
+paper-slider-disabled-active-color: var(--disabled-text-color)
+paper-slider-disabled-secondary-color: var(--disabled-text-color)
+
+homekit-card-on: 'rgb(255, 251, 239)'
+homekit-card-off: 'rgb(255, 251, 239, 0.8)'

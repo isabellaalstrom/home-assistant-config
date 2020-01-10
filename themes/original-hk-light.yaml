@@ -1,8 +1,11 @@
+ha-card-border-radius: "12px" # Rounded corners on cards. NOTE: may not work with custom cards.
+# background: 'center / cover no-repeat url("/local/lovelace_ui/grey-gradient.png") fixed'
+# background: "right/auto linear-gradient(23deg, rgba(211,211,211,1) 0%, rgba(223,223,223,1) 34%, rgba(255,255,255,1) 100%)"
+
+
 ### This is my own styling, this is the style for the lovelace interface which will be applied globally.
-background: 'center / cover no-repeat url("/local/lovelace_ui/grey-gradient.png") fixed'
 # background-image: 'center / cover no-repeat url("/local/images/original-homekit-wallpaper.png") fixed'
 border-radius: '12px'
-ha-card-border-radius: "12px" # Rounded corners on cards. NOTE: may not work with custom cards.
 homekit-card-on: 'rgb(255, 251, 239)'
 homekit-card-off: 'rgb(255, 251, 239)'
 icon-color-off: gray
@@ -18,6 +21,7 @@ weather-day: 'rgb(255, 251, 239)'
 weather-night: 'rgb(255, 251, 239)'
 weather-color: black
 upcoming-color: black
+header-color: white # Changed/Added in 0.11.2
 
 ### All the lines below have been # Changed/Added in 0.11.0
 primary-color: '#000000'
@@ -27,3 +31,4 @@ secondary-background-color: 'rgb(255, 251, 239)'
 paper-listbox-background-color: 'rgb(255, 251, 239)'
 paper-item-icon-active-color: '#b58e31'
 table-row-alternative-background-color: 'rgb(181, 181, 181)'
+
