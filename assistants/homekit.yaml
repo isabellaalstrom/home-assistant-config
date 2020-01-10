@@ -58,6 +58,5 @@
       - light.kitchen_ceiling_spotlights_level
 
       - input_boolean.goodnight_isa
-      - input_boolean.car_isa
       - input_boolean.dnd_isa
       - input_boolean.good_morning_isa

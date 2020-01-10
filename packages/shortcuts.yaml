@@ -1,6 +1,5 @@
 input_boolean:
-  car_isa:
-    name: "Isa Car"
+
   dnd_isa:
     name: "Isa DND"
   good_morning_isa:
