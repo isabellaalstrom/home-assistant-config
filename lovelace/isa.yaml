@@ -1,0 +1,97 @@
+title: Isa
+icon: mdi:map-marker-radius
+panel: true
+path: isa
+cards:
+  - type: custom:layout-card
+    layout: vertical
+    cards:
+      - type: markdown
+        style: |
+          ha-card {
+            box-shadow: none;
+            height: 33px;
+            background: none;
+            padding: 0px 10px;
+            color: var(--primary-background-color);
+          }
+        content: |
+          #### Presence <ha-icon icon="mdi:chevron-right-circle-outline"></ha-icon>
+      - type: horizontal-stack
+        cards:
+          - type: entities
+            style: |
+              ha-card {
+                background: var(--homekit-card-off);
+                --paper-item-icon-color: var(--icon-color-off);
+                color: var(--name-color-off);
+                border-radius: var(--border-radius);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 12px;
+              }
+            entities:
+              - entity: 'sensor.isa_battery_level'
+                type: custom:secondaryinfo-entity-row
+                secondary_info: "[[ sensor.isa_battery_state.state ]]"
+              - entity: device_tracker.isa_addon_presence
+                name: 'Isa presence'
+                icon: mdi:map-marker-circle
+                secondary_info: last-changed
+              - entity: device_tracker.isabella_s_iphone_x
+                name: 'Isa ios'
+                icon: mdi:apple
+                type: custom:secondaryinfo-entity-row
+                secondary_info: "[[ device_tracker.isabella_s_iphone_x.attributes.timestamp ]]"
+              - entity: device_tracker.isabellas_iphone_x_wifi
+                name: 'Isa Wifi'
+                icon: mdi:wifi
+                secondary_info: last-changed
+              - entity: sensor.dining_room_isabellas_iphone_x_bt
+                name: 'Isa bt dining room'
+                icon: mdi:bluetooth
+                secondary_info: last-changed
+              - entity: sensor.living_room_isabellas_iphone_x_bt
+                name: 'Isa bt living room'
+                icon: mdi:bluetooth
+                secondary_info: last-changed
+              - entity: proximity.home_isa
+                name: Proximity to home
+                type: custom:multiple-entity-row
+                primary:
+                  entity: proximity.home_isa
+                  attribute: dir_of_travel
+                  name: false
+              - type: call-service
+                icon: mdi:reload
+                name: Reload Presence
+                service: hassio.addon_restart
+                service_data:
+                  addon: 1e72b768_better_presence
+
+      - type: markdown
+        style: |
+          ha-card {
+            box-shadow: none;
+            height: 33px;
+            background: none;
+            padding: 0px 10px;
+            color: var(--primary-background-color);
+          }
+        content: |
+          #### <ha-icon icon="mdi:chevron-left-circle-outline"></ha-icon> Agenda <ha-icon icon="mdi:chevron-right-circle-outline"></ha-icon>
+      - type: horizontal-stack
+        cards:
+          - type: custom:atomic-calendar
+            style: |
+              ha-card {
+                background: var(--homekit-card-off);
+                --paper-item-icon-color: var(--icon-color-off);
+                color: var(--name-color-off);
+                border-radius: var(--border-radius);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 12px;
+              }
+            numberOfDays: 5
+            entities:
+              - calendar.isabella_alstrom
+            showColors: true

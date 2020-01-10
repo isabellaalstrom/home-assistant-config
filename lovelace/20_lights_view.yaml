@@ -31,36 +31,231 @@ cards:
             service: scene.turn_on
             service_data:
               entity_id: scene.movie_time
+    - type: markdown
+      style: |
+        ha-card {
+          box-shadow: none;
+          height: 33px;
+          background: none;
+          # padding: 0px 10px;
+          color: var(--primary-background-color);
+        }
+        ha-markdown {
+          padding: 16px 16px 0 8px !important;
+        }
+      content: |
+        #### Front
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - entity: light.outdoor_front_light
+            - name: Wall
+            - icon: bha:outdoor-lamp
+            - margin-left: -65%
+            
+            - lock:
+                enabled: "[[[ return entity.state === 'on'; ]]]"
+                duration: 10
+                unlock: tap
+            - label: !include ./includes/brightness-label.yaml
+            - grid:
+                !include ./includes/light-grid.yaml
+            - hold_action: 
+                action: call-service
+                service: browser_mod.command
+                service_data:
+                  command: popup
+                  title: Outdoor front
+                  style:
+                    position: fixed
+                    z-index: 999
+                    top: 0
+                    left: 0
+                    height: 100%
+                    width: 100%
+                    display: block
+                    align-items: center
+                    justify-content: center
+                    background: rgba(0, 0, 0, 0.8)
+                    flex-direction: column
+                    margin: 0
+                    "--iron-icon-fill-color": "#FFF"
+                  card:
+                    type: custom:light-popup-card
+                    entity: light.outdoor_front_light
+                    icon: bha:outdoor-lamp
+                    # scenesInARow: 2
+                    brightnessWidth: 150px
+                    brightnessHeight: 400px
+                    switchWidth: 150px
+                    switchHeight: 400px
+                    # scenes:
+                    #   - scene: scene.morning_lights
+                    #     color: "#FDCA64"
+                    #     name: ontspannen
+                    #   - scene: scene.morning_lights
+                    #     color: "#FFE7C0"
+                    #     name: helder
+                    #   - scene: scene.morning_lights
+                    #     color: "#BBEEF3"
+                    #   - scene: scene.morning_lights
+                    #     color: "#8BCBDD"
+                  deviceID:
+                    - this
+                  
+                haptic: heavy
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - entity: light.outdoor_front_hanging_lights
+            - name: Chain lights
+            - icon: bha:light-string
+            - hold_action: 
+                action: more-info
+                haptic: heavy
+            - margin-left: -65%
+            
+            - lock: true
+            - label: !include ./includes/brightness-label.yaml
+            - grid:
+                !include ./includes/light-grid.yaml
+        - type: "custom:button-card"
+          color_type: blank-card
+        - type: "custom:button-card"
+          color_type: blank-card
 
-    - type: entities
-      title: Outdoor
-      show_header_toggle: false
-      entities:
-        - type: section
-          label: Front
-        - entity: light.outdoor_front_light
-          name: Wall
-          icon: bha:outdoor-lamp
-          type: custom:slider-entity-row
-          toggle: true
-        - entity: light.outdoor_front_hanging_lights
-          name: Chain lights
-          icon: bha:light-string
-          
-        - type: section
-          label: Yard
-        - entity: light.outdoor_yard_light
-          name: Wall
-          icon: bha:outdoor-lamp
-          toggle: true
-          type: custom:slider-entity-row
-        - entity: light.outdoor_hanging_lights
-          name: Chain lights
-          icon: bha:light-string
-        - entity: light.outdoor_yard_light_net
-          name: Light net
-          icon: bha:light-string
+    - type: markdown
+      style: |
+        ha-card {
+          box-shadow: none;
+          height: 33px;
+          background: none;
+          # padding: 0px 10px;
+          color: var(--primary-background-color);
+        }
+        ha-markdown {
+          padding: 16px 16px 0 8px !important;
+        }
+      content: |
+        #### Back yard
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - entity: light.outdoor_yard_light
+            - name: Wall
+            - icon: bha:outdoor-lamp
+            - hold_action: 
+                action: more-info
+                haptic: heavy
+            - margin-left: -65%
+            
+            - lock: true
+            - label: !include ./includes/brightness-label.yaml
+            - grid:
+                !include ./includes/light-grid.yaml
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - entity: light.outdoor_hanging_lights
+            - name: Chain lights
+            - icon: bha:light-string
+            - hold_action: 
+                action: more-info
+                haptic: heavy
+            - margin-left: -65%
+            
+            - lock: true
+            - label: !include ./includes/brightness-label.yaml
+            - grid:
+                !include ./includes/light-grid.yaml
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - entity: light.outdoor_yard_light_net
+            - name: Light Net
+            - icon: bha:light-string
+            - hold_action: 
+                action: more-info
+                haptic: heavy
+            - margin-left: -65%
+            
+            - lock: true
+            - label: !include ./includes/brightness-label.yaml
+            - grid:
+                !include ./includes/light-grid.yaml
+        - type: "custom:button-card"
+          color_type: blank-card
+    # - type: custom:button-card
+    #   aspect_ratio: 2/1
+    #   entity: light.outdoor_yard_light
+    #   hold_action:
+    #     action: more-info
+    #   custom_fields:
+    #     graph:
+    #       card:
+    #         entity: light.outdoor_yard_light
+    #         type: custom:slider-entity-row
+    #         full_row: true
+    #         toggle: false
+    #         hide_state: true
+    #         # style is used by card-mod
+    #         style: |
+    #           ha-card {
+    #             box-shadow: none;
+    #           }
+    #   styles:
+    #     custom_fields:
+    #       graph:
+    #         - filter: opacity(50%)
+    #         - overflow: unset
+    #     card:
+    #       - overflow: unset
+    #     grid:
+    #       - grid-template-areas: '"i" "n" "graph"'
+    #       - grid-template-columns: 1fr
+    #       - grid-template-rows: 1fr min-content min-content
 
+    # - type: custom:decluttering-card
+    #   template: switch_button_card
+    #   variables:
+    #     - entity: light.outdoor_yard_light
+    #     - name: Yard light
+    #     - icon: bha:light-string
+    #     - hold_action: 
+    #         action: more-info
+    #         haptic: heavy
+    #     - margin-left: -65%
+    #     
+    #     - lock: true
+    #     - label: !include ./includes/brightness-label.yaml
+    #     - custom_fields:
+    #         graph:
+    #           card:
+    #             entity: light.outdoor_yard_light
+    #             type: custom:slider-entity-row
+    #             full_row: true
+    #             toggle: false
+    #             hide_state: true
+    #             # style is used by card-mod
+    #             style: |
+    #               ha-card {
+    #                 box-shadow: none;
+    #               }
+    #     - styles:
+    #         custom_fields:
+    #           graph:
+    #             - filter: opacity(50%)
+    #             - overflow: unset
+    #         card:
+    #           - overflow: unset
+    #         grid:
+    #           - grid-template-areas: '"i" "n" "graph"'
+    #           - grid-template-columns: 1fr
+    #           - grid-template-rows: 1fr min-content min-content
     - type: horizontal-stack
       cards:
         - type: entity-button
@@ -93,6 +288,7 @@ cards:
       entities:
         - entity: light.kitchen_ceiling_spotlights_level
           name: Kitchen
+          icon: mdi:vanity-light
           
         - entity: light.dining_room_ceiling_light_level
           name: Dining area
@@ -122,13 +318,21 @@ cards:
 
         - entity: light.living_room_spotlights_level
           name: Livingroom spots
-          icon: bha:ceiling-lamp-plafond
+          icon: mdi:vanity-light
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+        
+        - entity: light.living_room_lightstrip
+          name: Living Room Lightstrip
+          icon: bha:led-strip
           type: custom:slider-entity-row
           toggle: true
           hide_when_off: true
           
         - entity: light.passage_ceiling_spotlights_level
           name: Passage
+          icon: mdi:vanity-light
           type: custom:slider-entity-row
           toggle: true
           hide_when_off: true
@@ -143,6 +347,7 @@ cards:
         - entity: light.stairs_lights
           name: Stairs
           type: custom:slider-entity-row
+          icon: mdi:vanity-light
           toggle: true
           hide_when_off: true
           
@@ -176,6 +381,17 @@ cards:
           toggle: true
           hide_when_off: true
           
+        - entity: light.isa_filament
+          name: Isa Filament
+          icon: mdi:lightbulb-outline #mdi:globe-light
+          type: custom:slider-entity-row
+          toggle: true
+          hide_when_off: true
+
+        - entity: light.globe
+          name: Isa Globe
+          icon: mdi:globe-model
+
         - entity: light.upstairs_hallway_ceiling_light_level
           name: Upstairs hallway
           icon: bha:ceiling-lamp
@@ -191,7 +407,7 @@ cards:
           
         - entity: light.walk_in_closet_lights
           name: Walk in closet
-          icon: bha:ceiling-lamp-plafond
+          icon: mdi:vanity-light
           type: custom:slider-entity-row
           toggle: true
           hide_when_off: true
@@ -200,4 +416,3 @@ cards:
           name: Stefan
           icon: bha:led-strip
           type: custom:toggle-lock-entity-row
-        

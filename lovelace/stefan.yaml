@@ -1,0 +1,17 @@
+title: Stefan
+icon: mdi:map-marker-radius
+path: stefan
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: person_more_info
+        variables:
+          - name: stefan
+          - name-s: Stefan
+          - battery_level: igrims_battery_level
+          - battery_state: igrims_battery_state
+          - ios_tracker: igrims_3
+          - wifi_tracker: igrims
+          - bt_living_room: living_room_stefan_iphone_11_bt
+          - bt_dining_room: dining_room_stefan_iphone_11_bt

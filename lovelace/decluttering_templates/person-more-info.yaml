@@ -1,0 +1,160 @@
+# These are the variables you can use in your decluttering
+# card. Add one or more variables in your decluttering-card.
+# The variables you see below are the default ones. 
+#
+# A standard decluttering-card config would look like:
+# - type: custom:decluttering-card
+#   template: this_templates_name
+#   variables:
+#     - entity: switch.test
+#     - name: test
+# 
+# All the variables you can use are within the default config
+# below. The variables you can use are the first word after each
+# dash -.
+#
+# If you omit adding variables to your decluttering-card
+# it will use defaults instead, which are defined below as well.
+# You can change the default config below. If you only enter a
+# few of the variables it will only use defaults for undefined
+# variables.
+
+# Default Config
+default:
+  # Name/Person (Don't capitalize uncapitalized names!)
+  - name: stephanie
+  - name-s: Jimmy's
+
+  # Email Sensor
+  - emailsensor: sensor.youremailsensor
+
+  # Battery/State Sensor (cut off at the number, if you have
+  # a sensor with a different name please change template below)
+  - number: '16'
+
+#### #### #### #### #### #### #### #### #### #### #### #
+
+# Card Config
+# Do NOT change this unless you know what you are doing!
+card:
+  type: vertical-stack
+  cards:
+    - type: markdown
+      style: |
+        ha-card {
+          box-shadow: none;
+          height: 33px;
+          background: none;
+          padding: 0px 10px;
+          color: var(--primary-background-color);
+        }
+      content: |
+        #### Presence <ha-icon icon="mdi:chevron-right-circle-outline"></ha-icon>
+    - type: horizontal-stack
+      cards:
+        - type: entities
+          style: |
+            ha-card {
+              background: var(--homekit-card-off);
+              --paper-item-icon-color: var(--icon-color-off);
+              color: var(--name-color-off);
+              border-radius: var(--border-radius);
+              font-family: 'Open Sans', sans-serif;
+              font-size: 12px;
+            }
+          entities:
+            - entity: 'sensor.[[battery_level]]'
+              type: custom:secondaryinfo-entity-row
+              secondary_info: "[[ sensor.[[battery_state]].state ]]"
+            - entity: device_tracker.[[name]]_addon_presence
+              name: '[[name-s]] presence'
+              icon: mdi:map-marker-circle
+              secondary_info: last-changed
+            - entity: device_tracker.[[ios_tracker]]
+              name: '[[name-s]] ios'
+              icon: mdi:apple
+              type: custom:secondaryinfo-entity-row
+              secondary_info: "[[ device_tracker.igrims_3.attributes.timestamp ]]"
+            - entity: device_tracker.[[wifi_tracker]]
+              name: '[[name-s]] Wifi'
+              icon: mdi:wifi
+              secondary_info: last-changed
+            - entity: sensor.[[bt_dining_room]]
+              name: '[[name-s]] bt dining room'
+              icon: mdi:bluetooth
+              secondary_info: last-changed
+            - entity: sensor.[[bt_living_room]]
+              name: '[[name-s]] bt living room'
+              icon: mdi:bluetooth
+              secondary_info: last-changed
+            - entity: proximity.home_[[name]]
+              name: Proximity to home
+              type: custom:multiple-entity-row
+              primary:
+                entity: proximity.home_[[name]]
+                attribute: dir_of_travel
+                name: false
+            - type: call-service
+              icon: mdi:reload
+              name: Reload Presence
+              service: hassio.addon_restart
+              service_data:
+                addon: 1e72b768_better_presence
+
+    - type: markdown
+      style: |
+        ha-card {
+          box-shadow: none;
+          height: 33px;
+          background: none;
+          padding: 0px 10px;
+          color: var(--primary-background-color);
+        }
+      content: |
+        #### <ha-icon icon="mdi:chevron-left-circle-outline"></ha-icon> Agenda <ha-icon icon="mdi:chevron-right-circle-outline"></ha-icon>
+    - type: horizontal-stack
+      cards:
+        - type: custom:atomic-calendar
+          style: |
+            ha-card {
+              background: var(--homekit-card-off);
+              --paper-item-icon-color: var(--icon-color-off);
+              color: var(--name-color-off);
+              border-radius: var(--border-radius);
+              font-family: 'Open Sans', sans-serif;
+              font-size: 12px;
+            }
+          numberOfDays: 5
+          entities:
+            # - calendar.[[name]]
+            - calendar.isabella_alstrom
+          showColors: true
+
+    - type: markdown
+      style: |
+        ha-card {
+          box-shadow: none;
+          height: 33px;
+          background: none;
+          padding: 0px 10px;
+          color: var(--primary-background-color);
+        }
+      content: |
+        #### <ha-icon icon="mdi:chevron-left-circle-outline"></ha-icon> Location
+    # - type: horizontal-stack
+    #   cards:
+    #     - type: map
+    #       style: |
+    #         ha-card {
+    #           background: var(--homekit-card-off);
+    #           --paper-item-icon-color: var(--icon-color-off);
+    #           color: var(--name-color-off);
+    #           border-radius: var(--border-radius);
+    #           font-family: 'Open Sans', sans-serif;
+    #           font-size: 12px;
+    #           overflow: hidden;
+    #         }
+    #       aspect_ratio: 4x6
+    #       default_zoom: 15
+    #       entities:
+    #         - person.[[name]]

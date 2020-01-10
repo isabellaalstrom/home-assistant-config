@@ -8,187 +8,494 @@ cards:
       - type: custom:layout-card
         layout: vertical
         cards:
-          - type: vertical-stack
+          - type: markdown
+            style: |
+              ha-card {
+                box-shadow: none;
+                height: 33px;
+                background: none;
+                # padding: 0px 10px;
+                color: var(--primary-color);
+              }
+              ha-markdown {
+                padding: 16px 16px 0 8px !important;
+              }
+            content: |
+              #### Computers
+          - type: horizontal-stack
             cards:
-              - type: picture-elements
-                image: /local/lovelace_ui/info/pi_background.jpg
-                elements:
-                  - type: custom:hui-glance-card
-                    show_state: false
-                    columns: 4
-                    entities:
-                      - entity: sensor.system_hass_rpi
-                        name: Hass RPi
-                      - entity: sensor.system_magic_mirror_rpi
-                        name: Dashboard
-                        icon: mdi:raspberry-pi
-                      - entity: sensor.system_dashboard_rpi
-                        name: '7"'
-                        icon: mdi:raspberry-pi
-                      - entity: sensor.system_rpi_zero
-                        name: RPi Zero
-                        icon: mdi:raspberry-pi
-                    style:
-                      --primary-text-color: white
-                      left: 50%
-                      top: 50%
-                      width: 100%
-                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
-                      --paper-item-icon-color: white
-                      color: rgb(0, 0, 0)
-              - type: picture-elements
-                image: /local/lovelace_ui/info/hubs_background.jpg
-                elements:
-                  - type: custom:hui-glance-card
-                    show_state: false
-                    columns: 4
-                    entities:
-                      - entity: sensor.system_ir_blaster
-                        name: Hallway
-                      - entity: sensor.system_ir_blaster_bedroom
-                        name: Bedroom
-                      - entity: sensor.system_ir_blaster_living_room
-                        name: Livingroom
-                      - entity: sensor.system_milight_hub
-                        name: Milight
-                      - entity: sensor.system_xiaomi_gateway
-                        name: Xiaomi
-                      - sensor.system_printer
-                      - sensor.system_nas
-                      - sensor.system_ipad
-                    style:
-                      --primary-text-color: white
-                      left: 50%
-                      top: 50%
-                      width: 100%
-                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
-                      --paper-item-icon-color: white
-                      color: rgb(0, 0, 0)
-          - break
-          - type: vertical-stack
-            cards:       
-              - type: picture-elements
-                image: /local/lovelace_ui/info/cameras_background.jpg
-                elements:
-                  - type: custom:hui-glance-card
-                    show_state: false
-                    columns: 2
-                    entities:
-                      - entity: sensor.system_ip_camera
-                        name: Sannce
-                      - entity: sensor.system_dafang
-                        name: Dafang
-                        icon: mdi:webcam
-                      - entity: sensor.system_axis_living_room
-                        name: Living Room
-                        icon: mdi:webcam
-                    style:
-                      --primary-text-color: white
-                      left: 50%
-                      top: 50%
-                      width: 100%
-                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
-                      --paper-item-icon-color: white
-                      color: rgb(0, 0, 0)
-                      
-              - type: picture-elements
-                image: /local/lovelace_ui/info/ring_background.jpg
-                elements:
-                  - type: custom:hui-glance-card
-                    columns: 4
-                    entities:
-                      - entity: sensor.ring_front_door_battery
-                        name: Ring battery
-                      - entity: sensor.ring_front_door_wifi_signal_category
-                        name: Ring wifi
-                      # - sensor.system_ring_doorbell
-                      - entity: sensor.system_ring_chime_pro
-                        name: Chime Pro
-                      - entity: sensor.system_ring_chime
-                        name: Chime
-                    style:
-                      --primary-text-color: white
-                      left: 50%
-                      top: 50%
-                      width: 100%
-                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
-                      --paper-item-icon-color: white
-                      color: rgb(0, 0, 0)
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_isa_computer
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Isa
+                  - icon: mdi:desktop-tower
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_isa_dell_xps
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Isa Laptop
+                  - icon: mdi:laptop
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_stefan_computer
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Stefan
+                  - icon: mdi:desktop-tower
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_stefan_laptop
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Stefan Laptop
+                  - icon: mdi:laptop
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+
+          - type: markdown
+            style: |
+              ha-card {
+                box-shadow: none;
+                height: 33px;
+                background: none;
+                # padding: 0px 10px;
+                color: var(--primary-background-color);
+              }
+              ha-markdown {
+                padding: 16px 16px 0 8px !important;
+              }
+            content: |
+              #### Raspberry Pi's
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_hass_rpi
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Hass
+                  - icon: mdi:raspberry-pi
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_magic_mirror_rpi
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Dashboard
+                  - icon: mdi:raspberry-pi
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_dashboard_rpi
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Mini Dashboard
+                  - icon: mdi:raspberry-pi
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_rpi_zero
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Zero
+                  - icon: mdi:raspberry-pi
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+          - type: markdown
+            style: |
+              ha-card {
+                box-shadow: none;
+                height: 33px;
+                background: none;
+                # padding: 0px 10px;
+                color: var(--primary-background-color);
+              }
+              ha-markdown {
+                padding: 16px 16px 0 8px !important;
+              }
+            content: |
+              #### Cameras
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_ip_camera
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Sannce
+                  - icon: mdi:cctv
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_dafang
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Dafang
+                  - icon: mdi:cctv
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_axis_living_room
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Axis Left
+                  - icon: mdi:cctv
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_axis_passage
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Axis Right
+                  - icon: mdi:cctv
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: detailed_info
+                variables:
+                  - name: Ring Doorbell
+                  - entity: sensor.ring_front_door_battery
+                  - entity_top: sensor.ring_front_door_wifi_signal_category
+                  - entity_middle: sensor.system_ring_chime
+                  - entity_bottom: sensor.system_ring_chime_pro
+                  - entity_top_name: "Wifi"
+                  - entity_middle_name: "Chime"
+                  - entity_bottom_name: "Chime Pro"
+                  - icon: mdi:doorbell-video
+                  - show_state: false
+                  - show_units: true
+                  - units: "%"
+                  - show_label: false
+              - type: "custom:button-card"
+                color_type: blank-card
+              - type: "custom:button-card"
+                color_type: blank-card
+              - type: "custom:button-card"
+                color_type: blank-card
 
           - break
-          - type: vertical-stack
-            cards:
-              - type: picture-elements
-                image: /local/lovelace_ui/info/computers_background.jpg
-                elements:
-                  - type: custom:hui-glance-card
-                    show_state: false
-                    columns: 4
-                    entities:
-                      - entity: sensor.system_isa_computer
-                        name: Isa
-                      - entity: sensor.system_isa_dell_xps
-                        name: Isa work laptop
-                      - entity: sensor.system_stefan_computer
-                        name: Stefan
-                      - entity: sensor.system_stefan_laptop
-                        name: Stefan work laptop
-                    style:
-                      --primary-text-color: white
-                      left: 50%
-                      top: 50%
-                      width: 100%
-                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
-                      --paper-item-icon-color: white
-                      color: rgb(0, 0, 0)
-  
-              - type: picture-elements
-                image: /local/lovelace_ui/info/tv_background.jpg
-                elements:
-                  - type: custom:hui-glance-card
-                    show_state: false
-                    columns: 3
-                    entities:
-                      - entity: sensor.system_samsung65
-                        name: TV
-                      - entity: sensor.system_movie_system
-                        name: Movie System
-                      - entity: sensor.system_shield
-                        name: Shield
-                      - entity: sensor.system_sonos
-                        name: Sonos
-                        icon: mdi:speaker-wireless
-                      - entity: sensor.system_samsung49
-                        name: Bed TV
-                      - entity: sensor.system_chromecast_bedroom
-                        name: Bed CC
-                    style:
-                      --primary-text-color: white
-                      left: 50%
-                      top: 50%
-                      width: 100%
-                      --paper-card-background-color: rgba(0, 0, 0, 0.4)
-                      --paper-item-icon-color: white
-                      color: rgb(0, 0, 0)
 
-          - type: vertical-stack
+          - type: markdown
+            style: |
+              ha-card {
+                box-shadow: none;
+                height: 33px;
+                background: none;
+                # padding: 0px 10px;
+                color: var(--primary-background-color);
+              }
+              ha-markdown {
+                padding: 16px 16px 0 8px !important;
+              }
+            content: |
+              #### Routers
+          - type: horizontal-stack
             cards:
-            - type: picture-elements
-              image: /local/lovelace_ui/info/router_background.jpg
-              elements:
-                - type: custom:hui-glance-card
-                  show_state: true
-                  columns: 2
-                  entities:
-                    - entity: sensor.system_asus_router
-                      name: Asus
-                    - entity: sensor.system_netgear_router
-                      name: Netgear
-                  style:
-                    --primary-text-color: white
-                    left: 50%
-                    top: 50%
-                    width: 100%
-                    --paper-card-background-color: rgba(0, 0, 0, 0.4)
-                    --paper-item-icon-color: white
-                    color: rgb(0, 0, 0)
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_asus_router
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Asus
+                  - icon: mdi:router-wireless
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_netgear_router
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Netgear
+                  - icon: mdi:router-wireless
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: "custom:button-card"
+                color_type: blank-card
+              - type: "custom:button-card"
+                color_type: blank-card
+
+          - type: markdown
+            style: |
+              ha-card {
+                box-shadow: none;
+                height: 33px;
+                background: none;
+                # padding: 0px 10px;
+                color: var(--primary-background-color);
+              }
+              ha-markdown {
+                padding: 16px 16px 0 8px !important;
+              }
+            content: |
+              #### Hubs
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_ir_blaster
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Hallway
+                  - icon: mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_ir_blaster_bedroom
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Bedroom
+                  - icon: mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_ir_blaster_living_room
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Living Room
+                  - icon: mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_xiaomi_gateway
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Xiaomi
+                  # - icon: mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_milight_hub
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Milight
+                  # - icon: mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_printer
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Printer
+                  # - mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_nas
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Nas
+                  # - icon: mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_ipad
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: iPad
+                  # - icon: mdi:remote
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+
+          - break
+
+          - type: markdown
+            style: |
+              ha-card {
+                box-shadow: none;
+                height: 33px;
+                background: none;
+                # padding: 0px 10px;
+                color: var(--primary-background-color);
+              }
+              ha-markdown {
+                padding: 16px 16px 0 8px !important;
+              }
+            content: |
+              #### Living Room Media
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_samsung65
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Living Room
+                  - icon: mdi:television
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_movie_system
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Movie System
+                  - icon: mdi:television
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_shield
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Shield
+                  - icon: mdi:android
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_sonos
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Sonos
+                  - icon: mdi:speaker-wireless
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+          - type: markdown
+            style: |
+              ha-card {
+                box-shadow: none;
+                height: 33px;
+                background: none;
+                # padding: 0px 10px;
+                color: var(--primary-background-color);
+              }
+              ha-markdown {
+                padding: 16px 16px 0 8px !important;
+              }
+            content: |
+              #### Bedroom Media
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_samsung49
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Bedroom
+                  - icon: mdi:television
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: sensor.system_chromecast_bedroom
+                  - show_label: false
+                  - show_last_changed: true
+                  - name: Chromecast
+                  - icon: mdi:television
+                  - tap_action: 
+                      action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: "custom:button-card"
+                color_type: blank-card
+              - type: "custom:button-card"
+                color_type: blank-card
+

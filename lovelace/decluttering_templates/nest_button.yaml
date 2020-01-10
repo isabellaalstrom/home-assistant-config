@@ -1,0 +1,41 @@
+default:
+  - show_state: true
+  - show_name: false
+card:
+  type: custom:button-card
+  entity: '[[entity]]'
+  show_last_changed: true
+  show_state: '[[show_state]]'
+  show_icon: true
+  show_name: '[[show_name]]'
+  name: '[[name]]'
+  state: '[[state]]'
+  tap_action:
+    action: more-info
+  style: |
+    ha-card {
+      font-family: 'Open Sans', sans-serif;
+      padding-top: 15px !important;
+      background-color: rgba(0, 0, 0, 0);
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    }
+    ha-icon {
+      width: 60% !important;
+    }
+    img {
+      width: 100%;
+    }
+    #img-cell {
+      background-color: #F5F5F5;
+      border-radius: 50px;
+      height: 50px !important;
+      width: 50px !important;
+    }
+    #state {
+      padding-top: 5px;
+    }
+    #label {
+      font-size: 70%;
+    }

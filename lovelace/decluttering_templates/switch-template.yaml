@@ -3,7 +3,7 @@ default:
   # Button Options
   - lock: false
   - aspect_ratio: 1/1
-  - opacity: 0.4
+  - opacity: 1.0
   - opacity_on: 1.0
   - border-radius: var(--border-radius)
 
@@ -26,6 +26,8 @@ default:
   - show_label: true
   - show_icon: true
   - show_last_changed: false
+  - show_units: false
+  - units: ""
 
   # Tap and Hold Actions
   - tap_action:
@@ -67,7 +69,7 @@ card:
   type: custom:button-card
   name: '[[name]]'
   deep_press: true
-  icon: 'mdi:[[icon]]'
+  icon: '[[icon]]'
   size: '[[size]]'
   color: '[[color]]'
   lock: '[[lock]]'
@@ -81,6 +83,8 @@ card:
   show_last_changed: '[[show_last_changed]]'
   tap_action: '[[tap_action]]'
   hold_action: '[[hold_action]]'
+  show_units: '[[show_units]]'
+  units: '[[units]]'
   styles:
     card:
       - border-radius: '[[border-radius]]'
@@ -148,6 +152,37 @@ card:
           - font-weight: '[[label_font_weight]]'
         lock:
           - color: var(--lock-color-off)
+    - value: "Online" 
+      '[[variable]]': '[[spin]]'  
+      styles:
+        card:
+          - --ha-card-background: '[[on_card_color]]'
+          - opacity: '[[opacity_on]]'
+        name:
+          - color: '[[on_name_color]]'
+        state:
+          - color: '[[on_state_color]]'
+        lock:
+          - color: var(--lock-color-on)
+        label:
+          - color: '[[on_label_color]]'
+    - value: "Offline"
+      '[[off_variable]]': '[[off_spin]]'
+      styles:
+        card:
+          - opacity: '[[opacity]]'
+        icon:
+          - color: '[[off_icon_color]]'
+        name:
+          - color: '[[off_name_color]]'
+        state:
+          - color: '[[off_state_color]]'
+        label:
+          - color: '[[off_label_color]]'
+          - font-size: '[[label_font_size]]'
+          - font-weight: '[[label_font_weight]]'
+        lock:
+          - color: var(--lock-color-off)
     - value: "idle"
       styles:
         card:
@@ -163,7 +198,7 @@ card:
     - value: "unavailable"
       styles:
         card:
-          - opacity: 0.2
+          - opacity: 0.4
         name:
           - color: var(--name-color-off)
         label:
@@ -177,7 +212,6 @@ card:
     - value: "disarmed"
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -244,7 +278,6 @@ card:
     - value: 'Closed'
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -283,7 +316,6 @@ card:
     - value: 'Closed'
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -324,7 +356,6 @@ card:
       icon: mdi:walk
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -365,7 +396,6 @@ card:
       icon: mdi:delete-outline
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -392,7 +422,6 @@ card:
       icon: mdi:delete-empty-outline
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -446,7 +475,6 @@ card:
       icon: mdi:mailbox-outline
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -484,7 +512,6 @@ card:
     - value: 'Idle'
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)
@@ -498,7 +525,6 @@ card:
     - value: 'Docked'
       styles:
         card:
-          - opacity: 0.8
           - --ha-card-background: var(--homekit-card-off)
         name:
           - color: var(--name-color-off)

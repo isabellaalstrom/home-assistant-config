@@ -50,29 +50,29 @@ cards:
                     template: nest_picture_button
                     entity: person.isa
                     entity_picture: !secret isa_image
-                    styles:
-                      grid:
-                        - position: relative
-                      custom_fields:
-                        notification:
-                          - background-color: >
-                              [[[
-                                if (states['sensor.isabellas_iphone_x_battery_level'].state > 50)
-                                  return "#87c087";
-                                return "#FF8000";
-                              ]]]
-                          - border-radius: 50%
-                          - position: absolute
-                          - left: 60%
-                          - top: 0
-                          - height: 20px
-                          - width: 20px
-                          - font-size: 8px
-                          - line-height: 20px
-                          - color: white
-                    custom_fields:
-                      notification: >
-                        [[[ return states['sensor.isabellas_iphone_x_battery_level'].state ]]]
+                    # styles:
+                    #   grid:
+                    #     - position: relative
+                    #   custom_fields:
+                    #     notification:
+                    #       - background-color: >
+                    #           [[[
+                    #             if (states['sensor.isabellas_iphone_x_battery_level'].state > 50)
+                    #               return "#87c087";
+                    #             return "#FF8000";
+                    #           ]]]
+                    #       - border-radius: 50%
+                    #       - position: absolute
+                    #       - left: 60%
+                    #       - top: 0
+                    #       - height: 20px
+                    #       - width: 20px
+                    #       - font-size: 8px
+                    #       - line-height: 20px
+                    #       - color: white
+                    # custom_fields:
+                    #   notification: >
+                    #     [[[ return states['sensor.isabellas_iphone_x_battery_level'].state ]]]
               - type: markdown
                 content: >
                     # [[ sensor.time.state ]]
@@ -81,7 +81,7 @@ cards:
                 style: |
                   ha-card {
                     margin-top: 50px;
-                    margin-bottom: 330px;
+                    # margin-bottom: 330px;
                     background-color: rgba(0, 0, 0, 0);
                     font-family: 'Open Sans', sans-serif;
                     font-size: 200%;
@@ -93,6 +93,16 @@ cards:
                   h1, h3 {
                     font-weight: 300 !important;
                   }
+              - type: custom:mod-card
+                style: |
+                  ha-card {
+                    height: 300px;
+                    overflow: hidden;
+                    font-size: !important 150%;
+                  }
+                card:
+                  !include notifications/dashboard_notifications.yaml
+
               - type: custom:smhi-forecast-card
                 entity: weather.smhi_home
                 icons: "/local/icons/weather_icons/static/"
@@ -127,8 +137,9 @@ cards:
                         cards:
                           - type: custom:grocy-chores-card
                             title: Todo this week
-                            entity: sensor.grocy
-                            show_days: 7
+                            entity: sensor.grocy_chores
+                            show_days: 3
+                            show_quantity: 6
                             style: |
                               ha-card {
                                 height: 530px;
@@ -148,7 +159,7 @@ cards:
                                 cards:
                                 - type: custom:mini-graph-card
                                   entities:
-                                    - sensor.temperature_bedroom
+                                    - sensor.bedroom_temperature
                                   show:
                                     icon: true
                                     fill: false
@@ -177,7 +188,7 @@ cards:
                                     }
                                 - type: custom:mini-graph-card
                                   entities:
-                                    - sensor.temperature_stefan
+                                    - sensor.stefan_temperature
                                   height: 35
                                   name: S Office
                                   show:
@@ -213,7 +224,7 @@ cards:
                                       icon: true
                                     height: 35
                                     entities:
-                                      - sensor.temperature_passage
+                                      - sensor.passage_temperature
                                     color_thresholds:
                                       - value: 0
                                         color: "#CCE5FF"
@@ -243,7 +254,7 @@ cards:
                                     name: Laundry
                                     height: 35
                                     entities:
-                                      - sensor.temperature_downstairs_bathroom
+                                      - sensor.downstairs_bathroom_temperature
                                     color_thresholds:
                                       - value: 0
                                         color: "#CCE5FF"
@@ -378,9 +389,6 @@ cards:
                                       - value: 'Clean'
                                         icon: mdi:washing-machine
                                         color: rgb(255, 0, 0)
-                                        styles:
-                                          icon:
-                                            - animation: blink 2s ease infinite
                                       - value: 'Running'
                                         icon: mdi:washing-machine
                                         color: rgb(152,251,152)
@@ -395,9 +403,6 @@ cards:
                                       - value: 'Clean'
                                         icon: mdi:tumble-dryer
                                         color: rgb(251, 210, 41)
-                                        styles:
-                                          icon:
-                                            - animation: blink 2s ease infinite
                                       - value: 'Running'
                                         icon: mdi:tumble-dryer
                                         color: rgb(152,251,152)
@@ -564,37 +569,66 @@ cards:
                         cards:
                           - type: 'custom:home-feed-card'
                             title: Home Feed
+                            compact_mode: on
                             scrollbars_enabled: false
-                            max_item_count: 7
+                            max_item_count: 12
+                            # max_height: 545px
                             entities:
                               - entity: input_select.dryer_status
                                 name: Dryer
                                 icon: mdi:tumble-dryer
+                                content_template: '{{display_name}}|{{state}}'
                                 include_history: true
                               - entity: input_select.washing_machine_status
+                                content_template: '{{display_name}}|{{state}}'
                                 name: Washer
                                 icon: mdi:washing-machine
                                 include_history: true
-                              - sensor.front_door
-                              - sensor.back_door
-                              - sensor.yard_door
-                              - sensor.balcony_door
-                              - sensor.dining_room_window
-                              - sensor.bedroom_window
-                              - sensor.bedroom_door
+                              - entity: sensor.front_door
+                                content_template: '{{display_name}}|{{state}}'
+                              - entity: sensor.back_door
+                                content_template: '{{display_name}}|{{state}}'
+                              - entity: sensor.yard_door
+                                content_template: '{{display_name}}|{{state}}'
+                              - entity: sensor.balcony_door
+                                content_template: '{{display_name}}|{{state}}'
+                              - entity: sensor.dining_room_window
+                                content_template: '{{display_name}}|{{state}}'
+                              - entity: sensor.bedroom_window
+                                content_template: '{{display_name}}|{{state}}'
+                              - entity: sensor.bedroom_door
+                                content_template: '{{display_name}}|{{state}}'
+                                name: Bedroom
+                                secondary_info: last-changed
                               - entity: sensor.living_room_axis_movement
                                 name: Living Room Left
+                                content_template: '{{display_name}}|{{state}}'
                                 secondary_info: last-changed
+                                state_map:
+                                  No movement: No motion
                               - entity: sensor.living_room_axis_movement_2
                                 name: Living Room Right
+                                content_template: '{{display_name}}|{{state}}'
                                 secondary_info: last-changed
+                                state_map:
+                                  No movement: No motion
                               - entity: sensor.passage_movement
                                 name: Passage
+                                content_template: '{{display_name}}|{{state}}'
+                                state_map:
+                                  No movement: No motion
                               - entity: sensor.upstairs_hallway_movement
                                 name: Stairs
+                                content_template: '{{display_name}}|{{state}}'
+                                state_map:
+                                  No movement: No motion
                               - entity: sensor.stefans_office_movement
-                                name: Stefans Office
+                                content_template: '{{display_name}}|{{state}}'
+                                name: S Office
+                                state_map:
+                                  No movement: No motion
                               - entity: switch.bike_charger
+                                content_template: '{{display_name}}|{{state}}'
                                 name: E-bike charger
                                 include_history: true
                             style: |
@@ -604,50 +638,64 @@ cards:
                                 overflow: hidden;
                                 font-family: 'Open Sans', sans-serif;
                               }
-                          - type: custom:upcoming-media-card
-                            entity: sensor.recently_added_tv
-                            title: To watch
-                            date: ddmm
-                            clock: 24
-                            max: 3
-                            image_style: poster
-                            flag: false
-                            hide_unflagged: true
-                            icon: none
-                            all_shadows: false
+                          - type: vertical-stack
+                            cards:
+                              - type: custom:upcoming-media-card
+                                entity: sensor.recently_added_tv
+                                title: To watch
+                                date: ddmm
+                                clock: 24
+                                max: 2
+                                image_style: poster
+                                flag: false
+                                hide_unflagged: true
+                                icon: none
+                                all_shadows: false
 
-                            flag_color: "#e5a00d"
-                            border_color: "#ffffff"
-                            accent_color: "#ffffff"
-                            title_color: "#636B75"
-                            line_color: "#636B75"
+                                flag_color: "#e5a00d"
+                                border_color: "#ffffff"
+                                accent_color: "#ffffff"
+                                title_color: "#636B75"
+                                line_color: "#636B75"
 
-                            title_size: large
-                            line_size: medium
+                                title_size: large
+                                line_size: medium
 
-                            title_text: "$title"
-                            line1_text: "$number - $episode"
-                            line2_text: "$runtime - $rating - $genres"
-                            line3_text: "Released: $aired"
-                            line4_text: "Added: $release"
-                            style: |
-                              .plex_fan_fanart {
-                                -webkit-box-shadow: none;
-                                -moz-box-shadow: none;
-                                box-shadow: none !important;
-                                height: 100px;
-                              }
-                              ha-card {
-                                margin-top: 10px;
-                                font-family: 'Open Sans', sans-serif;
-                                height: 560px;
-                              }
-                              .card-header {
-                                padding-bottom: 8px;
-                              }
-                              .plex_poster {
-                                margin: 0 !important;
-                              }
+                                title_text: "$title"
+                                line1_text: "$number - $episode"
+                                line2_text: "$runtime - $rating - $genres"
+                                line3_text: "Released: $aired"
+                                line4_text: "Added: $release"
+                                style: |
+                                  .plex_fan_fanart {
+                                    -webkit-box-shadow: none;
+                                    -moz-box-shadow: none;
+                                    box-shadow: none !important;
+                                    height: 100px;
+                                  }
+                                  ha-card {
+                                    margin-top: 10px;
+                                    font-family: 'Open Sans', sans-serif;
+                                    height: 370px;
+                                    # 560
+                                  }
+                                  .card-header {
+                                    padding-bottom: 8px;
+                                    padding-bottom: 0;
+
+                                  }
+                                  .plex_poster {
+                                    margin: 0 !important;
+                                  }
+                                  .rece_poster {
+                                    margin-top: 0 !important;
+                                    margin-bottom: 0 !important;
+                                  }
+                              - type: picture-entity
+                                entity: camera.attic
+                                camera_view: live
+                                show_state: false
+                                show_name: false
                     style: |
                       ha-card {
                         height: 920px;

@@ -1,167 +1,304 @@
 type: vertical-stack
 cards:
-  # - type: custom:decluttering-card
-  #   template: header_text
-  #   variables:
-  #     - content: '##### Notifications and Events'
+## RED
+  - type: conditional
+    conditions:
+      - entity: sensor.monitor_living_room
+        state_not: 'online'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: sensor.monitor_living_room
+            - icon: reload
+            - name: "Monitor Living Room Offline. Press to restart"
+            - card_color: rgba(255, 0, 0, 0.8)
+            - tap_action: 
+                action: call-service
+                service: browser_mod.command
+                service_data:
+                  command: popup
+                  title: Monitor
+                  card:
+                    type: entities
+                    entities:
+                      - type: call-service
+                        icon: mdi:reload
+                        name: Restart Monitor Services
+                        service: mqtt.publish
+                        service_data:
+                          topic: monitor/scan/restart
+                  deviceID:
+                    - this
+                haptic: heavy
+            - hold_action: 
+                action: call-service
+                service: browser_mod.command
+                service_data:
+                  command: popup
+                  title: Monitor
+                  card:
+                    type: entities
+                    entities:
+                      - type: call-service
+                        icon: mdi:reload
+                        name: Restart Monitor Services
+                        service: mqtt.publish
+                        service_data:
+                          topic: monitor/scan/restart
+                  deviceID:
+                    - this
+                haptic: heavy
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.ring_low_battery
+        state: 'on'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: alert
+            - name: "[[[ return `Ring Doorbell has ${states['sensor.ring_front_door_battery'].state} % battery left.` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
+  - type: conditional
+    conditions:
+      - entity: sensor.monitor_dining_room
+        state_not: 'online'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: sensor.monitor_dining_room
+            - icon: reload
+            - name: "Monitor Dining Room Offline. Press to restart"
+            - card_color: rgba(255, 0, 0, 0.8)
+            - tap_action: 
+                action: call-service
+                service: browser_mod.command
+                service_data:
+                  command: popup
+                  title: Monitor
+                  card:
+                    type: entities
+                    entities:
+                      - type: call-service
+                        icon: mdi:reload
+                        name: Restart Monitor Services
+                        service: mqtt.publish
+                        service_data:
+                          topic: monitor/scan/restart
+                  deviceID:
+                    - this
+                haptic: heavy
+            - hold_action: 
+                action: call-service
+                service: browser_mod.command
+                service_data:
+                  command: popup
+                  title: Monitor
+                  card:
+                    type: entities
+                    entities:
+                      - type: call-service
+                        icon: mdi:reload
+                        name: Restart Monitor Services
+                        service: mqtt.publish
+                        service_data:
+                          topic: monitor/scan/restart
+                  deviceID:
+                    - this
+                haptic: heavy
 
-# error - red
 
-  # - type: conditional
-  #   conditions:
-  #     - entity: binary_sensor.remote_ui
-  #       state_not: 'on'
-  #   card:
-  #     type: custom:decluttering-card
-  #     template: notification_card
-  #     variables:
-  #       - icon: alert
-  #       - color: rgba(255, 0, 0, 0.5)
-  #       - content: 'Remote connection till NabuCasa är nere'
+  - type: conditional
+    conditions:
+      - entity: sensor.smhialert
+        state_not: 'No Alerts'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: sensor.smhialert
+            - icon: alert
+            - name: "[[[ return `${states['sensor.smhialert'].attributes.messages['025'].msgs[0].event}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
+            - tap_action: 
+                action: call-service
+                service: browser_mod.command
+                service_data:
+                  command: popup
+                  title: SMHI Alert
+                  card:
+                    type: 'custom:smhialert-card'
+                    entity: sensor.smhialert
+                    title: " "
+                  deviceID:
+                    - this
+                haptic: heavy
+
 
   - type: conditional
     conditions:
       - entity: sensor.krisinformation_stockholm
         state: 'Alert'
     card:
-      type: custom:decluttering-card
-      template: notification_card
-      variables:
-        - color: rgba(255, 0, 0, 0.5)
-        - icon: alert
-        - content: 'VMA in Stockholm: https://www.krisinformation.se/'
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: alert
+            - name: 'VMA in Stockholm: https://www.krisinformation.se/'
+            - card_color: rgba(255, 0, 0, 0.8)
 
+  - type: conditional
+    conditions:
+      - entity: alert.back_door_open
+        state_not: 'idle'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: alert.back_door_open
+            - icon: alert
+            - name: "[[[ return `${states['alert.back_door_open'].attributes.friendly_name}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
 
-  # - type: conditional
-  #   conditions:
-  #     - entity: sensor.all_lights_check
-  #       state_not: '0'
-  #   card:
-  #     type: custom:decluttering-card
-  #     template: notification_card
-  #     variables:
-  #       - color: rgba(255, 0, 0, 0.5)
-  #       - icon: alert
-  #       - content: 'En lampa är unavailable'
+  - type: conditional
+    conditions:
+      - entity: alert.backyard_door_open
+        state_not: 'idle'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: alert.backyard_door_open
+            - icon: alert
+            - name: "[[[ return `${states['alert.backyard_door_open'].attributes.friendly_name}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
 
-  # - type: conditional
-  #   conditions:
-  #     - entity: sensor.frontdoor
-  #       state_not: 'Stängt'
-  #   card:
-  #     type: custom:decluttering-card
-  #     template: notification_card
-  #     variables:
-  #       - color: rgba(255, 0, 0, 0.5)
-  #       - content: Ytterdörren är öppen!
+  - type: conditional
+    conditions:
+      - entity: alert.balcony_door_open
+        state_not: 'idle'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: alert.balcony_door_open
+            - icon: alert
+            - name: "[[[ return `${states['alert.balcony_door_open'].attributes.friendly_name}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
+
+  - type: conditional
+    conditions:
+      - entity: alert.balcony_door_open
+        state_not: 'idle'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: alert.balcony_door_open
+            - icon: alert
+            - name: "[[[ return `${states['alert.balcony_door_open'].attributes.friendly_name}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
+
+  - type: conditional
+    conditions:
+      - entity: alert.front_door_open
+        state_not: 'idle'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: alert.front_door_open
+            - icon: alert
+            - name: "[[[ return `${states['alert.front_door_open'].attributes.friendly_name}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
+
+  - type: conditional
+    conditions:
+      - entity: alert.dining_room_window_open
+        state_not: 'idle'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: alert.dining_room_window_open
+            - icon: alert
+            - name: "[[[ return `${states['alert.dining_room_window_open'].attributes.friendly_name}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.8)
 
   - type: conditional
     conditions:
       - entity: vacuum.roborock
         state: 'error'
     card:
-      type: custom:decluttering-card
-      template: notification_card
-      variables:
-        - color: rgba(255, 0, 0, 0.5)
-        - icon: robot-vacuum
-        - content: Roborock has an error!
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: robot-vacuum
+            - name: "Roborock has an error!"
+            - card_color: rgba(255, 0, 0, 0.8)
 
 
-# # Gula
+## YELLOW
 
 
-#   - type: conditional
-#     conditions:
-#       - entity: sensor.nr_open_doors_and_windows
-#         state_not: '0'
-#     card:
-#       type: custom:decluttering-card
-#       template: notification_card
-#       variables:
-#         - color: rgb(251, 210, 41)
-#         - icon: alert-circle-outline
-#         - content: '[[ sensor.nr_open_doors_and_windows.state ]] st dörrar/Fönster är öppna'
-
-  - type: conditional
-    conditions:
-      - entity: sensor.hacs
-        state_not: '0'
-    card:
-      type: custom:decluttering-card
-      template: notification_card
-      variables:
-        - color: rgb(251, 210, 41)
-        - icon: home-assistant
-        - content: '[[ sensor.hacs.state ]] updates in HACS'
-
-#   - type: conditional
-#     conditions:
-#       - entity: input_boolean.hass_update
-#         state: 'on'
-#     card:
-#       type: custom:decluttering-card
-#       template: notification_card
-#       variables:
-#         - color: rgb(251, 210, 41)
-#         - icon: home-assistant
-#         - content: Home Assistant version [[ sensor.ha_latest_version.state ]] är nu tillgänglig
-
-#   - type: conditional
-#     conditions:
-#       - entity: sensor.potential_breaking_changes
-#         state_not: '0'
-#     card:
-#       type: custom:decluttering-card
-#       template: notification_card
-#       variables:
-#         - color: rgba(255, 0, 0, 0.5)
-#         - icon: home-assistant
-#         - content: Det finns potentiella breaking changes
-
-
-#   - type: conditional
-#     conditions:
-#       - entity: plant.tomaten
-#         state: 'problem'
-#     card:
-#       type: custom:decluttering-card
-#       template: notification_card
-#       variables:
-#         - color: rgb(251, 210, 41)
-#         - icon: alert-circle-outline
-#         - content: 'Det är något problem med tomatblomman'
-
-
-# ## Gröna
+## GREEN
 
   - type: conditional
     conditions:
       - entity: vacuum.roborock
         state: 'cleaning'
     card:
-      type: custom:decluttering-card
-      template: notification_card
-      variables:
-        - color: rgba(0, 255, 0, 0.5)
-        - icon: robot-vacuum
-        - content: 'Roborock has vacuumed [[ vacuum.roborock.attributes.cleaned_area ]]m² in [[ vacuum.roborock.attributes.cleaning_time ]] minutes'
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: robot-vacuum
+            - name: "[[[ return `Roborock has vacuumed ${states['vacuum.roborock'].attributes.cleaned_area} m² in ${states['vacuum.roborock'].attributes.cleaning_time} minutes` ]]]"
+            - card_color: rgba(0, 255, 0, 0.8)
 
-# #  - type: conditional
-# #    conditions:
-# #      - entity: sensor.time_at_day
-# #        state: 'natt'
-# #    card:
-# #      type: custom:decluttering-card
-# #      template: notification_card
-# #      variables:
-# #        - color: rgba(0, 255, 0, 0.5)
-# #        - icon: robot-vacuum
-# #        - content: 'Det är [[ sensor.dark_sky_summary.state ]] och [[ sensor.temp_ute_filtrerad.state ]] grader i Mölnlycke. Prognosen för idag är [[ sensor.dark_sky_hourly_summary.state ]], som varmast kommer det bli [[ sensor.dark_sky_daytime_high_temperature_0d.state ]] grader och som lägst [[ sensor.dark_sky_overnight_low_temperature_0d.state ]] grader.'
+## BLUE
 
-
-
-
-
-
-# #Det är [[ sensor.dark_sky_summary.state ]] och [[ states.sensor.temp_ute_filtrerad.state|round ]] grader i Mölnlycke. Prognosen för idag är [[ sensor.dark_sky_hourly_summary.state|replace(".", "") ]], som varmast kommer det bli [[ sensor.dark_sky_daytime_high_temperature_0d.state|round ]] grader och som lägst [[ sensor.dark_sky_overnight_low_temperature_0d.state|round ]] grader.
+  - type: conditional
+    conditions:
+      - entity: sensor.hacs
+        state_not: '0'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: home-assistant
+            - name: "[[[ return `${states['sensor.hacs'].state} updates in HACS` ]]]"
+            - card_color: rgba(0, 161, 255, 0.8)
+            - tap_action: 
+                action: navigate
+                navigation_path: /hacs
+                haptic: heavy

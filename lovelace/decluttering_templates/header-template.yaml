@@ -19,6 +19,6 @@ card:
       height: 33px;
       background: none;
       padding: 0px 10px;
-      color: var(--header-color);
+      color: var(--primary-background-color);
     }
-  content: '[[content]]'
+  content: [[content]]

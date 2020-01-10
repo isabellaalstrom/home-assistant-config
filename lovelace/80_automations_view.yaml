@@ -19,6 +19,18 @@ cards:
     card:
       type: entities
       show_header_toggle: false
+      title: Entity Controller
+    filter:
+      include:
+        - entity_id: input_boolean.ec_*
+          options:
+            secondary_info: last-changed
+
+  - type: custom:auto-entities
+    show_empty: false
+    card:
+      type: entities
+      show_header_toggle: false
       title: Cats
     filter:
       include:

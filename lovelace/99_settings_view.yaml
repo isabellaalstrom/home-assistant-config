@@ -20,6 +20,35 @@ cards:
           - type: custom:auto-entities
             card:
               type: entities
+              title: Low Battery
+              show_header_toggle: false
+            filter:
+              include:
+                - entity_id: "*battery*"
+                  state: "<= 30"
+                  sort:
+                    method: state
+                    numeric: true
+                - attributes:
+                    battery_level: "<= 30"
+                  options:
+                    type: custom:secondaryinfo-entity-row
+                    secondary_info: "[[ {entity}.attributes.battery_level ]] %"
+                  sort:
+                    method: attribute
+                    attribute: battery_level
+                    numeric: true
+              exclude:
+                - entity_id: "zwave.*"
+            show_empty: true
+            unique: true
+
+
+      - type: vertical-stack
+        cards:
+          - type: custom:auto-entities
+            card:
+              type: entities
               title: Power consumption
               show_header_toggle: false
             filter:
@@ -30,3 +59,12 @@ cards:
               exclude:
                 - entity_id: "*_2"
                 - entity_id: "*_management"
+
+      - type: vertical-stack
+        cards:
+          - type: custom:grocy-chores-card
+            title: All chores
+            entity: sensor.grocy_chores
+            user_id: 2
+
+          - type: custom:gui-sandbox

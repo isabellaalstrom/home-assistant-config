@@ -1,0 +1,56 @@
+title: Cats
+icon: mdi:cat
+panel: true
+path: cats
+cards:
+  - type: custom:layout-card
+    layout: vertical
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:bignumber-card
+                title: Downstairs litterbox
+                entity: counter.litterbox_downstairs_visits
+                scale: 30px
+                from: bottom
+                min: 0
+                max: 10
+                severity:
+                  - value: 2
+                    style: 'var(--label-badge-green)'
+                  - value: 3
+                    style: 'var(--label-badge-yellow)'
+                  - value: 4
+                    style: 'orange'
+                  - value: 10
+                    style: 'var(--label-badge-red)'
+                style: |
+                  ha-card {
+                    background: var(--homekit-card-off);
+                  }
+              - type: custom:bignumber-card
+                title: Upstairs litterbox
+                entity: counter.litterbox_upstairs_visits
+                scale: 30px
+                min: 0
+                max: 10
+                from: bottom
+                severity:
+                  - value: 2
+                    style: 'var(--label-badge-green)'
+                  - value: 3
+                    style: 'var(--label-badge-yellow)'
+                  - value: 4
+                    style: 'orange'
+                  - value: 10
+                    style: 'var(--label-badge-red)'
+                style: |
+                  ha-card {
+                    background: var(--homekit-card-off);
+                  }
+
+          - type: picture-entity
+            entity: camera.upstairs_litterbox_2
+            camera_view: live

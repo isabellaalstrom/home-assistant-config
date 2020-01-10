@@ -1,0 +1,225 @@
+title: Climate
+icon: mdi:thermostat
+panel: true
+path: climate
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: thermostat
+                entity: climate.sanyo
+              - type: horizontal-stack
+                cards:
+                  ## Air cleaner
+                  - type: custom:button-card
+                    entity: script.air_cleaner_quiet
+                    show_name: false
+                    icon: mdi:fan-off
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+                  - type: custom:button-card
+                    entity: script.air_cleaner_auto
+                    icon: mdi:fan
+                    show_name: false
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+                  - type: custom:button-card
+                    entity: script.air_cleaner_turbo
+                    icon: mdi:run-fast
+                    show_name: false
+                    color: rgb(220,220,220)
+                    color_off: rgb(220,220,220)
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.bedroom_temperature
+                    
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.stefan_temperature
+                    
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.passage_temperature
+                    
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.downstairs_bathroom_temperature
+                    
+                    color_thresholds:
+                      - value: 0
+                        color: "#CCE5FF"
+                      - value: 10
+                        color: "#66B2FF"
+                      - value: 18
+                        color: "#0080FF"
+                      - value: 20
+                        color: "#87c087"
+                      - value: 21
+                        color: "#389638"
+                      - value: 24
+                        color: "#FF9932"
+                      - value: 25
+                        color: "#FF8000"
+                      - value: 26
+                        color: "#ff0000"
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                      fill: fade
+                    entities:
+                      - sensor.storage_temperature
+                    # 
+                    color_thresholds:
+                      - value: -5
+                        color: "#66B2FF"
+                      - value: 3
+                        color: "#87c087"
+                      - value: 5
+                        color: "#389638"
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.refrigerator_temperature
+                    
+                    color_thresholds:
+                      - value: -5
+                        color: "#66B2FF"
+                      - value: 0
+                        color: "#ff0000"
+                      - value: 2
+                        color: "#66B2FF"
+                      - value: 3
+                        color: "#0080FF"
+                      - value: 4
+                        color: "#389638"
+                      - value: 7
+                        color: "#FF9932"
+                      - value: 8
+                        color: "#ff0000"
+
+          - break
+
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.bedroom_humidity
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.stefan_humidity
+
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.passage_humidity
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.downstairs_bathroom_humidity
+                      
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.storage_humidity
+                  - type: custom:mini-graph-card
+                    show:
+                      icon: false
+                    entities:
+                      - sensor.refrigerator_humidity
+
+          # - break
+          # - type: vertical-stack
+          #   cards:
+              - type: custom:pollenkoll-card
+                city: Stockholm
+                title: false
+                compact: true
+                show_state: false
+                allergens:
+                  - björk
+                  - gråbo
+                  - gräs
+

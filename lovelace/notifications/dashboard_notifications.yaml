@@ -1,0 +1,210 @@
+type: vertical-stack
+cards:
+  - type: conditional
+    conditions:
+      - entity: sensor.krisinformation_stockholm
+        state: 'Alert'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: alert
+            - name: 'VMA in Stockholm: https://www.krisinformation.se/'
+            - card_color: rgba(255, 0, 0, 0.5)
+            # - hold_action: 
+            #     action: navigate
+            #     navigation_path: /community
+            #     haptic: heavy
+            - border-radius: 10px
+
+  - type: conditional
+    conditions:
+      - entity: sensor.smhialert
+        state_not: 'No Alerts'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: sensor.smhialert
+            - icon: alert
+            - name: "[[[ return `${states['sensor.smhialert'].attributes.messages['025'].msgs[0].event}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.5)
+            - tap_action: 
+                action: call-service
+                service: browser_mod.command
+                service_data:
+                  command: popup
+                  title: SMHI Alert
+                  card:
+                    type: 'custom:smhialert-card'
+                    entity: sensor.smhialert
+                    title: " "
+                  deviceID:
+                    - this
+                haptic: heavy
+            - border-radius: 10px
+
+  - type: conditional
+    conditions:
+      - entity: vacuum.roborock
+        state: 'error'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: robot-vacuum
+            - name: "Roborock has an error!"
+            - font_size: 20px
+            - card_color: rgba(255, 0, 0, 0.5)
+            - border-radius: 10px
+
+  - type: conditional
+    conditions:
+      - entity: sensor.krisinformation_stockholm
+        state: 'Alert'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: alert
+            - name: 'VMA in Stockholm: https://www.krisinformation.se/'
+            - font_size: 20px
+            - card_color: rgba(255, 0, 0, 0.5)
+            - border-radius: 10px
+
+
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.ring_low_battery
+        state: 'on'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: alert
+            - name: "[[[ return `Ring Doorbell has ${states['sensor.ring_front_door_battery'].state}% battery left.` ]]]"
+            - font_size: 16px
+            - name_color: var(--primary-text-color)
+            - icon_color: var(--primary-text-color)
+            - card_color: rgba(255, 0, 0, 0.5)
+            - border-radius: 10px
+
+
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.clean_up
+        state: 'on'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: broom
+            - name: "Time to get ready for cleaners"
+            - font_size: 16px
+            - name_color: white
+            - icon_color: white
+            - card_color: "#00a1ff"
+            - border-radius: 10px
+
+
+
+  # - type: horizontal-stack
+  #   cards:
+  #     - type: custom:auto-entities
+  #       card:
+  #         type: entities
+  #         show_header_toggle: false
+  #         style: |
+  #           ha-card {
+  #             background-color: rgba(0, 0, 0, 0);
+  #             font-family: 'Open Sans', sans-serif;
+  #             -webkit-box-shadow: none;
+  #             -moz-box-shadow: none;
+  #             box-shadow: none;
+  #             text-align: center;
+  #           }
+  #           .card-content {
+  #             padding: 0px !important;
+  #           }
+  #       filter:
+  #         include:
+  #           - entity_id: "*battery*"
+  #             state: "<= 30"
+  #             sort:
+  #               method: state
+  #               numeric: true
+  #             options:
+  #               type: custom:decluttering-card
+  #               template: notification_template
+  #               variables:
+  #                 - icon: battery-alert-variant
+  #                 - name: "[[[ return `${states['this.entity_id'].attributes.friendly_name} - ${states['this.entity_id'].state} %` ]]]"
+  #                 - card_color: rgba(255, 0, 0, 0.5)
+  #                 - border-radius: 10px
+  #                 - font_size: 10px
+  #           - attributes:
+  #               battery_level: "<= 30"
+  #             options:
+  #               type: custom:decluttering-card
+  #               template: notification_template
+  #               variables:
+  #                 - icon: battery-alert-variant
+  #                 - name: "[[[ return `${states['this.entity_id'].attributes.friendly_name} - ${states['this.entity_id'].attributes.battery_level} %` ]]]"
+  #                 - card_color: rgba(255, 0, 0, 0.5)
+  #                 - border-radius: 10px
+  #                 - font_size: 10px
+  #             sort:
+  #               method: attribute
+  #               attribute: battery_level
+  #               numeric: true
+  #         exclude:
+  #           - entity_id: "zwave.*"
+  #           - entity_id: "device_tracker.*"
+  #       show_empty: false
+  #       unique: true    
+  #     - type: custom:auto-entities
+  #       card:
+  #         type: entities
+  #         show_header_toggle: false
+  #         style: |
+  #           ha-card {
+  #             background-color: rgba(0, 0, 0, 0);
+  #             font-family: 'Open Sans', sans-serif;
+  #             -webkit-box-shadow: none;
+  #             -moz-box-shadow: none;
+  #             box-shadow: none;
+  #             text-align: center;
+  #           }
+  #           .card-content {
+  #             padding: 0px !important;
+  #           }
+  #       filter:
+  #         include:
+  #           - entity_id: "*battery*"
+  #             state: "unavailable"
+  #             options:
+  #               type: custom:decluttering-card
+  #               template: notification_template
+  #               variables:
+  #                 - icon: battery-alert-variant
+  #                 - name: "[[[ return `${states['this.entity_id'].attributes.friendly_name} - ${states['this.entity_id'].state}` ]]]"
+  #                 - card_color: rgba(255, 0, 0, 0.5)
+  #                 - border-radius: 10px
+  #                 - font_size: 10px
+  #         exclude:
+  #           - entity_id: "zwave.*"
+  #           - entity_id: "device_tracker.*"
+  #       show_empty: false
+  #       unique: true    
