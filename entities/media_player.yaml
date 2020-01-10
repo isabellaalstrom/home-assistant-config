@@ -13,7 +13,7 @@
     host: !secret samsungtv1_host
     mac: !secret samsungtv1_mac
 
-  - platform: plex
+  # - platform: plex
 
   - platform: androidtv
     host: !secret shield_host
