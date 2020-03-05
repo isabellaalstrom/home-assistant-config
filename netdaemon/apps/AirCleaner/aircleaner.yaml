@@ -1,0 +1,7 @@
+air_cleaner_schedule:
+    class: AirCleanerSchedule
+    AutoScript: "script.air_cleaner_auto"
+    QuietScript: "script.air_cleaner_quiet"
+    TurboScript: "script.air_cleaner_turbo"
+    QuietHour: 21
+    AutoHour: 12

@@ -1,0 +1,10 @@
+motion_snapshot:
+  class: MotionSnapshot
+  Alarm: alarm_control_panel.house
+  FilePath: !secret latest_snapshot_filepath
+  Cameras:
+    - camera.hallway
+    - camera.isas_room
+    - camera.living_room_axis
+    - camera.passage_axis
+    - camera.yard
