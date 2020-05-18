@@ -1,17 +1,17 @@
-  - platform: spotify
-    client_id: !secret spotify_id
-    client_secret: !secret spotify_secret
+  # - platform: spotify
+  #   client_id: !secret spotify_id
+  #   client_secret: !secret spotify_secret
     
-  - platform: samsungtv
-    name: 'Living Room Tv'
-    host: !secret samsungtv2_host
-    port: 8001
-    mac: !secret samsungtv2_mac
+  # - platform: samsungtv
+  #   name: 'Living Room Tv'
+  #   host: !secret samsungtv2_host
+  #   port: 8001
+  #   mac: !secret samsungtv2_mac
 
-  - platform: samsungtv
-    name: 'Living Room Movie System'
-    host: !secret samsungtv1_host
-    mac: !secret samsungtv1_mac
+  # - platform: samsungtv
+  #   name: 'Living Room Movie System'
+  #   host: !secret samsungtv1_host
+  #   mac: !secret samsungtv1_mac
 
   # - platform: plex
 

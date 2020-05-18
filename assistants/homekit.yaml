@@ -1,37 +1,7 @@
-  auto_start: false
+  # auto_start: false
   filter:
     include_entities:
-      # - media_player.living_room_sonos
-
-      # - scene.dark_lights_on
-      # - scene.welcome_home
-      # - scene.watch_tv
-      # - scene.ceiling_lights
-      # - scene.morning_lights
-
-      # - binary_sensor.yard_door
-      # - binary_sensor.balcony_door
-      # - binary_sensor.dining_room_window
-      # - binary_sensor.front_door_homebridge
-      # - binary_sensor.back_door
-
-      # - input_boolean.sonos
-
-      # - script.air_cleaner_quiet
-      # - switch.stefan_radiator
-
-      # - script.media_system_on_off
-      # - script.bedroom_tv_on_off
-      # - script.tv_on_off
-
-      # - script.goodnight
-      # - scene.movie_time
-
-      # - sensor.bedroom_temperature
-      # - sensor.passage_temperature
-      # - sensor.downstairs_bathroom_temperature
-      # - sensor.stefan_temperature
-      
+      - cover.living_room_roller_blind_level
       - light.walk_in_closet_lights
       - light.stairs_lights
       - light.lights_automation
@@ -60,3 +30,6 @@
       - input_boolean.goodnight_isa
       - input_boolean.dnd_isa
       - input_boolean.good_morning_isa
+  entity_config:
+    cover.living_room_roller_blind_level:
+      name: Living Room Roller Blind

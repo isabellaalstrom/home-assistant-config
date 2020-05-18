@@ -1,7 +1,7 @@
 exclude:
   domains:
     - alert
-    - camera
+    # - camera
     - media_player
     - sun
     - calendar

@@ -1,35 +1,35 @@
   exclude:
     domains:
       # - automation
-      - alert
-      - camera
-      - media_player
+      # - alert
+      # # - camera
+      # - media_player
       - sun
-      - calendar
+      # - calendar
       # - sensor
-      - group
-      - switch
-      - script
+      # - group
+      # - switch
+      # - script
       - zwave
     entities:
-      - binary_sensor.clip_sensor_pushdim_toogle
-      - binary_sensor.clip_sensor_pushdim_toogle_2
-      - binary_sensor.clip_sensor_pushdim_toogle_3
-      - binary_sensor.clip_sensor_pushdim_toogle_4
-      - binary_sensor.clip_sensor_pushdim_toogle_on_off
-      - binary_sensor.clip_sensor_pushdim_toogle_on_off_2
-      - binary_sensor.clip_sensor_pushdim_toogle_on_off_3
-      - binary_sensor.clip_sensor_pushdim_toogle_on_off_4
-      - binary_sensor.clip_sensor_toogle_on_off
-      - binary_sensor.clip_sensor_toogle_on_off_2
-      - binary_sensor.clip_sensor_toogle_on_off_3
-      - binary_sensor.clip_sensor_toogle_on_off_4
-      - binary_sensor.clip_sensor_toogle_on_off_5
-      - binary_sensor.upstairs_hallway_dashboard_ping
-      - binary_sensor.living_room_dashboard_ping
-      - binary_sensor.rpi_zero_ping
-      - binary_sensor.remote_ui
-      - binary_sensor.workday_sensor
+      # - binary_sensor.clip_sensor_pushdim_toogle
+      # - binary_sensor.clip_sensor_pushdim_toogle_2
+      # - binary_sensor.clip_sensor_pushdim_toogle_3
+      # - binary_sensor.clip_sensor_pushdim_toogle_4
+      # - binary_sensor.clip_sensor_pushdim_toogle_on_off
+      # - binary_sensor.clip_sensor_pushdim_toogle_on_off_2
+      # - binary_sensor.clip_sensor_pushdim_toogle_on_off_3
+      # - binary_sensor.clip_sensor_pushdim_toogle_on_off_4
+      # - binary_sensor.clip_sensor_toogle_on_off
+      # - binary_sensor.clip_sensor_toogle_on_off_2
+      # - binary_sensor.clip_sensor_toogle_on_off_3
+      # - binary_sensor.clip_sensor_toogle_on_off_4
+      # - binary_sensor.clip_sensor_toogle_on_off_5
+      # - binary_sensor.upstairs_hallway_dashboard_ping
+      # - binary_sensor.living_room_dashboard_ping
+      # - binary_sensor.rpi_zero_ping
+      # - binary_sensor.remote_ui
+      # - binary_sensor.workday_sensor
       - sensor.current_version
       - sensor.version_available
       - sensor.date
@@ -37,12 +37,12 @@
       - sensor.time
       - sensor.nuc_containers_active
       - sensor.last_boot
-  include:
-    domains:
-      - device_tracker
+  # include:
+  #   domains:
+  #     - device_tracker
 
-    entities:
-      - sensor.dining_room_isabellas_iphone_x_bt
-      - sensor.living_room_isabellas_iphone_x_bt
-      - sensor.dining_room_stefan_iphone_11_bt
-      - sensor.living_room_stefan_iphone_11_bt
+  #   entities:
+  #     - sensor.dining_room_isabellas_iphone_x_bt
+  #     - sensor.living_room_isabellas_iphone_x_bt
+  #     - sensor.dining_room_stefan_iphone_11_bt
+  #     - sensor.living_room_stefan_iphone_11_bt
