@@ -3,11 +3,13 @@ upstairs_litterbox:
   class: Litterbox
   global_dependencies: globals
   motion_sensor: binary_sensor.upstairs_litterbox_motion
+  litterlocker_sensor: binary_sensor.upstairs_litterlocker
   counter: counter.litterbox_upstairs_visits
   counter_total: counter.all_litterbox_visits_today
   input_select: input_select.ulitterbox_state
   switch: upstairs_litterbox_switch
-  camera: camera.upstairs
+  camera: camera.isas_room
+  snapshot: !secret isas_room_snapshot
   constrain_input_boolean: input_boolean.ad_litterboxes,on
   dependencies:
     - notification_manager
@@ -15,15 +17,19 @@ upstairs_litterbox:
     - scheduler
     - tts_manager
 
+
 downstairs_litterbox:
   module: litterbox
   class: Litterbox
   global_dependencies: globals
   motion_sensor: binary_sensor.downstairs_litterbox_motion
+  litterlocker_sensor: binary_sensor.downstairs_litterlocker
   counter: counter.litterbox_downstairs_visits
   counter_total: counter.all_litterbox_visits_today
   input_select: input_select.dlitterbox_state
   switch: downstairs_litterbox_switch
+  camera: camera.attic
+  snapshot: !secret attic_snapshot
   constrain_input_boolean: input_boolean.ad_litterboxes,on
   dependencies:
     - notification_manager
