@@ -1,0 +1,38 @@
+'1587035537523':
+  alias: Cleaner Arriving
+  sequence:
+  - data:
+      brightness: 254
+    entity_id: light.living_room_ceiling_light_level, light.living_room_spotlights_level,
+      light.passage_ceiling_spotlights_level, light.upstairs_hallway_ceiling_light_level,
+      light.dining_room_ceiling_light_level, light.isa_ceiling_light, light.kitchen_ceiling_spotlights_level
+    service: light.turn_on
+  - data:
+      brightness: 254
+      rgb_color:
+      - 255
+      - 214
+      - 170
+    entity_id: light.stairs_lights
+    service: light.turn_on
+'1587037128688':
+  alias: Cleaner Leaving
+  sequence:
+  - data:
+      brightness: 100
+    entity_id: light.living_room_ceiling_light_level, light.living_room_spotlights_level,
+      light.passage_ceiling_spotlights_level, light.upstairs_hallway_ceiling_light_level,
+      light.dining_room_ceiling_light_level, light.isa_ceiling_light
+    service: light.turn_on
+  - data:
+      brightness: 100
+      rgb_color:
+      - 255
+      - 214
+      - 170
+    entity_id: light.bedroom_ceiling_light, light.floorlamp_uplight
+    service: light.turn_on
+  - delay: 00:00:30
+  - data: {}
+    entity_id: light.downstairs_lights, light.upstairs_lights
+    service: light.turn_off

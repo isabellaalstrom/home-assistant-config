@@ -33,10 +33,13 @@
     - sensor.system_axis_passage
     - sensor.system_dafang
     - sensor.system_ip_camera
-    for:
-      minutes: 5
+    for: 0:05:00
     platform: state
     to: Offline
+  - entity_id: device_tracker.raspberrypi,device_tracker.raspberrypi_3,device_tracker.raspberrypi_2,device_tracker.meye_edfe3a04,device_tracker.raspberrypi_4,device_tracker.sannce_ip_camera,device_tracker.7811dc70faaf,device_tracker.78_11_dc_71_2d_18,device_tracker.axis_00408cd5badd,device_tracker.axis_00408cd5bad6,device_tracker.4c_11_bf_c5_a5_6e,device_tracker.broadlink_hallway,device_tracker.broadlink_bedroom,device_tracker.broadlink_rmminiccec6f,device_tracker.xiaomi_gateway,device_tracker.milight_controller,device_tracker.synology_nas,device_tracker.0023c116a0dd,device_tracker.rockrobo,device_tracker.78_11_dc_7b_b2_6a
+    for: 0:05:00
+    platform: state
+    to: not_home
   condition: []
   action:
   - data_template:
@@ -77,13 +80,16 @@
       topic: monitor/scan/arrive
     service: mqtt.publish
   - data:
-      message: '@here Hass.io Online'
+      message: '@here Home Assistant Online'
       target:
       - '510402538898718728'
     service: notify.hass_discord
   - data:
-      name: palms
+      name: nest
     service: frontend.set_theme
+  - data:
+      addon: c6a2317c_netdaemon
+    service: hassio.addon_restart
 - id: '1578062963561'
   alias: '[System] Z-wave Ready'
   description: ''
@@ -98,8 +104,6 @@
       target:
       - '510402538898718728'
     service: notify.hass_discord
-  - delay: 00:05
-  - service: homekit.start
 - id: '1578063417620'
   alias: '[System] Hass Stopped'
   description: ''
@@ -109,7 +113,7 @@
   condition: []
   action:
   - data:
-      message: '@here Hass.io Offline'
+      message: '@here Home Assistant Offline'
       target:
       - '510402538898718728'
     service: notify.hass_discord
@@ -216,7 +220,7 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sensor.house_movement
+    entity_id: frontsensor.house_motion
     for:
       minutes: 10
     state: 'off'
@@ -259,31 +263,6 @@
       message: Automations turned on again
       title: Guest mode turned off
     service: notify.mobile_app_isabella_s_iphone_x
-- id: '1578088757483'
-  alias: '[Lights] Living room led strip on when Shield on'
-  description: Turn on the led strip in the TV bench when Shield is turned on
-  trigger:
-  - entity_id: media_player.living_room_nvidia_shield
-    platform: state
-    to: standby
-  condition: []
-  action:
-  - entity_id: light.living_room_lightstrip
-    service: light.turn_on
-- id: '1578088861602'
-  alias: '[Lights] Living room led strip off when Shield off'
-  description: Turn off the TV bench led strip when Shield is turned off
-  trigger:
-  - entity_id: media_player.living_room_nvidia_shield
-    platform: state
-    to: 'off'
-  - entity_id: media_player.living_room_nvidia_shield
-    platform: state
-    to: idle
-  condition: []
-  action:
-  - entity_id: light.living_room_lightstrip
-    service: light.turn_off
 - id: '1578138454661'
   alias: '[Lights] Notification on window open and lights on'
   description: ''
@@ -328,7 +307,7 @@
   - entity_id: light.bedroom_ceiling_light
     service: light.turn_off
 - id: '1578147522103'
-  alias: '[House] Notification on high temp in bedroom'
+  alias: '[Climate] Notification on high temp in bedroom'
   description: ''
   trigger:
   - above: '26'
@@ -349,7 +328,7 @@
       title: Bedroom temp high
     service: notify.mobile_app_isabella_s_iphone_x
 - id: '1578147585636'
-  alias: '[House] Notification on low temp in bedroom'
+  alias: '[Climate] Notification on low temp in bedroom'
   description: ''
   trigger:
   - below: '21'
@@ -361,6 +340,198 @@
     state: Home
   action:
   - data:
-      message: Turn up the radiator!
+      message: Turn up the radiator or shut the window!
       title: Bedroom temperature low
     service: notify.mobile_app_isabella_s_iphone_x
+- id: '1578785601832'
+  alias: '[Cats] [Moved to ad] Send image to Discord'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.upstairs_litterbox_motion
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: calendar.house_cleaning
+    state: 'off'
+  action:
+  - delay: 00:00:20
+  - data:
+      data:
+        images:
+        - /config/www/motion/camera.isas_room_latest.jpg
+      message: Cat on litterbox!
+      target:
+      - '665694350373683210'
+    service: notify.hass_discord
+- id: '1579009344959'
+  alias: '[System] Hass New Entity registered'
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: entity_registry_updated
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      message: 'Entity {{trigger.event.data.action}}: {{trigger.event.data.entity_id}}
+        - {{trigger.event.data.changes}}'
+      target:
+      - '510402538898718728'
+    service: notify.hass_discord
+- id: '1587306129134'
+  alias: '[Blinds] Living Room Roller Blinds Up'
+  description: ''
+  trigger:
+  - device_id: 4c1092ae02584579be29ec2399016071
+    domain: deconz
+    platform: device
+    subtype: turn_off
+    type: remote_button_short_press
+  - device_id: 4c1092ae02584579be29ec2399016071
+    domain: deconz
+    platform: device
+    subtype: turn_off
+    type: remote_button_long_press
+  condition: []
+  action:
+  - device_id: 82c20a4a058846fc8ecb7837d9c9370e
+    domain: cover
+    entity_id: cover.living_room_roller_blind_switch
+    type: open
+- id: '1587306204729'
+  alias: '[Blinds] Living Room Roller Blinds 30%'
+  description: ''
+  trigger:
+  - device_id: 4c1092ae02584579be29ec2399016071
+    domain: deconz
+    platform: device
+    subtype: turn_on
+    type: remote_button_short_press
+  condition: []
+  action:
+  - data:
+      position: 30
+    entity_id: cover.living_room_roller_blind_level
+    service: cover.set_cover_position
+- id: '1587328171004'
+  alias: '[Blinds] Living Room Roller Blind Stop on Release'
+  description: ''
+  trigger:
+  - device_id: 4c1092ae02584579be29ec2399016071
+    domain: deconz
+    platform: device
+    subtype: turn_on
+    type: remote_button_long_release
+  - device_id: 4c1092ae02584579be29ec2399016071
+    domain: deconz
+    platform: device
+    subtype: turn_off
+    type: remote_button_long_release
+  condition: []
+  action:
+  - entity_id: cover.living_room_roller_blind_level
+    service: cover.stop_cover
+- id: '1587364682944'
+  alias: '[Blinds] Living Room Roller Blind Down at 06'
+  description: ''
+  trigger:
+  - at: 06:00:00
+    platform: time
+  condition: []
+  action:
+  - data:
+      position: 30
+    entity_id: cover.living_room_roller_blind_level
+    service: cover.set_cover_position
+- id: '1587364801927'
+  alias: '[Blinds] Living Room Roller Blind Up at 10'
+  description: ''
+  trigger:
+  - at: '10:00:00'
+    platform: time
+  condition:
+  - condition: device
+    device_id: 90353caccb994684b823872fea8d9372
+    domain: media_player
+    entity_id: media_player.living_room_tv
+    type: is_off
+  action:
+  - device_id: 82c20a4a058846fc8ecb7837d9c9370e
+    domain: cover
+    entity_id: cover.living_room_roller_blind_switch
+    type: open
+- id: '1587559387737'
+  alias: '[Climate] Fan switch'
+  description: ''
+  trigger:
+  - device_id: 4f74a8ce5e85483a94fad78aef51e4e3
+    domain: deconz
+    platform: device
+    subtype: turn_on
+    type: remote_button_short_press
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.globe
+    service: homeassistant.toggle
+- id: '1587621677067'
+  alias: '[Blinds] Living Room Roller Blind Down'
+  description: ''
+  trigger:
+  - device_id: 4c1092ae02584579be29ec2399016071
+    domain: deconz
+    platform: device
+    subtype: turn_on
+    type: remote_button_long_press
+  condition: []
+  action:
+  - device_id: 82c20a4a058846fc8ecb7837d9c9370e
+    domain: cover
+    entity_id: cover.living_room_roller_blind_switch
+    type: close
+- id: '1587641472613'
+  alias: '[House] Notify on low water level'
+  description: ''
+  trigger:
+  - device_id: 6078752e73b94eee8a3e502d68970626
+    domain: binary_sensor
+    entity_id: binary_sensor.ikea_hydro_water_level
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    platform: device
+    type: problem
+  condition: []
+  action:
+  - data:
+      message: Fill it up!
+      title: Ikea hydro needs more water
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1589486639195'
+  alias: '[Cats] Downstairs Litterbox Auto Light'
+  description: ''
+  trigger:
+  - device_id: f48e6f61695146118277326f1ff9ab14
+    domain: binary_sensor
+    entity_id: binary_sensor.downstairs_litterbox_motion
+    platform: device
+    type: motion
+  condition:
+  - condition: device
+    device_id: 50c6f2fe5bbb4be0819c56db497f8a92
+    domain: light
+    entity_id: light.downstairs_litterbox_light_strip
+    type: is_off
+  action:
+  - brightness_pct: 15
+    device_id: 50c6f2fe5bbb4be0819c56db497f8a92
+    domain: light
+    entity_id: light.downstairs_litterbox_light_strip
+    type: turn_on
+  - delay: 00:03:00
+  - device_id: 50c6f2fe5bbb4be0819c56db497f8a92
+    domain: light
+    entity_id: light.downstairs_litterbox_light_strip
+    type: turn_off

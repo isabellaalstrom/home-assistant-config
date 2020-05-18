@@ -1,0 +1,14 @@
+binary_sensor.passage_axis_motion_0:
+  device_class: motion
+binary_sensor.passage_motion_sensor:
+  device_class: motion
+binary_sensor.upstairs_hallway_motion_sensor:
+  device_class: motion
+binary_sensor.hallway_motion:
+  device_class: motion
+cover.living_room_roller_blind_level:
+  device_class: blind
+cover.living_room_roller_blind_switch:
+  device_class: blind
+plant.one:
+  friendly_name: Cat Grass
