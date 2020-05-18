@@ -5,7 +5,7 @@ homeassistant:
   elevation: 50
   unit_system: metric
   time_zone: !secret time_zone
-  customize_glob: !include customglob.yaml
+  # customize_glob: !include customglob.yaml
   customize: !include customize.yaml
   packages: !include_dir_named packages
   auth_providers:
@@ -44,7 +44,7 @@ discovery:
 # ########################################
 # ###           ASSISTANTS             ###
 # ########################################
-cloud: # !include assistants/cloud.yaml
+# cloud: # !include assistants/cloud.yaml
 homekit: !include assistants/homekit.yaml
 
 # ########################################
@@ -61,9 +61,15 @@ lovelace_gen:
 
 lovelace:
   mode: yaml
-
-customizer:
-  custom_ui: hosted
+  resources: !include_dir_merge_list lovelace/resources 
+  dashboards:
+    lovelace-dashboard:
+      mode: yaml
+      filename: ui-dashboard.yaml
+      title: Dashboard
+      icon: mdi:monitor-dashboard
+      show_in_sidebar: true
+      require_admin: false
 
 map:
 
@@ -71,14 +77,9 @@ frontend:
   themes: !include_dir_named themes
   extra_html_url:
     - /local/hass-bha-icons.html
-    
-panel_custom: !include panels/panel_custom.yaml
 
-hacs:
-  token: !secret github_access_token
-  appdaemon: true
+netdaemon:
   
-
 browser_mod:
   devices:
     24d2e744-aee3dfdb:
@@ -117,7 +118,12 @@ logger: !include logging/logger.yaml
 person:
 media_player: !include entities/media_player.yaml
 device_tracker: !include entities/device_tracker.yaml
-zone: !include_dir_merge_list zones/
+zone:
+  - name: 'Gun'
+    latitude: !secret isama_lat
+    longitude: !secret isama_long
+    icon: mdi:map-marker
+    radius: 100
 alarm_control_panel: !include resources/bwalarm/bwalarm.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
