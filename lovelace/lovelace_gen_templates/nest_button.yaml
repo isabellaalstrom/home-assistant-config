@@ -1,0 +1,127 @@
+# lovelace_gen
+
+type: custom:button-card
+entity: {{ entity }}
+show_label: false
+show_state: {{ show_state }}
+show_name: {{ show_name }}
+show_icon: true
+icon: {{ icon }}
+show_last_changed: true
+entity_picture: >
+  [[[ return hass.hassUrl('{{ entity_picture }}') ]]]
+tap_action: 
+  action: more-info
+state:
+  - value: 'on'
+    color: rgb(152,251,152)
+  - value: 'off'
+    color: "#BAC0C6"
+
+  - value: 'Closed'
+    color: rgb(152,251,152)
+  - value: 'Open'
+    icon: mdi:door-open
+    color: rgb(255, 0, 0)
+
+  - value: 'armed_away'
+    icon: mdi:shield-lock
+    color: rgb(152,251,152)
+  - value: 'armed_home'
+    icon: mdi:shield-home
+    color: rgb(251, 210, 41)
+  - value: 'triggered'
+    icon: mdi:shield-alert
+    color: rgb(255, 0, 0)
+    styles:
+      icon:
+        - animation: blink 2s ease infinite
+  - value: 'disarmed'
+    icon: mdi:shield-off
+    color: rgb(169,169,169)
+  - value: 'pending'
+    icon: mdi:shield-half-full
+    color: rgb(169,169,169)
+    styles:
+      icon:
+        - animation: blink 2s ease infinite
+
+  - value: 'Package and mail'
+    icon: mdi:mailbox-up
+    color: rgb(152,251,152)
+  - value: 'Mail'
+    icon: mdi:mailbox-up
+    color: rgb(152,251,152)
+  - value: 'Package'
+    icon: mdi:mailbox-up
+    color: rgb(152,251,152)
+  - value: 'Empty'
+    icon: mdi:mailbox-outline
+    color: "#BAC0C6"
+
+  - value: 'Put out'
+    icon: mdi:delete-restore
+    color: rgb(255, 0, 0)
+  - value: 'Home'
+    icon: mdi:delete-outline
+    color: "#BAC0C6"
+  - value: 'Take in'
+    icon: mdi:delete-restore
+    color: rgb(251, 210, 41)
+  - value: 'Out'
+    icon: mdi:delete-empty-outline
+    color: "#BAC0C6"
+
+  - value: 'Clean'
+    # icon: mdi:washing-machine
+    color: rgb(255, 0, 0)
+  - value: 'Running'
+    # icon: mdi:washing-machine
+    color: rgb(152,251,152)
+  - value: 'Idle'
+    # icon: mdi:washing-machine
+    color: "#BAC0C6"
+  - value: 'Unknown'
+    color: rgb(251, 210, 41)
+  - value: 'Docked'
+    color: "#BAC0C6"
+    # color: rgb(152,251,152)
+  - value: 'Error'
+    color: rgb(255, 0, 0)
+  - value: 'Idle'
+    color: "#BAC0C6"
+
+  - value: 'Charging'
+    color: rgb(169,169,169)
+  - value: 'Waiting'
+    color: rgb(251, 210, 41)
+  - value: 'Charged'
+    color: rgb(152,251,152)
+style: |
+    ha-card {
+      font-family: 'Open Sans', sans-serif;
+      padding-top: 15px !important;
+      background-color: rgba(0, 0, 0, 0);
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    }
+    ha-icon {
+      width: 60% !important;
+    }
+    img {
+      width: 100%;
+    }
+    #img-cell {
+      background-color: #F5F5F5;
+      border-radius: 50px;
+      height: 1.8em !important;
+      width: 1.8em !important;
+    }
+    #state, #name {
+      font-size: 60%;
+      padding-top: 5px;
+    }
+    #label {
+      font-size: 50%;
+    }

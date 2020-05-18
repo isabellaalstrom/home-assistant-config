@@ -36,7 +36,7 @@ cards:
       include:
         - entity_id: 'automation.cats*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false
@@ -48,7 +48,7 @@ cards:
       include:
         - entity_id: 'automation.house*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false
@@ -60,7 +60,7 @@ cards:
       include:
         - entity_id: 'automation.lights*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false
@@ -72,7 +72,7 @@ cards:
       include:
         - entity_id: 'automation.presence*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false
@@ -84,7 +84,7 @@ cards:
       include:
         - entity_id: 'automation.security*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false
@@ -96,7 +96,7 @@ cards:
       include:
         - entity_id: 'automation.system*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false
@@ -108,7 +108,7 @@ cards:
       include:
         - entity_id: 'automation.temperature*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false
@@ -120,7 +120,7 @@ cards:
       include:
         - entity_id: 'automation.tts*'
           options:
-            secondary_info: last-changed
+            secondary_info: last-triggered
 
   - type: custom:auto-entities
     show_empty: false

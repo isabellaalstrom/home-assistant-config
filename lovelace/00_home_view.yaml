@@ -1,13 +1,44 @@
+# lovelace_gen
+
 title: Home
 icon: mdi:information-outline
 panel: true
 path: homekit
 # background: "right/auto linear-gradient(23deg, rgba(211,211,211,1) 0%, rgba(223,223,223,1) 34%, rgba(255,255,255,1) 100%)"
 # background: 'center / cover no-repeat url("/local/lovelace_ui/background-plants.jpeg") fixed'
+
 cards:
   - type: custom:layout-card
     layout: vertical
     cards:
+      - type: weather-forecast
+        entity: weather.smhi_home
+        show_forecast: false
+
+      - type: custom:simple-weather-card
+        {% raw %}
+        style: |
+          ha-card {
+            font-size: 12px;
+            font-family: Helvetica;
+          }
+        {% endraw %}
+        entity: weather.smhi_home
+        name: " "
+        # primary_info:
+        #   - extrema
+        #   - wind_speed
+        # secondary_info:
+        #   - precipitation
+        #   - precipitation_probability
+        backdrop:
+          fade: false
+          # day: "var(--homekit-card-off)"
+          # night: "#40445a"
+          # text: "var(--state-color-on)"
+        tap_action:
+          action: navigate
+          navigation_path: /lovelace/weather
       - type: horizontal-stack
         cards:
           - type: picture-entity
@@ -146,9 +177,20 @@ cards:
                     card:
                       type: entities
                       entities:
+                        - entity: cover.living_room_roller_blind_level
+                          type: custom:multiple-entity-row
+                          name: Living Room Roller Blind
+                          secondary_info:
+                            attribute: current_position
+                            name: Position
+                            unit: '%'
+                        - entity: cover.living_room_roller_blind_level
+                          name: Living Room Roller Blind
                         - entity: sensor.dining_room_window
                           secondary_info: last-changed
                         - entity: sensor.bedroom_window
+                          secondary_info: last-changed
+                        - entity: sensor.isas_room_window
                           secondary_info: last-changed
                     deviceID:
                       - this
@@ -156,39 +198,19 @@ cards:
           - type: custom:decluttering-card
             template: switch_button_card
             variables:
-              - entity: sensor.house_movement
+              - entity: sensor.house_motion
               - show_label: false
               - name: Motion
               - icon: mdi:walk
               - margin-left: -65%
-              - tap_action: 
-                  action: call-service
-                  service: browser_mod.command
-                  service_data:
-                    command: popup
-                    title: Movement
-                    card:
-                      type: entities
-                      entities:
-                        - entity: sensor.living_room_axis_movement
-                          name: Living Room Movement
-                          secondary_info: last-changed
-                        - entity: sensor.living_room_axis_movement_2
-                          name: Living Room Movement 2
-                          secondary_info: last-changed
-                        - entity: sensor.passage_movement
-                          secondary_info: last-changed
-                        - entity: sensor.upstairs_hallway_movement
-                          name: Stairs Movement
-                          secondary_info: last-changed
-                        - entity: sensor.stefans_office_movement
-                          name: Stefans Office Movement
-                          secondary_info: last-changed
-                        - entity: sensor.ring_front_door_last_motion
-                          name: Front Door Last Movement
-                    deviceID:
-                      - this
-                  haptic: heavy
+              - tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/motion
+                  haptic: light
+              - hold_action:
+                  action: navigate
+                  navigation_path: /lovelace/motion
+                  haptic: light
 
       - type: horizontal-stack
         cards:
@@ -243,63 +265,18 @@ cards:
               - name: Vacuums
               - show_last_changed: true
               - icon: mdi:robot-vacuum
+              - margin-left: -65%
               - tap_action: 
-                  action: call-service
-                  service: browser_mod.command
-                  service_data:
-                    command: popup
-                    title: Vacuums
-                    card:
-                      type: vertical-stack
-                      cards:
-                        - type: custom:xiaomi-vacuum-card
-                          entity: vacuum.roborock
-                          image: /local/lovelace_ui/vacuum.png
-                          name: Xiaomi Vacuum
-                          buttons: true
-
-                        - type: entities
-                          entities:
-                            - entity: vacuum.roomba
-                              name: Roomba
-                            - entity: input_boolean.vacuum_downstairs_scheduled
-                              icon: mdi:robot-vacuum
-                            - entity: input_boolean.vacuum_upstairs_scheduled
-                              icon: mdi:robot-vacuum
-                            - entity: input_boolean.ad_vacuum_schedule
-                              icon: mdi:robot-vacuum
-                    deviceID:
-                      - this
+                  action: navigate
+                  navigation_path: /lovelace/vacuums
+                  haptic: light
+                  haptic: heavy
                   haptic: heavy
               - hold_action: 
-                  action: call-service
-                  service: browser_mod.command
-                  service_data:
-                    command: popup
-                    title: Vacuums
-                    card:
-                      type: vertical-stack
-                      cards:
-                        - type: custom:xiaomi-vacuum-card
-                          entity: vacuum.roborock
-                          image: /local/lovelace_ui/vacuum.png
-                          name: Xiaomi Vacuum
-                          buttons: true
-
-                        - type: entities
-                          entities:
-                            - entity: vacuum.roomba
-                              name: Roomba
-                            - entity: input_boolean.vacuum_downstairs_scheduled
-                              icon: mdi:robot-vacuum
-                            - entity: input_boolean.vacuum_upstairs_scheduled
-                              icon: mdi:robot-vacuum
-                            - entity: input_boolean.ad_vacuum_schedule
-                              icon: mdi:robot-vacuum
-                    deviceID:
-                      - this
+                  action: navigate
+                  navigation_path: /lovelace/vacuums
+                  haptic: light
                   haptic: heavy
-              - margin-left: -65%
       - type: horizontal-stack
         cards:
           - type: custom:decluttering-card
@@ -429,29 +406,37 @@ cards:
               - entity: input_select.ebike_charger_status
               - icon: mdi:bike
               - show_state: true
-              - show_label: false
-              - tap_action: 
-                  action: call-service
-                  service: browser_mod.command
-                  service_data:
-                    command: popup
-                    title: Bike
-                    card:
-                      type: vertical-stack
-                      cards:
-                        - type: entities
-                          entities:
-                            - device_tracker.tile_8b84f9654688b3ec
-                            - input_select.ebike_charger_status
-                            - sensor.ebike_charger
-                            - entity: switch.bike_charger
-                              type: custom:multiple-entity-row
-                              primary:
-                                entity: sensor.ebike_charger
-                            - entity: switch.bike_charger
-                    deviceID:
-                      - this
-                  haptic: heavy
+              - show_label: false              
+              - tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-secondary/bike
+                  haptic: light
+              - hold_action:
+                  action: navigate
+                  navigation_path: /lovelace-secondary/bike
+                  haptic: light
+              # - tap_action: 
+              #     action: call-service
+              #     service: browser_mod.command
+              #     service_data:
+              #       command: popup
+              #       title: Bike
+              #       card:
+              #         type: vertical-stack
+              #         cards:
+              #           - type: entities
+              #             entities:
+              #               - device_tracker.tile_8b84f9654688b3ec
+              #               - input_select.ebike_charger_status
+              #               - entity: switch.bike_charger
+              #                 type: custom:multiple-entity-row
+              #                 toggle: true
+              #                 secondary_info: last-changed
+              #                 entities:
+              #                   - entity: sensor.ebike_charger
+              #       deviceID:
+              #         - this
+                  # haptic: heavy
 
       - type: custom:krisinfo-card
         entity: sensor.krisinformation_stockholm
@@ -459,50 +444,60 @@ cards:
 
       - type: horizontal-stack
         cards:
-          - type: custom:bignumber-card
-            title: Downstairs litterbox
-            entity: counter.litterbox_downstairs_visits
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/cats
-              haptic: light
-            scale: 30px
-            from: bottom
-            min: 0
-            max: 10
-            severity:
-              - value: 2
-                style: 'var(--label-badge-green)'
-              - value: 3
-                style: 'var(--label-badge-yellow)'
-              - value: 4
-                style: 'orange'
-              - value: 10
-                style: 'var(--label-badge-red)'
-            style: |
-              ha-card {
-                background: var(--homekit-card-off);
-              }
-          - type: custom:bignumber-card
-            title: Upstairs litterbox
-            entity: counter.litterbox_upstairs_visits
-            scale: 30px
-            min: 0
-            max: 10
-            from: bottom
-            severity:
-              - value: 2
-                style: 'var(--label-badge-green)'
-              - value: 3
-                style: 'var(--label-badge-yellow)'
-              - value: 4
-                style: 'orange'
-              - value: 10
-                style: 'var(--label-badge-red)'
-            style: |
-              ha-card {
-                background: var(--homekit-card-off);
-              }
+          - !include
+            - lovelace_gen_templates/litterbox_counter.yaml
+            - entity: counter.litterbox_downstairs_visits
+              name: Downstairs Litterbox
+              icon: mdi:cat
+          - !include
+            - lovelace_gen_templates/litterbox_counter.yaml
+            - entity: counter.litterbox_upstairs_visits
+              name: Upstairs Litterbox
+              icon: mdi:cat
+          # - type: custom:bignumber-card
+          #   title: Downstairs litterbox
+          #   entity: counter.litterbox_downstairs_visits
+          #   tap_action:
+          #     action: navigate
+          #     navigation_path: /lovelace/cats
+          #     haptic: light
+          #   scale: 30px
+          #   from: bottom
+          #   min: 0
+          #   max: 10
+          #   severity:
+          #     - value: 2
+          #       style: 'var(--label-badge-green)'
+          #     - value: 3
+          #       style: 'var(--label-badge-yellow)'
+          #     - value: 4
+          #       style: 'orange'
+          #     - value: 10
+          #       style: 'var(--label-badge-red)'
+          #   style: |
+          #     ha-card {
+          #       background: var(--homekit-card-off);
+          #     }
+          # - type: custom:bignumber-card
+          #   title: Upstairs litterbox
+          #   entity: counter.litterbox_upstairs_visits
+          #   scale: 30px
+          #   min: 0
+          #   max: 10
+          #   from: bottom
+          #   severity:
+          #     - value: 2
+          #       style: 'var(--label-badge-green)'
+          #     - value: 3
+          #       style: 'var(--label-badge-yellow)'
+          #     - value: 4
+          #       style: 'orange'
+          #     - value: 10
+          #       style: 'var(--label-badge-red)'
+          #   style: |
+          #     ha-card {
+          #       background: var(--homekit-card-off);
+          #     }
       # - type: horizontal-stack
       #   cards:
       #     - type: custom:decluttering-card
@@ -528,8 +523,9 @@ cards:
 
       - break
 
-      - type: "custom:atomic-calendar"
+      - type: "custom:atomic-calendar-revive"
         title: "Calendar"
+        showWeekDay: true
         hoursFormat: 24h
         entities:
           - entity: calendar.isabella_alstrom
@@ -549,16 +545,18 @@ cards:
           - sensor.dining_room_window
           - sensor.bedroom_window
           - sensor.bedroom_door
-          - entity: sensor.living_room_axis_movement
+          - entity: sensor.isas_room_window
+            name: Isas
+          - entity: binary_sensor.living_room_axis_motion_0
             name: Living Room Left
             secondary_info: last-changed
-          - entity: sensor.living_room_axis_movement_2
+          - entity: binary_sensor.passage_axis_motion_0
             name: Living Room Right
             secondary_info: last-changed
-          - sensor.passage_movement
-          - entity: sensor.upstairs_hallway_movement
+          - binary_sensor.passage_motion_sensor
+          - entity: binary_sensor.upstairs_hallway_motion_sensor
             name: Stairs
-          - entity: sensor.stefans_office_movement
+          - entity: binary_sensor.stefans_room_motion
             name: Stefans Office
           - entity: switch.bike_charger
             name: E-bike charger
@@ -571,6 +569,12 @@ cards:
             name: Washer
             icon: mdi:washing-machine
             include_history: true
+          - entity: binary_sensor.kitchen_motion
+            name: Kitchen Cats
+          - entity: binary_sensor.downstairs_litterbox_motion
+          - entity: binary_sensor.upstairs_litterbox_motion
+          - entity: binary_sensor.hallway_motion
+            name: Hallway
         style: |
           ha-card {
             background: var(--homekit-card-off);

@@ -12,11 +12,12 @@ cards:
             box-shadow: none;
             height: 33px;
             background: none;
-            padding: 0px 10px;
-            color: var(--primary-background-color);
+          }
+          ha-markdown {
+            padding: 16px 16px 0 8px !important;
           }
         content: |
-          #### Presence <ha-icon icon="mdi:chevron-right-circle-outline"></ha-icon>
+          #### Isa
       - type: horizontal-stack
         cards:
           - type: entities
@@ -30,58 +31,96 @@ cards:
                 font-size: 12px;
               }
             entities:
-              - entity: 'sensor.isa_battery_level'
-                type: custom:secondaryinfo-entity-row
-                secondary_info: "[[ sensor.isa_battery_state.state ]]"
               - entity: device_tracker.isa_addon_presence
-                name: 'Isa presence'
+                type: custom:multiple-entity-row
+                name: 'Presence'
                 icon: mdi:map-marker-circle
                 secondary_info: last-changed
+                entities:
+                  - entity: proximity.home_isa
+                    name: Proximity to home
+                  - entity: proximity.home_isa
+                    attribute: dir_of_travel
+                    name: Direction
               - entity: device_tracker.isabella_s_iphone_x
-                name: 'Isa ios'
+                type: custom:multiple-entity-row
+                name: iPhone
                 icon: mdi:apple
-                type: custom:secondaryinfo-entity-row
-                secondary_info: "[[ device_tracker.isabella_s_iphone_x.attributes.timestamp ]]"
+                secondary_info: last-changed
+                entities:
+                  - entity: sensor.isa_battery_level
+                    name: Battery
+                  - entity: sensor.isa_battery_state
+                    name: Status
+              - entity: sensor.isa_geocoded_location
+                name: Location
+                icon: mdi:apple
+                secondary_info: last-changed
+
               - entity: device_tracker.isabellas_iphone_x_wifi
-                name: 'Isa Wifi'
+                type: custom:multiple-entity-row
+                name: 'Wifi'
                 icon: mdi:wifi
                 secondary_info: last-changed
+                entities:
+                  - entity: sensor.isa_ssid
+                    name: Connected to
               - entity: sensor.dining_room_isabellas_iphone_x_bt
-                name: 'Isa bt dining room'
+                name: 'BT dining room'
                 icon: mdi:bluetooth
                 secondary_info: last-changed
               - entity: sensor.living_room_isabellas_iphone_x_bt
-                name: 'Isa bt living room'
+                name: 'BT living room'
                 icon: mdi:bluetooth
                 secondary_info: last-changed
-              - entity: proximity.home_isa
-                name: Proximity to home
-                type: custom:multiple-entity-row
-                primary:
-                  entity: proximity.home_isa
-                  attribute: dir_of_travel
-                  name: false
               - type: call-service
                 icon: mdi:reload
                 name: Reload Presence
                 service: hassio.addon_restart
                 service_data:
                   addon: 1e72b768_better_presence
-
-      - type: markdown
-        style: |
-          ha-card {
-            box-shadow: none;
-            height: 33px;
-            background: none;
-            padding: 0px 10px;
-            color: var(--primary-background-color);
-          }
-        content: |
-          #### <ha-icon icon="mdi:chevron-left-circle-outline"></ha-icon> Agenda <ha-icon icon="mdi:chevron-right-circle-outline"></ha-icon>
       - type: horizontal-stack
         cards:
-          - type: custom:atomic-calendar
+          - type: entities
+            style: |
+              ha-card {
+                background: var(--homekit-card-off);
+                --paper-item-icon-color: var(--icon-color-off);
+                color: var(--name-color-off);
+                border-radius: var(--border-radius);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 12px;
+              }
+            entities:
+              - entity: sensor.isa_average_active_pace
+                type: custom:multiple-entity-row
+                name: Active pace
+                secondary_info: last-changed
+                entities:
+                  - entity: sensor.isa_distance
+                  - entity: sensor.isa_activity
+              - entity: sensor.isa_steps
+                type: custom:multiple-entity-row
+                name: Activity
+                secondary_info: last-changed
+                entities:
+                  - entity: sensor.isa_floors_ascended
+                  - entity: sensor.isa_floors_descended
+              - entity: sensor.withings_weight_kg_isa
+                type: custom:multiple-entity-row
+                name: Body
+                secondary_info: last-changed
+                entities:
+                  - entity: sensor.withings_fat_free_mass_kg_isa
+                    name: Fat Free Mass
+                  - entity: sensor.withings_fat_mass_kg_isa
+                    name: Fat Mass
+                  - entity: sensor.withings_fat_ratio_pct_isa
+                    name: Fat Ratio
+      - type: horizontal-stack
+        cards:
+          - type: custom:atomic-calendar-revive
+            showWeekDay: true
             style: |
               ha-card {
                 background: var(--homekit-card-off);

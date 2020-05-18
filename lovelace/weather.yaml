@@ -1,0 +1,27 @@
+title: Weather
+icon: mdi:weather-partly-cloudy
+panel: true
+path: weather
+cards:
+  - type: custom:layout-card
+    layout: vertical
+    cards:
+      - type: custom:smhi-forecast-card
+        entity: weather.smhi_home
+        icons: "/local/icons/weather_icons/static/"
+        style: |
+          ha-card {
+            # background-color: rgba(0, 0, 0);
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+          }
+      - break
+      - type: picture-entity
+        entity: camera.stockholm_meteogram
+        show_name: false
+        show_state: false
+      - type: picture-entity
+        entity: camera.fisksatra_meteogram
+        show_name: false
+        show_state: false

@@ -1,12 +1,6 @@
   switch_button_card:
     !include switch-template.yaml
 
-  detailed_info:
-    !include detailed-info.yaml
-
-  back_button:
-    !include back-button.yaml
-
   header_text:
     !include header-template.yaml
 

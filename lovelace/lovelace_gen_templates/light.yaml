@@ -1,0 +1,147 @@
+# lovelace_gen
+
+type: custom:button-card
+entity: {{ entity }}
+label: "[[[ if (typeof(entity) === 'undefined') return; if ('brightness' in entity.attributes) { if (entity.attributes && (entity.attributes.brightness <= 255)) { var bri = Math.round(entity.attributes.brightness / 2.55); return (bri ? bri : '0') + '%'; } } ]]]"
+show_label: true
+show_state: true
+name: {{ name }}
+icon: {{ icon }}
+color: auto
+size: 25%
+tap_action:
+  action: none
+double_tap_action:
+  action: toggle
+hold_action: 
+  haptic: heavy
+  action: call-service
+  service: browser_mod.command
+  service_data:
+    command: popup
+    title: "[[[ return entity.attributes.friendly_name; ]]]"
+    style:
+      # position: fixed
+      # z-index: 999
+      # top: 0
+      # left: 0
+      # height: 100%
+      # width: 100%
+      # display: block
+      align-items: center
+      justify-content: center
+      background: rgba(0, 0, 0, 0.8)
+      flex-direction: column
+      margin: 0
+      "--iron-icon-fill-color": "#FFF"
+      '--ha-card-border-radius': 0vw 0vw 0.8vw 0.8vw
+      border-radius: 0.8vw
+      opacity: 0.9
+    card:
+
+        # - type: entities
+        #   entities:
+        #     - entity: {{ entity }}
+        #       secondary_info: last-changed
+        #   style: |
+        #     ha-card {
+        #       background-color: rgba(0, 0, 0, 0) !important;
+        #       -webkit-box-shadow: none;
+        #       -moz-box-shadow: none;
+        #       box-shadow: none;
+        #     }
+        # - type: custom:light-popup-card
+        #   entity: {{ entity }}
+        #   icon: {{ icon }}
+        #   brightnessWidth: 150px
+        #   brightnessHeight: 400px
+        #   switchWidth: 150px
+        #   switchHeight: 400px
+      type: 'custom:light-entity-card'
+      brightness: true
+      color_picker: true
+      color_temp: true
+      effects_list: false
+      entity: {{ entity }}
+      full_width_sliders: false
+      header: false
+      persist_features: true
+      show_slider_percent: true
+      style: |
+        ha-card {
+          background-color: rgba(0, 0, 0, 0) !important;
+          padding-bottom: 3em;
+          # margin-top: 430px;
+          # margin-left: -1.8em;
+          opacity: 0.7;
+        }
+                  
+        
+    deviceID:
+      - this
+opacity: 0.8
+aspect_ratio: 1/1
+styles:
+  card:
+    - --ha-card-background: var(--homekit-card-off)
+  grid:
+    - grid-template-areas: '"i i" "n n" "area area" "s l"'
+    - grid-template-columns: 1fr lfr
+    - grid-template-rows: 1fr min-content min-content min-content
+  label:
+    - font-size: 11px
+    - font-family: Helvetica
+    - padding: 0px 10px
+    - justify-self: start
+    - color: var(--label-color-on)
+  state:
+    - font-size: 11px
+    - font-family: Helvetica
+    - padding: 0px 10px
+    - justify-self: start
+    - text-transform: capitalize
+    - padding-left: 10px
+    - color: var(--state-color-on)
+  name:
+    - color: var(--name-color-on)
+    - justify-self: 'start'
+    - padding-left: '10px'
+    - font-weight: bold
+    - font-family: Helvetica 
+    - font-size: 13px
+    - margin-top: '0px'
+  icon:
+    - color: >
+        [[[
+          
+          if (entity.state == 'off' || entity.state == 'unavailable') return 'grey'
+          if (entity.attributes.supported_features == 63) return 'var(--button-card-light-color)';
+          if (entity.attributes.supported_features != 63) return `rgba(255,210,10,${entity.attributes.brightness / 255 + 0.2 })`;
+          else return 'grey';
+        ]]]
+  img_cell:
+    - align-self: start
+    - text-align: start
+    - margin-left: -65%
+state:
+  - value: "on"
+    styles:
+      card:
+        - --ha-card-background: 'var(--homekit-card-on)'
+        - opacity: '1.0'
+  - value: "off"
+    styles:
+      card:
+        - opacity: '0.8'
+      label:
+        - color: 'var(--label-color-off)'
+      # icon:
+      #   - color: 'var(--icon-color-off)'
+      name:
+        - color: 'var(--name-color-off)'
+      state:
+        - color: 'var(--state-color-off)'  
+      lock:
+        - color: var(--lock-color-off)
+      icon:
+        - color: var(--icon-color-off)

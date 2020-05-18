@@ -1,52 +1,94 @@
 type: vertical-stack
 cards:
-  - type: conditional
-    conditions:
-      - entity: sensor.krisinformation_stockholm
-        state: 'Alert'
-    card:
-      type: horizontal-stack
-      cards:
-        - type: custom:decluttering-card
-          template: notification_template
-          variables:
-            - icon: alert
-            - name: 'VMA in Stockholm: https://www.krisinformation.se/'
-            - card_color: rgba(255, 0, 0, 0.5)
-            # - hold_action: 
-            #     action: navigate
-            #     navigation_path: /community
-            #     haptic: heavy
-            - border-radius: 10px
 
   - type: conditional
     conditions:
-      - entity: sensor.smhialert
-        state_not: 'No Alerts'
+      - entity: binary_sensor.ikea_hydro_water_level
+        state: 'on'
     card:
       type: horizontal-stack
       cards:
         - type: custom:decluttering-card
           template: notification_template
           variables:
-            - entity: sensor.smhialert
-            - icon: alert
-            - name: "[[[ return `${states['sensor.smhialert'].attributes.messages['025'].msgs[0].event}` ]]]"
+            - entity: binary_sensor.ikea_hydro_water_level
+            - icon: water-off
+            - name: "[[[ return `Check the water level in Ikea Hydroponics!` ]]]"
             - card_color: rgba(255, 0, 0, 0.5)
-            - tap_action: 
-                action: call-service
-                service: browser_mod.command
-                service_data:
-                  command: popup
-                  title: SMHI Alert
-                  card:
-                    type: 'custom:smhialert-card'
-                    entity: sensor.smhialert
-                    title: " "
-                  deviceID:
-                    - this
-                haptic: heavy
             - border-radius: 10px
+  - type: conditional
+    conditions:
+      - entity: plant.one
+        state: problem
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: plant.one
+            - icon: sprout-outline
+            - name: "[[[ return `${states['plant.one'].attributes.friendly_name} has a problem with ${states['plant.one'].attributes.problem}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.5)
+            - border-radius: 10px
+  # - type: conditional
+  #   conditions:
+  #     - entity: plant.two
+  #       state: problem
+  #   card:
+  #     type: horizontal-stack
+  #     cards:
+  #       - type: custom:decluttering-card
+  #         template: notification_template
+  #         variables:
+  #           - entity: plant.two
+  #           - icon: sprout-outline
+  #           - name: "[[[ return `Plant ${states['plant.two'].attributes.friendly_name} has a problem` ]]]"
+  #           - card_color: rgba(255, 0, 0, 0.5)
+  #           - border-radius: 10px
+  # - type: conditional
+  #   conditions:
+  #     - entity: plant.three
+  #       state: problem
+  #   card:
+  #     type: horizontal-stack
+  #     cards:
+  #       - type: custom:decluttering-card
+  #         template: notification_template
+  #         variables:
+  #           - entity: plant.three
+  #           - icon: sprout-outline
+  #           - name: "[[[ return `Plant ${states['plant.three'].attributes.friendly_name} has a problem` ]]]"
+  #           - card_color: rgba(255, 0, 0, 0.5)
+  #           - border-radius: 10px
+  # - type: conditional
+  #   conditions:
+  #     - entity: sensor.smhialert
+  #       state_not: 'No Alerts'
+  #   card:
+  #     type: horizontal-stack
+  #     cards:
+  #       - type: custom:decluttering-card
+  #         template: notification_template
+  #         variables:
+  #           - entity: sensor.smhialert
+  #           - icon: alert
+  #           - name: "[[[ return `${states['sensor.smhialert'].attributes.messages['025'].msgs[0].event}` ]]]"
+  #           - card_color: rgba(255, 0, 0, 0.5)
+  #           - tap_action: 
+  #               action: call-service
+  #               service: browser_mod.command
+  #               service_data:
+  #                 command: popup
+  #                 title: SMHI Alert
+  #                 card:
+  #                   type: 'custom:smhialert-card'
+  #                   entity: sensor.smhialert
+  #                   title: " "
+  #                 deviceID:
+  #                   - this
+  #               haptic: heavy
+  #           - border-radius: 10px
 
   - type: conditional
     conditions:
@@ -75,11 +117,26 @@ cards:
           template: notification_template
           variables:
             - icon: alert
-            - name: 'VMA in Stockholm: https://www.krisinformation.se/'
+            - name: "[[[ return `${states['sensor.krisinformation_stockholm'].attributes.messages[0].Message}` ]]]"
             - font_size: 20px
             - card_color: rgba(255, 0, 0, 0.5)
             - border-radius: 10px
 
+  - type: conditional
+    conditions:
+      - entity: sensor.krisinformation_sverige
+        state: 'Alert'
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - icon: alert
+            - name: "[[[ return `${states['sensor.krisinformation_stockholm'].attributes.messages[0].Message}` ]]]"
+            - font_size: 20px
+            - card_color: rgba(255, 0, 0, 0.5)
+            - border-radius: 10px
 
   - type: conditional
     conditions:
@@ -92,10 +149,10 @@ cards:
           template: notification_template
           variables:
             - icon: alert
-            - name: "[[[ return `Ring Doorbell has ${states['sensor.ring_front_door_battery'].state}% battery left.` ]]]"
+            - name: "[[[ return `Ring Doorbell has ${states['sensor.front_door_battery'].state}% battery left.` ]]]"
             - font_size: 16px
-            - name_color: var(--primary-text-color)
-            - icon_color: var(--primary-text-color)
+            # - name_color: var(--primary-text-color)
+            # - icon_color: var(--primary-text-color)
             - card_color: rgba(255, 0, 0, 0.5)
             - border-radius: 10px
 

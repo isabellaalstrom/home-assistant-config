@@ -5,6 +5,7 @@ panel: true
 cards:
 
   - type: custom:layout-card
+    max_columns: 4
     layout: vertical
     cards:
       - type: vertical-stack
@@ -14,6 +15,8 @@ cards:
             camera_view: live
             show_state: false
             show_name: false
+          - type: custom:gap-card
+            height: 21
           - type: horizontal-stack
             cards:
               - type: custom:decluttering-card
@@ -35,7 +38,7 @@ cards:
                   - entity: light.hallway_window_light
                   - name: Hallway
                   - icon: mdi:ceiling-light
-                  - hold_action: 
+                  - tap_action: 
                       action: more-info
                       haptic: heavy
                   - margin-left: -65%
@@ -56,7 +59,7 @@ cards:
                   - icon: mdi:cctv
                   - margin-left: -65%
                   - opacity: 0.8
-                  - hold_action: 
+                  - tap_action: 
                       action: call-service
                       service: browser_mod.command
                       service_data:
@@ -76,10 +79,10 @@ cards:
                               secondary_info: last-changed
                             - entity: camera.front_door
                               name: Ring Last Motion
-                            - entity: binary_sensor.ring_front_door_motion
+                            - entity: binary_sensor.front_door_motion
                               name: Ring Motion
                               secondary_info: last-changed
-                            - entity: sensor.ring_front_door_battery
+                            - entity: sensor.front_door_battery
                               name: Ring Battery
                           deviceID:
                             - this
@@ -141,13 +144,14 @@ cards:
       - type: vertical-stack
         cards:
           - type: picture-entity
-            entity: camera.attic
+            entity: camera.dafang_1
             camera_view: live
             show_state: false
             show_name: false
+          - type: custom:gap-card
+            height: 21
           - type: horizontal-stack
             cards:
-
               - type: custom:decluttering-card
                 template: switch_button_card
                 variables:
@@ -175,7 +179,7 @@ cards:
                   - icon: mdi:cctv
                   - margin-left: -65%
                   - opacity: 0.8
-                  - hold_action: 
+                  - tap_action: 
                       action: call-service
                       service: browser_mod.command
                       service_data:
@@ -184,12 +188,12 @@ cards:
                         card:
                           type: entities
                           entities:
-                            - entity: binary_sensor.attic_motion
-                              name: Motion
-                              secondary_info: last-changed
-                            - entity: camera.snapshot_attic
-                              name: Last Motion Snapshot
-                              secondary_info: last-changed
+                            # - entity: binary_sensor.attic_motion
+                            #   name: Motion
+                            #   secondary_info: last-changed
+                            # - entity: camera.snapshot_attic
+                            #   name: Last Motion Snapshot
+                            #   secondary_info: last-changed
                             - entity: switch.dafang_server
                               name: Rtsp Server
                               tap_action:
@@ -262,9 +266,6 @@ cards:
             camera_view: live
             show_state: false
             show_name: false
-          - type: entities
-            entities:
-              - image_processing.deepstack_person_detector
           - type: horizontal-stack
             cards:
               - type: custom:decluttering-card
@@ -317,7 +318,7 @@ cards:
                   - icon: mdi:cctv
                   - margin-left: -65%
                   - opacity: 0.8
-                  - hold_action: 
+                  - tap_action: 
                       action: call-service
                       service: browser_mod.command
                       service_data:
@@ -433,7 +434,7 @@ cards:
                   - icon: mdi:cctv
                   - margin-left: -65%
                   - opacity: 0.8
-                  - hold_action: 
+                  - tap_action: 
                       action: call-service
                       service: browser_mod.command
                       service_data:
@@ -451,6 +452,16 @@ cards:
                           deviceID:
                             - this
                         haptic: heavy
+          - type: horizontal-stack
+            cards:
+              - type: "custom:button-card"
+                color_type: blank-card
+              - type: "custom:button-card"
+                color_type: blank-card
+              - type: "custom:button-card"
+                color_type: blank-card
+              - type: "custom:button-card"
+                color_type: blank-card
 
       - break
 
@@ -462,10 +473,225 @@ cards:
             show_state: false
             show_name: false
       - break
-
       - type: vertical-stack
         cards:
+          - type: picture-entity
+            entity: camera.isas_room
+            camera_view: live
+            show_state: false
+            show_name: false
+          - type: custom:gap-card
+            height: 21
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: script.dafang_2_calibrate
+                  - label: Control
+                  - lock: true
+                  - show_state: false
+                  - name: Reload
+                  - icon: mdi:reload
+                  # - tap_action: 
+                      # action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: light.isa_ceiling_light
+                  - name: Ceiling
+                  - icon: bha:ceiling-lamp
+                  - margin-left: -65%
+                  - opacity: 0.8
+                  - lock: true
+                  - label: !include ./includes/brightness-label.yaml
+                  - grid:
+                      !include ./includes/light-grid.yaml
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: light.isa_filament
+                  - name: Isa Filament
+                  - icon: mdi:lightbulb-outline
+                  - margin-left: -65%
+                  - opacity: 0.8
+                  - lock: true
+                  - label: !include ./includes/brightness-label.yaml
+                  - grid:
+                      !include ./includes/light-grid.yaml
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: input_boolean.test
+                  - name: More
+                  - label: Control
+                  - show_state: false
+                  - icon: mdi:cctv
+                  - margin-left: -65%
+                  - opacity: 0.8
+                  - tap_action: 
+                      action: call-service
+                      service: browser_mod.command
+                      service_data:
+                        command: popup
+                        title: Hallway
+                        card:
+                          type: entities
+                          entities:
+                            # - entity: binary_sensor.attic_motion
+                            #   name: Motion
+                            #   secondary_info: last-changed
+                            - entity: camera.snapshot_isas_room
+                              name: Last Motion Snapshot
+                              secondary_info: last-changed
+                            - entity: switch.dafang_2_server
+                              name: Rtsp Server
+                              tap_action:
+                            - entity: switch.dafang_2_night_vision
+                              name: Night Mode
+                              tap_action:
+                                action: toggle
+                          deviceID:
+                            - this
+                        haptic: heavy
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: script.dafang_2_down
+                  - show_state: false
+                  - show_label: false
+                  - icon: mdi:chevron-down
+                  - name: Down
+                  # - icon: mdi:mailbox-outline
+                  # - tap_action: 
+                      # action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: script.dafang_2_up
+                  - show_state: false
+                  - show_label: false
+                  - name: Up
+                  - icon: mdi:chevron-up
+                  # - tap_action: 
+                      # action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: script.dafang_2_left
+                  - show_label: false
+                  - show_state: false
+                  - name: Left
+                  - icon: mdi:chevron-left
+                  # - tap_action: 
+                      # action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+              - type: custom:decluttering-card
+                template: switch_button_card
+                variables:
+                  - entity: script.dafang_2_right
+                  - show_label: false
+                  - show_state: false
+                  - name: Left
+                  - icon: mdi:chevron-right
+                  # - tap_action: 
+                      # action: more-info
+                  - margin-left: -65%
+                  - opacity: 0.8
+      - break
+      - type: vertical-stack
+        cards:
+          - type: custom:gap-card
+            height: 21
           - type: picture-entity
             entity: camera.front_door
             show_state: false
             show_name: false
+          - type: custom:gap-card
+            height: 21
+      - break
+      # - type: vertical-stack
+      #   cards:
+      #     - type: picture-entity
+      #       entity: camera.attic
+      #       camera_view: live
+      #       show_state: false
+      #       show_name: false
+      #     - type: horizontal-stack
+      #       cards:
+      #         - type: custom:decluttering-card
+      #           template: switch_button_card
+      #           variables:
+      #             - entity: switch.xiaofang_server
+      #             - label: Control
+      #             - lock: true
+      #             - show_state: false
+      #             - name: Rtsp Server
+      #             - icon: mdi:reload
+      #             # - tap_action: 
+      #                 # action: more-info
+      #             - margin-left: -65%
+      #             - opacity: 0.8
+      #         - type: custom:decluttering-card
+      #           template: switch_button_card
+      #           variables:
+      #             - entity: switch.xiaofang_night_vision
+      #             - label: Control
+      #             - lock: true
+      #             - show_state: false
+      #             - name: Night Vision
+      #             - icon: mdi:reload
+      #             # - tap_action: 
+      #                 # action: more-info
+      #             - margin-left: -65%
+      #             - opacity: 0.8
+      #         - type: "custom:button-card"
+      #           color_type: blank-card
+      #         - type: "custom:button-card"
+      #           color_type: blank-card
+              # - type: custom:decluttering-card
+              #   template: switch_button_card
+              #   variables:
+              #     - entity: input_boolean.test
+              #     - name: More
+              #     - label: Control
+              #     - show_state: false
+              #     - icon: mdi:cctv
+              #     - margin-left: -65%
+              #     - opacity: 0.8
+              #     - tap_action: 
+              #         action: call-service
+              #         service: browser_mod.command
+              #         service_data:
+              #           command: popup
+              #           title: Hallway
+              #           card:
+              #             type: entities
+              #             entities:
+              #               # - entity: binary_sensor.attic_motion
+              #               #   name: Motion
+              #               #   secondary_info: last-changed
+              #               # - entity: camera.snapshot_attic
+              #               #   name: Last Motion Snapshot
+              #               #   secondary_info: last-changed
+              #               - entity: switch.dafang_server
+              #                 name: Rtsp Server
+              #                 tap_action:
+              #               - entity: switch.dafang_night_vision
+              #                 name: Night Mode
+              #                 tap_action:
+              #                   action: toggle
+              #             deviceID:
+              #               - this
+              #           haptic: heavy

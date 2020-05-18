@@ -213,13 +213,13 @@ cards:
           # - break
           # - type: vertical-stack
           #   cards:
-              - type: custom:pollenkoll-card
-                city: Stockholm
-                title: false
-                compact: true
-                show_state: false
-                allergens:
-                  - björk
-                  - gråbo
-                  - gräs
+              # - type: custom:pollenkoll-card
+              #   city: Stockholm
+              #   title: false
+              #   compact: true
+              #   show_state: false
+              #   allergens:
+              #     - björk
+              #     - gråbo
+              #     - gräs
 

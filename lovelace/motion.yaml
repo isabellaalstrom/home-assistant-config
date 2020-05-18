@@ -1,0 +1,38 @@
+title: Motion
+icon: mdi:walk
+panel: true
+path: motion
+cards:
+  - type: custom:layout-card
+    layout: vertical
+    cards:
+      - type: entities
+        entities:
+          - entity: binary_sensor.living_room_axis_motion_0
+            name: Living Room Movement
+            secondary_info: last-changed
+          - entity: binary_sensor.passage_axis_motion_0
+            name: Living Room Movement 2
+            secondary_info: last-changed
+          - entity: binary_sensor.passage_motion_sensor
+            secondary_info: last-changed
+          - entity: binary_sensor.upstairs_hallway_motion_sensor
+            name: Stairs Movement
+            secondary_info: last-changed
+          - entity: binary_sensor.stefans_room_motion
+            name: Stefans Office Movement
+            secondary_info: last-changed
+          - entity: binary_sensor.hallway_motion
+            name: Hallway Movement
+            secondary_info: last-changed
+          - entity: binary_sensor.kitchen_motion
+            name: Kitchen Cat Movement
+            secondary_info: last-changed
+          - entity: binary_sensor.downstairs_litterbox_motion
+            name: Downstairs Litterbox Movement
+            secondary_info: last-changed
+          - entity: binary_sensor.upstairs_litterbox_motion
+            name: Upstairs Litterbox Movement
+            secondary_info: last-changed
+          # - entity: sensor.front_door_last_motion
+          #   name: Front Door Last Movement

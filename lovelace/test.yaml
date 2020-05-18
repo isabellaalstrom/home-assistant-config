@@ -2,15 +2,15 @@ title: Krisinfo
 icon: mdi:alert
 path: kris
 cards:
-  - type: custom:pollenkoll-card
-    city: Stockholm
-    title: true
-    minimal: false
-    show_state: false
-    allergens:
-      - björk
-      - gräs
-      - gråbo
+  # - type: custom:pollenkoll-card
+  #   city: Stockholm
+  #   title: true
+  #   minimal: false
+  #   show_state: false
+  #   allergens:
+  #     - björk
+  #     - gräs
+  #     - gråbo
 
 
   # - type: custom:krisinfo-card

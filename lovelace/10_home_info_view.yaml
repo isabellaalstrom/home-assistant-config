@@ -14,8 +14,6 @@ cards:
                 box-shadow: none;
                 height: 33px;
                 background: none;
-                # padding: 0px 10px;
-                color: var(--primary-background-color);
               }
               ha-markdown {
                 padding: 16px 16px 0 8px !important;
@@ -29,10 +27,13 @@ cards:
               - arm_away
               - arm_night
             style: |
+              card-header {
+                color: 'var(--primary-color)'
+              }
               ha-card {
                 border-radius: var(--border-radius);
                 background: var(--homekit-card-off);
-                --label-badge-text-color: var(--label-color-off);
+                --label-badge-text-color: var(--state-color-off);
                 color: var(--name-color-on);
               }
           - break
@@ -42,8 +43,6 @@ cards:
                 box-shadow: none;
                 height: 33px;
                 background: none;
-                # padding: 0px 10px;
-                color: var(--primary-background-color);
               }
               ha-markdown {
                 padding: 16px 16px 0 8px !important;
@@ -52,68 +51,39 @@ cards:
               #### Doors
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.front_door
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Front
-                  - icon: mdi:door-closed
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.back_door
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Back
-                  - icon: mdi:door-closed
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.yard_door
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Yard
-                  - icon: mdi:door-closed
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.balcony_door
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Balcony
-                  - icon: mdi:door-closed
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: sensor.front_door
+                  name: Front
+                  icon: mdi:door-closed
+                  badge: sensor.front_door_battery_level
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: sensor.back_door
+                  name: Back
+                  icon: mdi:door-closed
+                  badge: sensor.back_door_battery_level
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: sensor.yard_door
+                  name: Yard
+                  icon: mdi:door-closed
+                  badge: sensor.yard_door_battery_level
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: sensor.balcony_door
+                  name: Balcony
+                  icon: mdi:door-closed
+                  badge: sensor.balcony_door_battery_level
                   
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.bedroom_door
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Bedroom
-                  - icon: mdi:door-closed
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: sensor.bedroom_door
+                  name: Bedroom
+                  icon: mdi:door-closed
+                  badge: sensor.bedroom_door_battery_level
               - type: "custom:button-card"
                 color_type: blank-card
               - type: "custom:button-card"
@@ -127,8 +97,6 @@ cards:
                 box-shadow: none;
                 height: 33px;
                 background: none;
-                # padding: 0px 10px;
-                color: var(--primary-background-color);
               }
               ha-markdown {
                 padding: 16px 16px 0 8px !important;
@@ -137,29 +105,19 @@ cards:
               #### Windows
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.dining_room_window
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Dining Room
-                  - icon: mdi:window-closed
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: sensor.dining_room_window
+                  name: Dining Room
+                  icon: mdi:window-closed
+                  badge: sensor.dining_room_window_battery_level
                   
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.bedroom_window
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Bedroom
-                  - icon: mdi:window-closed
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: sensor.bedroom_window
+                  name: Bedroom
+                  icon: mdi:window-closed
+                  badge: sensor.bedroom_window_battery_level
                   
               - type: "custom:button-card"
                 color_type: blank-card
@@ -171,8 +129,6 @@ cards:
                 box-shadow: none;
                 height: 33px;
                 background: none;
-                # padding: 0px 10px;
-                color: var(--primary-background-color);
               }
               ha-markdown {
                 padding: 16px 16px 0 8px !important;
@@ -181,85 +137,69 @@ cards:
               #### Motion
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.living_room_axis_movement
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Living Room Right
-                  - icon: mdi:walk
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.living_room_axis_movement_2
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Living Room Left
-                  - icon: mdi:walk
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.passage_movement
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Passage
-                  - icon: mdi:walk
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.upstairs_hallway_movement
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Stairs
-                  - icon: mdi:walk
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.hallway_motion
+                  name: Hallway
+                  icon: mdi:walk
+                  badge: sensor.hallway_motion_battery_level
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.living_room_axis_motion_0
+                  name: Living Room Right
+                  icon: mdi:walk
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.passage_axis_motion_0
+                  name: Living Room Left
+                  icon: mdi:walk
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.passage_motion_sensor
+                  name: Passage
+                  icon: mdi:walk
+                  badge: sensor.passage_motion_battery_level
+
 
           - type: horizontal-stack
             cards:
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.stefans_office_movement
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Stefans Office
-                  - icon: mdi:walk
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.stefans_room_motion
+                  name: Stefans Office
+                  icon: mdi:walk
+                  badge: sensor.stefans_room_motion_battery_level
+
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.upstairs_hallway_motion_sensor
+                  name: Stairs
+                  icon: mdi:walk
+                  badge: sensor.upstairs_hallway_motion_battery_level
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.downstairs_litterbox_motion
+                  name: Downstairs Litterbox
+                  icon: mdi:walk
+                  badge: sensor.stefans_room_motion_battery_level
+
+              - !include
+                - lovelace_gen_templates/sensor.yaml
+                - entity: binary_sensor.upstairs_litterbox_motion
+                  name: Upstairs Litterbox
+                  icon: mdi:walk
+                  badge: sensor.upstairs_hallway_motion_battery_level
+              # - !include
+              #   - lovelace_gen_templates/sensor.yaml
+              #   - entity: binary_sensor.front_door_motion
+              #     name: Front Door
+              #     icon: mdi:walk
+              #     badge: sensor.front_door_battery
                   
-              - type: custom:decluttering-card
-                template: switch_button_card
-                variables:
-                  - entity: sensor.ring_front_door_last_motion
-                  - show_label: false
-                  - show_last_changed: true
-                  - name: Outside Front
-                  - icon: mdi:walk
-                  - tap_action: 
-                      action: more-info
-                  - margin-left: -65%
-                  
-              - type: "custom:button-card"
-                color_type: blank-card
-              - type: "custom:button-card"
-                color_type: blank-card
+              # - type: "custom:button-card"
+              #   color_type: blank-card
+              # - type: "custom:button-card"
+              #   color_type: blank-card
           - break
           - type: markdown
             style: |
@@ -267,8 +207,6 @@ cards:
                 box-shadow: none;
                 height: 33px;
                 background: none;
-                # padding: 0px 10px;
-                color: var(--primary-background-color);
               }
               ha-markdown {
                 padding: 16px 16px 0 8px !important;
@@ -330,6 +268,9 @@ cards:
                   
           - type: entities
             entities:
+              - entity: sensor.house_motion
+                name: Last Motion
+                secondary_info: last-changed
               - entity: sensor.unlocked_by
                 name: Front door last unlocked by
                 secondary_info: last-changed
@@ -351,5 +292,5 @@ cards:
                 border-radius: var(--border-radius);
                 background: var(--homekit-card-off);
                 --label-badge-text-color: var(--label-color-off);
-                color: var(--name-color-on);
+                # color: var(--name-color-on);
               }

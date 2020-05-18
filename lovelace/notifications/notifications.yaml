@@ -3,6 +3,20 @@ cards:
 ## RED
   - type: conditional
     conditions:
+      - entity: plant.one
+        state: problem
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: notification_template
+          variables:
+            - entity: plant.one
+            - icon: sprout-outline
+            - name: "[[[ return `${states['plant.one'].attributes.friendly_name} has a problem with ${states['plant.one'].attributes.problem}` ]]]"
+            - card_color: rgba(255, 0, 0, 0.5)
+  - type: conditional
+    conditions:
       - entity: sensor.monitor_living_room
         state_not: 'online'
     card:
@@ -62,7 +76,7 @@ cards:
           template: notification_template
           variables:
             - icon: alert
-            - name: "[[[ return `Ring Doorbell has ${states['sensor.ring_front_door_battery'].state} % battery left.` ]]]"
+            - name: "[[[ return `Ring Doorbell has ${states['sensor.front_door_battery'].state} % battery left.` ]]]"
             - card_color: rgba(255, 0, 0, 0.8)
   - type: conditional
     conditions:

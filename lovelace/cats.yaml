@@ -8,49 +8,59 @@ cards:
     cards:
       - type: vertical-stack
         cards:
+          - type: custom:more-info-card
+            entity: counter.litterbox_downstairs_visits
+            title: " "
+            style: |
+              .card-header {
+                background-color: rgba(0, 0, 0, 0);
+                line-height: 0px;
+                padding: 0px;
+              }
+          - type: custom:more-info-card
+            entity: counter.litterbox_upstairs_visits
+            title: " "
+            style: |
+              .card-header {
+                background-color: rgba(0, 0, 0, 0);
+                line-height: 0px;
+                padding: 0px;
+              }
+
           - type: horizontal-stack
             cards:
-              - type: custom:bignumber-card
-                title: Downstairs litterbox
-                entity: counter.litterbox_downstairs_visits
-                scale: 30px
-                from: bottom
-                min: 0
-                max: 10
-                severity:
-                  - value: 2
-                    style: 'var(--label-badge-green)'
-                  - value: 3
-                    style: 'var(--label-badge-yellow)'
-                  - value: 4
-                    style: 'orange'
-                  - value: 10
-                    style: 'var(--label-badge-red)'
-                style: |
-                  ha-card {
-                    background: var(--homekit-card-off);
-                  }
-              - type: custom:bignumber-card
-                title: Upstairs litterbox
-                entity: counter.litterbox_upstairs_visits
-                scale: 30px
-                min: 0
-                max: 10
-                from: bottom
-                severity:
-                  - value: 2
-                    style: 'var(--label-badge-green)'
-                  - value: 3
-                    style: 'var(--label-badge-yellow)'
-                  - value: 4
-                    style: 'orange'
-                  - value: 10
-                    style: 'var(--label-badge-red)'
-                style: |
-                  ha-card {
-                    background: var(--homekit-card-off);
-                  }
+              - type: picture-entity
+                entity: camera.attic
+                camera_view: live
+                show_state: false
+                show_name: false
+              - type: picture-entity
+                entity: camera.isas_room
+                camera_view: live
+                show_state: false
+                show_name: false
 
-          - type: picture-entity
-            entity: camera.upstairs_litterbox_2
-            camera_view: live
+          - type: horizontal-stack
+            cards:
+              - type: picture-entity
+                entity: camera.snapshot_attic
+                name: Latest Snapshot
+                camera_view: live
+                show_state: false
+              - type: picture-entity
+                entity: camera.snapshot_isas_room
+                name: Latest Snapshot
+                camera_view: live
+                show_state: false
+      - type: custom:auto-entities
+        show_empty: false
+        card:
+          type: entities
+          show_header_toggle: false
+          title: Cats
+        filter:
+          include:
+            - entity_id: 'automation.cats*'
+              options:
+                secondary_info: last-triggered
+            - entity_id: input_boolean.ad_litterboxes

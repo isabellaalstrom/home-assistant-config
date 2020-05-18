@@ -1,17 +1,14 @@
-resources:
-  !include lovelace/resources/resources.yaml
-
 custom_header:
   compact_mode: true
   hide_unused: true
   hide_config: true
   hidden_tab_redirect: false
-  hide_tabs: "10,11,12,13"
+  # hide_tabs: "10,11,12,13"
   exceptions:
     - conditions:
         user: dashboard
       config:
-        show_tabs: 9
+        show_tabs: 8
         kiosk_mode: true
     - conditions:
         media_query: "(min-width: 600px)"
@@ -23,7 +20,7 @@ custom_header:
         media_query: "(max-width: 600px)"
       config:
         footer_mode: true
-        hide_tabs: "9,10,11,12,13"
+        hide_tabs: "9,10,11,12,13,14"
         button_icons:
           options: mdi:dots-vertical
         menu_hide: true
@@ -38,20 +35,23 @@ decluttering_templates:
 title: Home
 background: var(--background)
 views:
+  ## Main views
   - !include lovelace/00_home_view.yaml
   - !include lovelace/10_home_info_view.yaml
   - !include lovelace/20_lights_view.yaml
   - !include lovelace/30_system_info_view.yaml
-  - !include lovelace/31_system_graphs.yaml
   - !include lovelace/40_camera_view.yaml
   - !include lovelace/3d_printer.yaml
   - !include lovelace/80_automations_view.yaml
-  - !include lovelace/99_settings_view.yaml
-  - !include lovelace/102_nest_dashboard.yaml
-
+  - !include lovelace/nest_dashboard.yaml
+  - !include lovelace/cast_dashboard.yaml
+  ## Secondary views
   - !include lovelace/media.yaml
   - !include lovelace/isa.yaml
   - !include lovelace/stefan.yaml
   - !include lovelace/climate.yaml
-  - !include lovelace/surveillance.yaml
   - !include lovelace/cats.yaml
+  - !include lovelace/weather.yaml
+  - !include lovelace/motion.yaml
+  - !include lovelace/vacuums.yaml
+  # - !include lovelace/31_system_graphs.yaml

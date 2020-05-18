@@ -1,0 +1,113 @@
+# lovelace_gen
+
+type: custom:button-card
+entity: {{ entity }}
+show_label: false
+show_state: true
+show_last_changed: true
+name: {{ name }}
+icon: {{ icon }}
+color: auto
+size: 25%
+tap_action: 
+  action: more-info
+opacity: 0.8
+aspect_ratio: 1/1
+custom_fields:
+  badge: >
+    {% if badge != null %}
+    [[[ return `<ha-icon
+          icon="mdi:battery-outline"
+          style="width: 12px; height: 12px;">
+          </ha-icon>` + states['{{ badge }}'].state + "%"]]]
+    {% endif %}
+styles:
+  card:
+    - --ha-card-background: var(--homekit-card-off)
+  label:
+    - font-size: 11px
+    - font-family: Helvetica
+    - padding: 0px 10px
+    - justify-self: start
+    - color: var(--label-color-off)
+  state:
+    - font-size: 11px
+    - font-family: Helvetica
+    - padding: 0px 10px
+    - justify-self: start
+    - text-transform: capitalize
+    - padding-left: 10px
+    - color: var(--upcoming-color)
+  grid:
+    - position: relative
+  custom_fields:
+    badge:
+      - border-radius: 50%
+      - position: absolute
+      - left: 60%
+      - top: 5%
+      - height: 20px
+      - width: 40px
+      - font-size: 10px
+      - line-height: 20px
+  name:
+    - color: var(--upcoming-color)
+    - justify-self: 'start'
+    - padding-left: '10px'
+    - font-weight: bold
+    - font-family: Helvetica 
+    - font-size: 13px
+    - margin-top: '0px'
+  icon:
+    - color: var(--upcoming-color)
+  img_cell:
+    - align-self: start
+    - text-align: start
+    - margin-left: -65%
+state:
+  - value: "on"
+    styles:
+      card:
+        - --ha-card-background: 'var(--homekit-card-on)'
+        - opacity: '1.0'
+      icon:
+        - color: var(--accent-color)
+  - value: "off"
+    styles:
+      card:
+        - opacity: '0.8'
+      label:
+        - color: 'var(--label-color-off)'
+      # icon:
+      #   - color: 'var(--icon-color-off)'
+      name:
+        - color: 'var(--name-color-off)'
+      state:
+        - color: 'var(--state-color-off)'  
+      lock:
+        - color: var(--lock-color-off)
+      icon:
+        - color: var(--icon-color-off)
+  - value: "Open"
+    styles:
+      card:
+        - --ha-card-background: 'var(--homekit-card-on)'
+        - opacity: '1.0'
+      icon:
+        - color: var(--accent-color)
+  - value: "Closed"
+    styles:
+      card:
+        - opacity: '0.8'
+      label:
+        - color: 'var(--label-color-off)'
+      # icon:
+      #   - color: 'var(--icon-color-off)'
+      name:
+        - color: 'var(--name-color-off)'
+      state:
+        - color: 'var(--state-color-off)'  
+      lock:
+        - color: var(--lock-color-off)
+      icon:
+        - color: var(--icon-color-off)

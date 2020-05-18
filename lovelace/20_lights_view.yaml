@@ -6,39 +6,85 @@ cards:
     cards:
     - type: horizontal-stack
       cards:
-        - type: picture
-          image: /local/lovelace_ui/bed.jpg
-          tap_action:
-            action: none
-          hold_action:
-            action: call-service
-            service: script.goodnight
-        - type: picture
-          image: /local/lovelace_ui/morning_coffee_square.jpg
-          tap_action:
-            action: none
-          hold_action:
-            action: call-service
-            service: scene.turn_on
-            service_data:
-              entity_id: scene.morning_lights
-        - type: picture
-          image: /local/lovelace_ui/movie_square.jpg
-          tap_action:
-            action: none
-          hold_action:
-            action: call-service
-            service: scene.turn_on
-            service_data:
-              entity_id: scene.movie_time
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - name: Morning lights
+            - entity: scene.morning_lights
+            - label: Run
+            - icon: mdi:weather-sunset-up
+            - lock:
+                enabled: true
+                duration: 10
+                unlock: tap
+            - show_state: false
+            - tap_action:
+                action: none
+            - hold_action:
+                action: call-service
+                service: scene.turn_on
+                service_data:
+                  entity_id: scene.morning_lights
+                haptic: heavy
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - name: Goodnight
+            - entity: script.goodnight
+            - label: Run
+            - icon: mdi:weather-night
+            - lock:
+                enabled: true
+                duration: 10
+                unlock: tap
+            - show_state: false
+            - tap_action:
+                action: none
+            - hold_action:
+                action: call-service
+                service: script.goodnight
+                haptic: heavy
+
+        - type: custom:decluttering-card
+          template: switch_button_card
+          variables:
+            - name: Movie time
+            - entity: scene.movie_time
+            - label: Run
+            - icon: mdi:movie-open-outline
+            - lock:
+                enabled: true
+                duration: 10
+                unlock: tap
+            - show_state: false
+            - tap_action:
+                action: none
+            - hold_action:
+                action: call-service
+                service: scene.turn_on
+                service_data:
+                  entity_id: scene.movie_time
+                haptic: heavy
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.downstairs_lights
+            name: Downstairs
+            # icon: mdi:stairs-down
+            icon: mdi:home-floor-0
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.upstairs_lights
+            name: Upstairs
+            # icon: mdi:stairs-up
+            icon: mdi:home-floor-1
+
+
     - type: markdown
       style: |
         ha-card {
           box-shadow: none;
           height: 33px;
           background: none;
-          # padding: 0px 10px;
-          color: var(--primary-background-color);
         }
         ha-markdown {
           padding: 16px 16px 0 8px !important;
@@ -47,80 +93,16 @@ cards:
         #### Front
     - type: horizontal-stack
       cards:
-        - type: custom:decluttering-card
-          template: switch_button_card
-          variables:
-            - entity: light.outdoor_front_light
-            - name: Wall
-            - icon: bha:outdoor-lamp
-            - margin-left: -65%
-            
-            - lock:
-                enabled: "[[[ return entity.state === 'on'; ]]]"
-                duration: 10
-                unlock: tap
-            - label: !include ./includes/brightness-label.yaml
-            - grid:
-                !include ./includes/light-grid.yaml
-            - hold_action: 
-                action: call-service
-                service: browser_mod.command
-                service_data:
-                  command: popup
-                  title: Outdoor front
-                  style:
-                    position: fixed
-                    z-index: 999
-                    top: 0
-                    left: 0
-                    height: 100%
-                    width: 100%
-                    display: block
-                    align-items: center
-                    justify-content: center
-                    background: rgba(0, 0, 0, 0.8)
-                    flex-direction: column
-                    margin: 0
-                    "--iron-icon-fill-color": "#FFF"
-                  card:
-                    type: custom:light-popup-card
-                    entity: light.outdoor_front_light
-                    icon: bha:outdoor-lamp
-                    # scenesInARow: 2
-                    brightnessWidth: 150px
-                    brightnessHeight: 400px
-                    switchWidth: 150px
-                    switchHeight: 400px
-                    # scenes:
-                    #   - scene: scene.morning_lights
-                    #     color: "#FDCA64"
-                    #     name: ontspannen
-                    #   - scene: scene.morning_lights
-                    #     color: "#FFE7C0"
-                    #     name: helder
-                    #   - scene: scene.morning_lights
-                    #     color: "#BBEEF3"
-                    #   - scene: scene.morning_lights
-                    #     color: "#8BCBDD"
-                  deviceID:
-                    - this
-                  
-                haptic: heavy
-        - type: custom:decluttering-card
-          template: switch_button_card
-          variables:
-            - entity: light.outdoor_front_hanging_lights
-            - name: Chain lights
-            - icon: bha:light-string
-            - hold_action: 
-                action: more-info
-                haptic: heavy
-            - margin-left: -65%
-            
-            - lock: true
-            - label: !include ./includes/brightness-label.yaml
-            - grid:
-                !include ./includes/light-grid.yaml
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.outdoor_front_light
+            name: Wall
+            icon: bha:outdoor-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.outdoor_front_hanging_lights
+            name: Chain lights
+            icon: bha:light-string
         - type: "custom:button-card"
           color_type: blank-card
         - type: "custom:button-card"
@@ -132,8 +114,6 @@ cards:
           box-shadow: none;
           height: 33px;
           background: none;
-          # padding: 0px 10px;
-          color: var(--primary-background-color);
         }
         ha-markdown {
           padding: 16px 16px 0 8px !important;
@@ -142,277 +122,173 @@ cards:
         #### Back yard
     - type: horizontal-stack
       cards:
-        - type: custom:decluttering-card
-          template: switch_button_card
-          variables:
-            - entity: light.outdoor_yard_light
-            - name: Wall
-            - icon: bha:outdoor-lamp
-            - hold_action: 
-                action: more-info
-                haptic: heavy
-            - margin-left: -65%
-            
-            - lock: true
-            - label: !include ./includes/brightness-label.yaml
-            - grid:
-                !include ./includes/light-grid.yaml
-        - type: custom:decluttering-card
-          template: switch_button_card
-          variables:
-            - entity: light.outdoor_hanging_lights
-            - name: Chain lights
-            - icon: bha:light-string
-            - hold_action: 
-                action: more-info
-                haptic: heavy
-            - margin-left: -65%
-            
-            - lock: true
-            - label: !include ./includes/brightness-label.yaml
-            - grid:
-                !include ./includes/light-grid.yaml
-        - type: custom:decluttering-card
-          template: switch_button_card
-          variables:
-            - entity: light.outdoor_yard_light_net
-            - name: Light Net
-            - icon: bha:light-string
-            - hold_action: 
-                action: more-info
-                haptic: heavy
-            - margin-left: -65%
-            
-            - lock: true
-            - label: !include ./includes/brightness-label.yaml
-            - grid:
-                !include ./includes/light-grid.yaml
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.outdoor_yard_light
+            name: Wall
+            icon: bha:outdoor-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.outdoor_hanging_lights
+            name: Chain lights
+            icon: bha:light-string
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.outdoor_yard_light_net
+            name: Light Net
+            icon: bha:light-string
         - type: "custom:button-card"
           color_type: blank-card
-    # - type: custom:button-card
-    #   aspect_ratio: 2/1
-    #   entity: light.outdoor_yard_light
-    #   hold_action:
-    #     action: more-info
-    #   custom_fields:
-    #     graph:
-    #       card:
-    #         entity: light.outdoor_yard_light
-    #         type: custom:slider-entity-row
-    #         full_row: true
-    #         toggle: false
-    #         hide_state: true
-    #         # style is used by card-mod
-    #         style: |
-    #           ha-card {
-    #             box-shadow: none;
-    #           }
-    #   styles:
-    #     custom_fields:
-    #       graph:
-    #         - filter: opacity(50%)
-    #         - overflow: unset
-    #     card:
-    #       - overflow: unset
-    #     grid:
-    #       - grid-template-areas: '"i" "n" "graph"'
-    #       - grid-template-columns: 1fr
-    #       - grid-template-rows: 1fr min-content min-content
 
-    # - type: custom:decluttering-card
-    #   template: switch_button_card
-    #   variables:
-    #     - entity: light.outdoor_yard_light
-    #     - name: Yard light
-    #     - icon: bha:light-string
-    #     - hold_action: 
-    #         action: more-info
-    #         haptic: heavy
-    #     - margin-left: -65%
-    #     
-    #     - lock: true
-    #     - label: !include ./includes/brightness-label.yaml
-    #     - custom_fields:
-    #         graph:
-    #           card:
-    #             entity: light.outdoor_yard_light
-    #             type: custom:slider-entity-row
-    #             full_row: true
-    #             toggle: false
-    #             hide_state: true
-    #             # style is used by card-mod
-    #             style: |
-    #               ha-card {
-    #                 box-shadow: none;
-    #               }
-    #     - styles:
-    #         custom_fields:
-    #           graph:
-    #             - filter: opacity(50%)
-    #             - overflow: unset
-    #         card:
-    #           - overflow: unset
-    #         grid:
-    #           - grid-template-areas: '"i" "n" "graph"'
-    #           - grid-template-columns: 1fr
-    #           - grid-template-rows: 1fr min-content min-content
+  - type: vertical-stack
+    cards:
+    - type: markdown
+      style: |
+        ha-card {
+          box-shadow: none;
+          height: 33px;
+          background: none;
+        }
+        ha-markdown {
+          padding: 16px 16px 0 8px !important;
+        }
+      content: |
+        #### Downstairs
     - type: horizontal-stack
       cards:
-        - type: entity-button
-          entity: light.downstairs_lights
-          icon: mdi:home-floor-0
-          tap_action:
-            action: none
-          hold_action:
-            action: call-service
-            service: light.turn_off
-            service_data:
-              entity_id: light.downstairs_lights
-        - type: entity-button
-          entity: light.upstairs_lights
-          icon: mdi:home-floor-1
-          tap_action:
-            action: none
-          hold_action:
-            action: call-service
-            service: light.turn_off
-            service_data:
-              entity_id: light.upstairs_lights
-                  
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.kitchen_ceiling_spotlights_level
+            name: Kitchen
+            icon: mdi:vanity-light
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.dining_room_ceiling_light_level
+            name: Dining area
+            icon: bha:ceiling-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.floorlamp_uplight
+            name: Floorlamp
+            icon: mdi:floor-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.floorlamp_reading_light
+            name: Reading
+            icon: mdi:floor-lamp
 
-  - type: vertical-stack
-    cards:
-    - type: entities
-      title: Downstairs
-      show_header_toggle: false
-      entities:
-        - entity: light.kitchen_ceiling_spotlights_level
-          name: Kitchen
-          icon: mdi:vanity-light
-          
-        - entity: light.dining_room_ceiling_light_level
-          name: Dining area
-          icon: bha:ceiling-lamp
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
+    - type: horizontal-stack
+      cards:
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.living_room_ceiling_light_level
+            name: Living Room
+            icon: bha:ceiling-lamp-round
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.living_room_spotlights_level
+            name: Living Room Spotlights
+            icon: mdi:vanity-light
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.downstairs_litterbox_light_strip
+            name: Led strip
+            icon: bha:led-strip
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.candles
+            name: Candles
+            icon: mdi:candle
 
-        - entity: light.floorlamp_uplight
-          name: Floorlamp
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.floorlamp_reading_light
-          name: Floorlamp reading
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
+    - type: horizontal-stack
+      cards:
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.passage_ceiling_spotlights_level
+            name: Passage
+            icon: mdi:vanity-light
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.hallway_window_light
+            name: Hallway
+            icon: bha:ceiling-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.stairs_lights
+            name: Stairs
+            icon: mdi:vanity-light
+        - type: "custom:button-card"
+          color_type: blank-card
 
-        - entity: light.living_room_ceiling_light_level
-          name: Livingroom
-          icon: bha:ceiling-lamp-round
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-
-        - entity: light.living_room_spotlights_level
-          name: Livingroom spots
-          icon: mdi:vanity-light
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-        
-        - entity: light.living_room_lightstrip
-          name: Living Room Lightstrip
-          icon: bha:led-strip
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.passage_ceiling_spotlights_level
-          name: Passage
-          icon: mdi:vanity-light
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.hallway_window_light
-          name: Hallway window
-          type: custom:slider-entity-row
-          icon: mdi:ceiling-light
-          toggle: true
-          hide_when_off: true
-
-        - entity: light.stairs_lights
-          name: Stairs
-          type: custom:slider-entity-row
-          icon: mdi:vanity-light
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.candles
-          name: Candles
-          icon: mdi:candle
           
   - type: vertical-stack
     cards:
-    - type: entities
-      title: Upstairs
-      show_header_toggle: false
-      entities:
-        - entity: light.bedside_lamp
-          name: Bedside
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-      
-        - entity: light.bedroom_ceiling_light
-          name: Bedroom
-          icon: bha:ceiling-lamp
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.isa_ceiling_light
-          name: Isa
-          icon: bha:ceiling-lamp
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.isa_filament
-          name: Isa Filament
-          icon: mdi:lightbulb-outline #mdi:globe-light
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-
-        - entity: light.globe
-          name: Isa Globe
-          icon: mdi:globe-model
-
-        - entity: light.upstairs_hallway_ceiling_light_level
-          name: Upstairs hallway
-          icon: bha:ceiling-lamp
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.gateway_light_34ce008bfc4b
-          name: Nightlight
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.walk_in_closet_lights
-          name: Walk in closet
-          icon: mdi:vanity-light
-          type: custom:slider-entity-row
-          toggle: true
-          hide_when_off: true
-          
-        - entity: light.stefan_lightstrip
-          name: Stefan
-          icon: bha:led-strip
-          type: custom:toggle-lock-entity-row
+    - type: markdown
+      style: |
+        ha-card {
+          box-shadow: none;
+          height: 33px;
+          background: none;
+        }
+        ha-markdown {
+          padding: 16px 16px 0 8px !important;
+        }
+      content: |
+        #### Upstairs
+    - type: horizontal-stack
+      cards:
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.upstairs_hallway_ceiling_light_level
+            name: Upstairs Hallway
+            icon: bha:ceiling-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.isa_ceiling_light
+            name: Isa Ceiling
+            icon: bha:ceiling-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.isa_filament
+            name: Isa Filament
+            icon: mdi:lightbulb-outline
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.globe
+            name: Isa Globe
+            icon: mdi:globe-model
+    - type: horizontal-stack
+      cards:
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.bedside_lamp
+            name: Bedside
+            icon: mdi:vanity-light
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.bedroom_ceiling_light
+            name: Bedroom
+            icon: bha:ceiling-lamp
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.gateway_light_34ce008bfc4b
+            name: Nightlight
+            icon: mdi:vanity-light
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.stefan_lightstrip
+            name: Stefan Led Strip
+            icon: bha:led-strip
+    - type: horizontal-stack
+      cards:
+        - !include
+          - lovelace_gen_templates/light.yaml
+          - entity: light.walk_in_closet_lights
+            name: Walk in Closet
+            icon: mdi:vanity-light
+        - type: "custom:button-card"
+          color_type: blank-card
+        - type: "custom:button-card"
+          color_type: blank-card
+        - type: "custom:button-card"
+          color_type: blank-card

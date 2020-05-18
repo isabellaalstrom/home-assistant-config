@@ -2,16 +2,97 @@ title: Stefan
 icon: mdi:map-marker-radius
 path: stefan
 cards:
-  - type: vertical-stack
+  - type: custom:layout-card
+    layout: vertical
     cards:
-      - type: custom:decluttering-card
-        template: person_more_info
-        variables:
-          - name: stefan
-          - name-s: Stefan
-          - battery_level: igrims_battery_level
-          - battery_state: igrims_battery_state
-          - ios_tracker: igrims_3
-          - wifi_tracker: igrims
-          - bt_living_room: living_room_stefan_iphone_11_bt
-          - bt_dining_room: dining_room_stefan_iphone_11_bt
+      - type: markdown
+        style: |
+          ha-card {
+            box-shadow: none;
+            height: 33px;
+            background: none;
+          }
+          ha-markdown {
+            padding: 16px 16px 0 8px !important;
+          }
+        content: |
+          #### Stefan
+      - type: horizontal-stack
+        cards:
+          - type: entities
+            style: |
+              ha-card {
+                background: var(--homekit-card-off);
+                --paper-item-icon-color: var(--icon-color-off);
+                color: var(--name-color-off);
+                border-radius: var(--border-radius);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 12px;
+              }
+            entities:
+              - entity: device_tracker.stefan_addon_presence
+                type: custom:multiple-entity-row
+                name: 'Stefan presence'
+                icon: mdi:map-marker-circle
+                secondary_info: last-changed
+                entities:
+                  - entity: proximity.home_stefan
+                    name: Proximity to home
+                  - entity: proximity.home_stefan
+                    attribute: dir_of_travel
+                    name: Direction
+              - entity: device_tracker.igrims_3
+                type: custom:multiple-entity-row
+                name: iPhone
+                icon: mdi:apple
+                secondary_info: last-changed
+                entities:
+                  - entity: sensor.igrims_battery_level
+                    name: Battery
+                  - entity: sensor.igrims_battery_state
+                    name: Status
+              - entity: sensor.igrims_geocoded_location
+                name: Location
+                icon: mdi:apple
+                secondary_info: last-changed
+              - entity: device_tracker.igrims
+                type: custom:multiple-entity-row
+                name: 'Wifi'
+                icon: mdi:wifi
+                secondary_info: last-changed
+                entities:
+                  - entity: sensor.igrims_ssid
+                    name: Connected to
+              - entity: sensor.dining_room_stefan_iphone_11_bt
+                name: 'BT dining room'
+                icon: mdi:bluetooth
+                secondary_info: last-changed
+              - entity: sensor.living_room_stefan_iphone_11_bt
+                name: 'BT living room'
+                icon: mdi:bluetooth
+                secondary_info: last-changed
+              - type: call-service
+                icon: mdi:reload
+                name: Reload Presence
+                service: hassio.addon_restart
+                service_data:
+                  addon: 1e72b768_better_presence
+      - type: horizontal-stack
+        cards:
+          - type: custom:atomic-calendar-revive
+            showWeekDay: true
+            style: |
+              ha-card {
+                background: var(--homekit-card-off);
+                --paper-item-icon-color: var(--icon-color-off);
+                color: var(--name-color-off);
+                border-radius: var(--border-radius);
+                font-family: 'Open Sans', sans-serif;
+                font-size: 12px;
+              }
+            numberOfDays: 5
+            entities:
+              - entity: calendar.isabella_alstrom
+                whitelist: 'stefan,Stefan'
+            showColors: true
+            name: Calendar

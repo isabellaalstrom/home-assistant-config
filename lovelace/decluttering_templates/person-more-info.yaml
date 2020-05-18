@@ -114,7 +114,8 @@ card:
         #### <ha-icon icon="mdi:chevron-left-circle-outline"></ha-icon> Agenda <ha-icon icon="mdi:chevron-right-circle-outline"></ha-icon>
     - type: horizontal-stack
       cards:
-        - type: custom:atomic-calendar
+        - type: custom:atomic-calendar-revive
+          showWeekDay: true
           style: |
             ha-card {
               background: var(--homekit-card-off);

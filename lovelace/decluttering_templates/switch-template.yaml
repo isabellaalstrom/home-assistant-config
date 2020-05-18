@@ -119,7 +119,7 @@ card:
       - font-size: 13px
       - margin-top: '[[margin-top-name]]'
     icon:
-      - color: var(--upcoming-color)
+      - color: var(--icon-color-off)
   state:
     - value: "on" 
       '[[variable]]': '[[spin]]'  
@@ -220,7 +220,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
     - value: "armed_home"
       icon: "mdi:shield-home"
       styles:
@@ -286,7 +286,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
     - value: 'Back door'
       icon: mdi:door-open
       styles:
@@ -324,7 +324,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
     - value: 'Bedroom'
       icon: mdi:window-open
       styles:
@@ -364,7 +364,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
     - value: 'Detected'
       icon: mdi:motion-sensor
       styles:
@@ -404,7 +404,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
     - value: 'Take in'
       icon: mdi:delete-restore
       styles:
@@ -430,7 +430,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
 
     - value: 'Package and mail'
       icon: mdi:mailbox-up
@@ -483,7 +483,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
           
     - value: 'Clean'
       styles:
@@ -520,7 +520,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
 
     - value: 'Docked'
       styles:
@@ -533,7 +533,7 @@ card:
           - justify-self: '[[justify-self-name]]'
           - padding-left: '[[padding-left-name]]'
         icon:
-          - color: rgb(169,169,169)
+          - color: var(--icon-color-off)
 
     - value: 'Cleaning'
       styles:
@@ -600,7 +600,7 @@ card:
     - operator: 'default'
       styles:
         icon:
-          - color: gray
+          - color: var(--icon-color-off)
     - operator: '<'
       value: 10
       styles:

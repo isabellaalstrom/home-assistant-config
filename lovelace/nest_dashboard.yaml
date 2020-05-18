@@ -8,7 +8,7 @@ cards:
     cards:
       - type: custom:nest-layout-card
         layout: horizontal
-        max_width: [500px, 100%]
+        max_width: [490px, 100%]
         column_num: 2
         max_columns: 2
         cards:
@@ -50,29 +50,6 @@ cards:
                     template: nest_picture_button
                     entity: person.isa
                     entity_picture: !secret isa_image
-                    # styles:
-                    #   grid:
-                    #     - position: relative
-                    #   custom_fields:
-                    #     notification:
-                    #       - background-color: >
-                    #           [[[
-                    #             if (states['sensor.isabellas_iphone_x_battery_level'].state > 50)
-                    #               return "#87c087";
-                    #             return "#FF8000";
-                    #           ]]]
-                    #       - border-radius: 50%
-                    #       - position: absolute
-                    #       - left: 60%
-                    #       - top: 0
-                    #       - height: 20px
-                    #       - width: 20px
-                    #       - font-size: 8px
-                    #       - line-height: 20px
-                    #       - color: white
-                    # custom_fields:
-                    #   notification: >
-                    #     [[[ return states['sensor.isabellas_iphone_x_battery_level'].state ]]]
               - type: markdown
                 content: >
                     # [[ sensor.time.state ]]
@@ -121,11 +98,15 @@ cards:
                 cards:
                   - type: vertical-stack
                     cards:
-                      - type: "custom:atomic-calendar"
+                      - type: "custom:atomic-calendar-revive"
+                        showWeekDay: true
                         entities:
                           - entity: calendar.isabella_alstrom
+                            blacklist: "Gun, gun"
                         dateSize: 120
                         titleSize: 130
+                        showNoEventsForToday: true
+                        dayWrapperLineColor: rgb(186, 192, 198)
                         style: |
                           ha-card {
                             height: 436px;
@@ -136,7 +117,7 @@ cards:
                       - type: horizontal-stack
                         cards:
                           - type: custom:grocy-chores-card
-                            title: Todo this week
+                            title: Todo
                             entity: sensor.grocy_chores
                             show_days: 3
                             show_quantity: 6
@@ -158,6 +139,7 @@ cards:
                               - type: horizontal-stack
                                 cards:
                                 - type: custom:mini-graph-card
+                                  name: Bedroom
                                   entities:
                                     - sensor.bedroom_temperature
                                   show:
@@ -219,6 +201,7 @@ cards:
                               - type: horizontal-stack
                                 cards:
                                   - type: custom:mini-graph-card
+                                    name: Passage
                                     show:
                                       fill: false
                                       icon: true
@@ -277,6 +260,7 @@ cards:
                                         margin-right: 5px;
                                         margin-bottom: 5px;
                                       }
+
                               - type: horizontal-stack
                                 cards:
                                   - type: custom:bignumber-card
@@ -322,24 +306,22 @@ cards:
                                         margin-right: 5px;
                                         margin-bottom: 5px;
                                       }
-
-                              - type: custom:pollenkoll-card
-                                city: stockholm
-                                title: false
-                                show_state: false
-                                # threshold: 1
-                                minimal: true
-                                allergens:
-                                  - björk
-                                  - gräs
-                                  - gråbo
-                                style: |
-                                  ha-card {
-                                    height: 125px;
-                                    padding-top: 0;
-                                    margin-right: 5px;
-                                    padding-bottom: 0;
-                                  }
+                              - type: "custom:day-countdown"
+                                date: "10 June 2020"
+                              # - type: glance
+                              #   show_icon: false
+                              #   entities:
+                              #     - entity: sensor.sweden_coronavirus_confirmed
+                              #       name: Confirmed
+                              #     - entity: sensor.sweden_coronavirus_deaths
+                              #       name: Deaths
+                              #     - entity: sensor.sweden_coronavirus_recovered
+                              #       name: Recovered
+                              #   style: |
+                              #     .card-content {
+                              #       padding-top: 0px;
+                              #       padding-bottom: 0px;
+                              #     }
 
                   - type: vertical-stack
                     cards:
@@ -564,144 +546,200 @@ cards:
                                         color: rgb(152,251,152)
                                       - value: 'Open'
                                         icon: mdi:window-open
-                                        color: rgb(255, 0, 0)
+                                        color: rgb(255,128,0)
+                              - type: custom:decluttering-card
+                                template: nest_button
+                                variables:
+                                  - entity: sensor.isas_room_window
+                                  - name: Isas
+                                  - show_name: true
+                                  - show_state: false
+                                  - state:
+                                      - value: 'Closed'
+                                        icon: mdi:window-closed
+                                        color: rgb(152,251,152)
+                                      - value: 'Open'
+                                        icon: mdi:window-open
+                                        color: rgb(255,128,0)
+
                       - type: horizontal-stack
                         cards:
-                          - type: 'custom:home-feed-card'
-                            title: Home Feed
-                            compact_mode: on
-                            scrollbars_enabled: false
-                            max_item_count: 12
-                            # max_height: 545px
-                            entities:
-                              - entity: input_select.dryer_status
-                                name: Dryer
-                                icon: mdi:tumble-dryer
-                                content_template: '{{display_name}}|{{state}}'
-                                include_history: true
-                              - entity: input_select.washing_machine_status
-                                content_template: '{{display_name}}|{{state}}'
-                                name: Washer
-                                icon: mdi:washing-machine
-                                include_history: true
-                              - entity: sensor.front_door
-                                content_template: '{{display_name}}|{{state}}'
-                              - entity: sensor.back_door
-                                content_template: '{{display_name}}|{{state}}'
-                              - entity: sensor.yard_door
-                                content_template: '{{display_name}}|{{state}}'
-                              - entity: sensor.balcony_door
-                                content_template: '{{display_name}}|{{state}}'
-                              - entity: sensor.dining_room_window
-                                content_template: '{{display_name}}|{{state}}'
-                              - entity: sensor.bedroom_window
-                                content_template: '{{display_name}}|{{state}}'
-                              - entity: sensor.bedroom_door
-                                content_template: '{{display_name}}|{{state}}'
-                                name: Bedroom
-                                secondary_info: last-changed
-                              - entity: sensor.living_room_axis_movement
-                                name: Living Room Left
-                                content_template: '{{display_name}}|{{state}}'
-                                secondary_info: last-changed
-                                state_map:
-                                  No movement: No motion
-                              - entity: sensor.living_room_axis_movement_2
-                                name: Living Room Right
-                                content_template: '{{display_name}}|{{state}}'
-                                secondary_info: last-changed
-                                state_map:
-                                  No movement: No motion
-                              - entity: sensor.passage_movement
-                                name: Passage
-                                content_template: '{{display_name}}|{{state}}'
-                                state_map:
-                                  No movement: No motion
-                              - entity: sensor.upstairs_hallway_movement
-                                name: Stairs
-                                content_template: '{{display_name}}|{{state}}'
-                                state_map:
-                                  No movement: No motion
-                              - entity: sensor.stefans_office_movement
-                                content_template: '{{display_name}}|{{state}}'
-                                name: S Office
-                                state_map:
-                                  No movement: No motion
-                              - entity: switch.bike_charger
-                                content_template: '{{display_name}}|{{state}}'
-                                name: E-bike charger
-                                include_history: true
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.krisinformation_stockholm
+                                state_not: "Alert"
+                            card:
+                              type: 'custom:home-feed-card'
+                              title: Home Feed
+                              compact_mode: on
+                              scrollbars_enabled: false
+                              max_item_count: 12
+                              # max_height: 545px
+                              entities:
+                                - entity: input_select.dryer_status
+                                  name: Dryer
+                                  icon: mdi:tumble-dryer
+                                  content_template: '{{display_name}}|{{state}}'
+                                  include_history: true
+                                - entity: input_select.washing_machine_status
+                                  content_template: '{{display_name}}|{{state}}'
+                                  name: Washer
+                                  icon: mdi:washing-machine
+                                  include_history: true
+                                - entity: sensor.front_door
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: sensor.back_door
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: sensor.yard_door
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: sensor.balcony_door
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: sensor.dining_room_window
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: sensor.bedroom_window
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: sensor.isas_room_window
+                                  content_template: '{{display_name}}|{{state}}'
+                                  name: Isas
+                                  secondary_info: last-changed
+                                - entity: sensor.bedroom_door
+                                  content_template: '{{display_name}}|{{state}}'
+                                  name: Bedroom
+                                  secondary_info: last-changed
+                                - entity: binary_sensor.living_room_axis_motion_0
+                                  name: Living Room Left
+                                  content_template: '{{display_name}}|{{state}}'
+                                  secondary_info: last-changed
+                                  state_map:
+                                    off: No motion
+                                - entity: binary_sensor.passage_axis_motion_0
+                                  name: Living Room Right
+                                  content_template: '{{display_name}}|{{state}}'
+                                  secondary_info: last-changed
+                                  state_map:
+                                    off: No motion
+                                - entity: binary_sensor.passage_motion_sensor
+                                  name: Passage
+                                  content_template: '{{display_name}}|{{state}}'
+                                  state_map:
+                                    off: No motion
+                                - entity: binary_sensor.upstairs_hallway_motion_sensor
+                                  name: Stairs
+                                  content_template: '{{display_name}}|{{state}}'
+                                  state_map:
+                                    off: No motion
+                                - entity: binary_sensor.stefans_room_motion
+                                  content_template: '{{display_name}}|{{state}}'
+                                  name: S Office
+                                  state_map:
+                                    off: No motion
+                                - entity: switch.bike_charger
+                                  content_template: '{{display_name}}|{{state}}'
+                                  name: E-bike charger
+                                  include_history: true
+                                - entity: binary_sensor.kitchen_motion
+                                  icon: mdi:cat
+                                  name: Kitchen Cats
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: binary_sensor.downstairs_litterbox_motion
+                                  icon: mdi:cat
+                                  name: Downstairs Litterbox
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: binary_sensor.upstairs_litterbox_motion
+                                  icon: mdi:cat
+                                  name: Upstairs Litterbox
+                                  content_template: '{{display_name}}|{{state}}'
+                                - entity: binary_sensor.hallway_motion
+                                  content_template: '{{display_name}}|{{state}}'
+                                  name: Hallway
+                              style: |
+                                ha-card {
+                                  height: 545px;
+                                  margin-top: 10px;
+                                  overflow: hidden;
+                                  font-family: 'Open Sans', sans-serif;
+                                }
+                                .header {
+                                  padding-top: 24px !important;
+                                }
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.krisinformation_stockholm
+                                state: "Alert"
+                            card:
+                              type: custom:krisinfo-card
+                              entity: sensor.krisinformation_stockholm
+                              style: |
+                                .header {
+                                  display: none;
+                                }
+                                a {
+                                  display: none;
+                                }
+                                ha-card {
+                                  height: 545px;
+                                  margin-top: 10px;
+                                  overflow: hidden;
+                                  font-family: 'Open Sans', sans-serif;
+                                }
+
+                          - type: custom:upcoming-media-card
+                            entity: sensor.recently_added_tv
+                            title: On Plex
+                            date: ddmm
+                            clock: 24
+                            max: 4
+                            image_style: fanart
+                            flag: false
+                            hide_unflagged: true
+                            icon: none
+                            all_shadows: false
+
+                            flag_color: "#e5a00d"
+                            border_color: "#ffffff"
+                            accent_color: "#ffffff"
+                            title_color: "#636B75"
+                            line_color: "#636B75"
+
+                            title_size: large
+                            line_size: medium
+
+                            title_text: "$title"
+                            line1_text: "$number - $episode"
+                            line2_text: "$runtime - $rating - $genres"
+                            line3_text: "Released: $aired"
+                            line4_text: "Added: $release"
                             style: |
+                              # .plex_fan_fanart {
+                              #   -webkit-box-shadow: none;
+                              #   -moz-box-shadow: none;
+                              #   box-shadow: none !important;
+                              #   height: 100px;
+                              # }
                               ha-card {
-                                height: 545px;
                                 margin-top: 10px;
-                                overflow: hidden;
                                 font-family: 'Open Sans', sans-serif;
+                                height: 560px;
+                                # 560
                               }
-                          - type: vertical-stack
-                            cards:
-                              - type: custom:upcoming-media-card
-                                entity: sensor.recently_added_tv
-                                title: To watch
-                                date: ddmm
-                                clock: 24
-                                max: 2
-                                image_style: poster
-                                flag: false
-                                hide_unflagged: true
-                                icon: none
-                                all_shadows: false
+                              .card-header {
+                                padding-bottom: 8px;
+                                padding-bottom: 0;
+                              }
+                              .plex_poster {
+                                margin: 0 !important;
+                              }
+                              .rece_poster {
+                                margin-top: 0 !important;
+                                margin-bottom: 0 !important;
+                              }
 
-                                flag_color: "#e5a00d"
-                                border_color: "#ffffff"
-                                accent_color: "#ffffff"
-                                title_color: "#636B75"
-                                line_color: "#636B75"
-
-                                title_size: large
-                                line_size: medium
-
-                                title_text: "$title"
-                                line1_text: "$number - $episode"
-                                line2_text: "$runtime - $rating - $genres"
-                                line3_text: "Released: $aired"
-                                line4_text: "Added: $release"
-                                style: |
-                                  .plex_fan_fanart {
-                                    -webkit-box-shadow: none;
-                                    -moz-box-shadow: none;
-                                    box-shadow: none !important;
-                                    height: 100px;
-                                  }
-                                  ha-card {
-                                    margin-top: 10px;
-                                    font-family: 'Open Sans', sans-serif;
-                                    height: 370px;
-                                    # 560
-                                  }
-                                  .card-header {
-                                    padding-bottom: 8px;
-                                    padding-bottom: 0;
-
-                                  }
-                                  .plex_poster {
-                                    margin: 0 !important;
-                                  }
-                                  .rece_poster {
-                                    margin-top: 0 !important;
-                                    margin-bottom: 0 !important;
-                                  }
-                              - type: picture-entity
-                                entity: camera.attic
-                                camera_view: live
-                                show_state: false
-                                show_name: false
                     style: |
                       ha-card {
-                        height: 920px;
+                        # height: 920px;
                         font-family: 'Open Sans', sans-serif;
                         font-size: 150%;
-                        margin: 10px;
+                        # margin: 10px;
                         text-align: center;
-                        margin-top: 40px;
+                        # margin-top: 40px;
                       }
