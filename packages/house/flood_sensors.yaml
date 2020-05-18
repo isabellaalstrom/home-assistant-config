@@ -1,12 +1,3 @@
-homeassistant:
-  customize:
-    binary_sensor.water_heater_sensor:
-      friendly_name: Water Leak Water Heater   
-
-    binary_sensor.water_leak_kitchen:
-      friendly_name: Water Leak Kitchen Sink
-    
-      
 sensor:
   - platform: template  
     sensors:

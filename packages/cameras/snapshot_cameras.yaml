@@ -15,3 +15,7 @@ camera:
     name: Snapshot Hallway
     still_image_url: !secret hallway_snapshot
     verify_ssl: false
+  - platform: generic
+    name: Snapshot Isas Room
+    still_image_url: !secret isas_room_snapshot
+    verify_ssl: false

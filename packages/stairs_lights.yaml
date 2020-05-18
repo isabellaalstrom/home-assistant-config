@@ -1,21 +1,3 @@
-homeassistant:
-  customize:
-    light.stairs_bottom_spot:
-      icon: mdi:spotlight-beam
-      friendly_name: Stairs Bottom Spot
-
-    light.stairs_middle_spot:
-      friendly_name: Stairs Middle Spot
-      icon: mdi:spotlight-beam
-
-    light.stairs_top_spot:
-      friendly_name: Stairs Top Spot
-      icon: mdi:spotlight-beam
-
-    light.stairs_lights_lights:
-      friendly_name: Stairs Lights
-      # icon: mdi:stairs
-
 light:
   - name: 'Stairs Bottom Spot'
     command_topic: milight/0x2/rgbw/1 

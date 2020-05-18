@@ -1,0 +1,4 @@
+camera:
+- platform: generic
+  name: HaningeStrand
+  still_image_url: http://81.236.0.77/axis-cgi/jpg/image.cgi?resolution=640x480

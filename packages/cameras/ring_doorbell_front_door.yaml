@@ -1,0 +1,8 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      ring_low_battery:
+        friendly_name: 'Ring Doorbell Low Battery'
+        entity_id: "sensor.sensor.ring_doorbell_battery"
+        device_class: battery
+        value_template: "{{ states('sensor.sensor.ring_doorbell_battery')|float < 20 }}"

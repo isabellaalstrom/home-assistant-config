@@ -1,16 +1,12 @@
-homeassistant:
-  customize:
-    media_player.living_room_chromecast:
-      friendly_name: Chromecast Shield
-    media_player.bedroom_chromecast:
-      friendly_name: Chromecast Bedroom
-    media_player.shield_2:
-      friendly_name: Plex Shield
-      icon: mdi:plex
-
 plex:
   token: !secret plex_token
   server: SHIELD
+
+# media_player:
+#   - platform: samsungtv_tizen
+#     host: IP_ADDRESS
+#     port: 8002
+#     mac: MAC_ADDRESS
 
 script:
   sonos_say:
@@ -59,3 +55,4 @@ automation:
           volume: 0.2
           message: 'Media system is not turned on'
           delay: '00:00:15'
+

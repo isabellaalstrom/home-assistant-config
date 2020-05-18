@@ -76,29 +76,11 @@ sensor:
     state_topic: 'monitor/living_room/status'
     name: Monitor Living Room
 
-group:
-  persons:
-    view: no
-    entities:
-      - person.isa
-      - person.stefan
-      
-  isabella:
-    name: Isabella
-    entities:
-      - device_tracker.isabellas_iphone_x
-      - device_tracker.isabellas_iphone_x_wifi
-  stefan:
-    name: Stefan
-    entities:
-      - device_tracker.igrims
-      - device_tracker.igrims_3
-
 proximity:
   home_isa: 
     zone: home
     devices:
-      - device_tracker.isabellas_iphone_x
+      - device_tracker.isabella_s_iphone_x
     tolerance: 50
     unit_of_measurement: km
   home_stefan: 

@@ -1,0 +1,64 @@
+# binary_sensor:
+  # - platform: ffmpeg_motion
+  #   name: Isas Room motion
+  #   input: !secret dafang_2_stream_source
+camera:
+  - platform: generic
+    name: Isas Room
+    still_image_url: !secret dafang_2_stream_still_image_url
+    verify_ssl: false
+    username: "root"
+    password: !secret dafang_password
+    authentication: basic
+
+    
+switch:
+  platform: command_line
+  scan_interval: 35
+  switches:
+    dafang_2_server:
+      command_on: !secret dafang_2_server_on
+      command_off: !secret dafang_2_server_off
+      friendly_name: Dafang Isas Room Server
+    dafang_2_night_vision:
+      command_on: !secret dafang_2_night_vision_on
+      command_off: !secret dafang_2_night_vision_off
+      friendly_name: Dafang Isas Room Night Mode
+    dafang_2_calibrate:
+      command_on: !secret dafang_2_calibrate
+      command_off: !secret dafang_2_calibrate
+      friendly_name: Dafang Isas Room Calibrate
+
+cover:
+  - platform: command_line
+    covers:
+      dafang_2_up_down:
+        command_open: !secret dafang_2_up
+        command_close: !secret dafang_2_down
+        command_stop: move_command stop
+      dafang_2_left_right:
+        command_open: !secret dafang_2_left
+        command_close: !secret dafang_2_right
+        command_stop: move_command stop
+
+script:
+  dafang_2_up:
+    sequence:
+      - service: cover.open_cover
+        entity_id: cover.dafang_2_up_down
+  dafang_2_down:
+    sequence:
+      - service: cover.close_cover
+        entity_id: cover.dafang_2_up_down
+  dafang_2_left:
+    sequence:
+      - service: cover.open_cover
+        entity_id: cover.dafang_2_left_right
+  dafang_2_right:
+    sequence:
+      - service: cover.close_cover
+        entity_id: cover.dafang_2_left_right
+  dafang_2_calibrate:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.dafang_2_calibrate

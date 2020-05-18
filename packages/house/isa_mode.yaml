@@ -1,18 +1,7 @@
-homeassistant:
-  customize:
-    input_boolean.isa_mode:
-      templates:
-        icon: >
-          if (state === 'on') return 'mdi:account';
-          else if (state === 'off') return 'mdi:account-off';
-        icon_color: >
-          if (state === 'on') return 'rgb(56, 150, 56)';
-          else if (state === 'off') return 'rgb(249, 251, 255)';
-
 input_boolean:
   isa_mode:
-    name: Isabella Mode
-    initial: 'off'
+    name: Isa Mode
+    initial: off
     icon: mdi:account
 
 automation:

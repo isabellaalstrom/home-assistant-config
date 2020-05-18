@@ -1,0 +1,25 @@
+binary_sensor:
+  - platform: ffmpeg_motion
+    name: Attic motion
+    input: !secret xiaofang_stream_source
+camera:
+  - platform: generic
+    name: Attic
+    still_image_url: !secret xiaofang_stream_still_image_url
+    verify_ssl: false
+    username: "root"
+    password: !secret xiaofang_password
+    authentication: basic
+    
+switch:
+  platform: command_line
+  scan_interval: 35
+  switches:
+    xiaofang_server:
+      command_on: !secret xiaofang_server_on
+      command_off: !secret xiaofang_server_off
+      friendly_name: Attic Server
+    xiaofang_night_vision:
+      command_on: !secret xiaofang_night_vision_on
+      command_off: !secret xiaofang_night_vision_off
+      friendly_name: Attic Night Mode

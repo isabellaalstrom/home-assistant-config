@@ -1,22 +1,3 @@
-homeassistant:
-  customize:
-    input_boolean.guest_mode:
-      templates:
-        icon: >
-          if (state === 'on') return 'mdi:account-group';
-          else if (state === 'off') return 'mdi:account-multiple-minus';
-        hs_color: >
-          if (state === 'off') return [0, 0];
-          else return [141, 48];
-        brightness: >
-          if (state === 'on') return 92;
-
-  customize_glob:
-    input_boolean.guest_mode:
-      templates:
-        hs_color: "if (state === 'off') return [0, 0];
-        else return [116, 85];"
-
 input_boolean:
   guest_mode:
     name: Guest Mode

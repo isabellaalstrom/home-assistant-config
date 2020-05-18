@@ -1,20 +1,3 @@
-homeassistant:
-  customize:
-    input_select.washing_machine_status:
-      icon: mdi:washing-machine
-    sensor.washer:
-      icon: mdi:washing-machine
-  customize_glob:
-    input_select.washing_machine_status:
-      templates:
-        hs_color: "if (state === 'Idle') return [0, 0];
-        else if (state === 'Running') return [40, 70];
-        else if (state === 'Clean') return [0, 85];"
-    input_select.dryer_status:
-      templates:
-        hs_color: "if (state === 'Idle') return [0, 0];
-        else if (state === 'Running') return [40, 70];
-        else if (state === 'Clean') return [116, 85];"
 ios:
   push:
     categories:

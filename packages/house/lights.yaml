@@ -1,80 +1,3 @@
-homeassistant:
-  customize:
-    light.hallway_window_light:
-      icon: mdi:lamp
-
-    light.outdoor_lights:
-      icon: mdi:wall-sconce
-      
-    light.gateway_light_34ce008bfc4b:
-      friendly_name: Nightlight
-      icon: mdi:lamp
-
-    light.living_room_ceiling_light_level:
-      icon: mdi:ceiling-light
-      friendly_name: Living Room Light
-        
-    light.upstairs_hallway_ceiling_light_level:
-      icon: mdi:ceiling-light
-      friendly_name: Upstairs Hallway Light
-        
-    light.dining_room_ceiling_light_level:
-      friendly_name: Dining Room Light
-      icon: mdi:ceiling-light
-        
-    light.passage_ceiling_spotlights_level:
-      friendly_name: Passage Lights
-      icon: mdi:track-light
-        
-    light.living_room_spotlights_level:
-      friendly_name: Living room Spotlights
-      icon: mdi:track-light
-        
-    light.isa_ceiling_light:
-      friendly_name: Isa Ceiling Light
-      icon: mdi:ceiling-light
-
-    light.bedroom_ceiling_light:
-      friendly_name: Bedroom Ceiling Light
-      icon: mdi:ceiling-light
-
-    light.bedside_lamp:
-      friendly_name: Bedside Lamp
-      icon: mdi:lamp
-
-    light.floorlamp_uplight:
-      icon: mdi:floor-lamp
-      friendly_name: Floorlamp
-        
-    light.floorlamp_reading_light:
-      icon: mdi:lamp
-      friendly_name: Floorlamp Reading Light
-
-    light.stefan_lightstrip:
-      icon: mdi:led-strip
-            
-    light.kitchen_ceiling_spotlights_level:
-      icon: mdi:track-light
-      friendly_name: Kitchen Lights
-
-    light.outdoor_front_light:
-      icon: mdi:wall-sconce
-      
-    light.outdoor_hanging_lights:
-      icon: mdi:lightbulb
-
-    light.outdoor_front_hanging_lights:
-      icon: mdi:lightbulb
-
-    light.outdoor_yard_light:
-      icon: mdi:wall-sconce
-
-    light.outdoor_yard_light_net:
-      icon: mdi:lightbulb
-
-    light.walk_in_closet_lights:
-      icon: mdi:wall-sconce
-
 scene:
   - name: Morning Lights
     entities:
@@ -99,7 +22,7 @@ scene:
         state: on
         brightness: 50
         transition: 30
-      light.living_room_lightstrip:
+      light.downstairs_litterbox_light_strip:
         state: on
         transition: 30
 
@@ -304,7 +227,7 @@ light:
       - light.passage_ceiling_spotlights_level
       - light.living_room_ceiling_light_level
       - light.living_room_spotlights_level
-      - light.living_room_lightstrip
+      - light.downstairs_litterbox_light_strip
       - light.candles
 
   - platform: group
@@ -334,4 +257,4 @@ light:
       - light.stairs_lights
       - light.walk_in_closet_lights
       - light.kitchen_ceiling_spotlights_level
-      - light.living_room_lightstrip
+      - light.downstairs_litterbox_light_strip

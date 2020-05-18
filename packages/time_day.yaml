@@ -88,18 +88,18 @@ automation:
           after: '22:00:00'
           before: '06:00:00'
 
-        # ## Someone has to be home
-        - condition: state
-          entity_id: group.persons
-          state: 'home'
+        # # ## Someone has to be home
+        # - condition: state
+        #   entity_id: group.persons
+        #   state: 'home'
 
         # ## No movement detected
         # # - condition: state
-        # #   entity_id: sensor.upstairs_hallway_movement
-        # #   state: 'No movement'
+        # #   entity_id: binary_sensor.upstairs_hallway_motion_sensor
+        # #   state: 'off'
         # # - condition: state
-        # #   entity_id: sensor.passage_movement
-        # #   state: 'No movement'
+        # #   entity_id: binary_sensor.passage_motion_sensor
+        # #   state: 'off'
 
         # - condition: state
         #   entity_id: light.lights_automation

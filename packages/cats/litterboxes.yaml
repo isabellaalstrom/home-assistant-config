@@ -1,39 +1,5 @@
 # ## Automations regarding this have moved to Appdaemon
 
-# homeassistant:
-#   customize:
-#     counter.all_litterbox_visits_today:
-#       icon: mdi:emoticon-poop
-#       friendly_name: All Litterbox Visits Today
-#     ## Upstairs
-#     counter.litterbox_upstairs_visits:
-#       icon: mdi:emoticon-poop
-#       friendly_name: Upstairs Litterbox Visits
-#     binary_sensor.motion_sensor_158d0001a66291:
-#       friendly_name: Upstairs Litterbox
-#       hidden: true
-#     sensor.illumination_158d0001a66291:
-#       friendly_name: Isas Room Lux
-#       icon: mdi:theme-light-dark
-#     binary_sensor.switch_158d0001a6687f:
-#       friendly_name: Upstairs litterbox switch
-
-#     ## Downstairs
-#     counter.litterbox_downstairs_visits:
-#       icon: mdi:emoticon-poop
-#       friendly_name: Downstairs Litterbox Visits
-#     binary_sensor.motion_sensor_158d0001a24ef1:
-#       hidden: true
-#       friendly_name: Downstairs Litterbox
-#     sensor.illumination_158d0001a24ef1:
-#       friendly_name: Downstairs Litterbox Lux
-#       icon: mdi:theme-light-dark
-#     binary_sensor.switch_158d0001b8f876:
-#       friendly_name: Downstairs litterbox switch
-
-
-#-------------------------------------------
-
 counter:
   litterbox_upstairs_visits:
     name: Upstairs Litterbox Visits

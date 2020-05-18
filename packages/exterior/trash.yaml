@@ -1,12 +1,3 @@
-homeassistant:
-  customize_glob:
-    input_select.trash_status:
-      templates:
-        hs_color: "if (state === 'Home') return [0, 0];
-        else if (state === 'Out') return [0, 0];
-        else if (state === 'Put out') return [0, 85];
-        else if (state === 'Take in') return [0, 85];"
-
 input_select:  
   trash_status:
     name: Trash Status
