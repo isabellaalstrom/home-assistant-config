@@ -189,17 +189,7 @@ cards:
                   name: Upstairs Litterbox
                   icon: mdi:walk
                   badge: sensor.upstairs_hallway_motion_battery_level
-              # - !include
-              #   - lovelace_gen_templates/sensor.yaml
-              #   - entity: binary_sensor.front_door_motion
-              #     name: Front Door
-              #     icon: mdi:walk
-              #     badge: sensor.front_door_battery
-                  
-              # - type: "custom:button-card"
-              #   color_type: blank-card
-              # - type: "custom:button-card"
-              #   color_type: blank-card
+
           - break
           - type: markdown
             style: |

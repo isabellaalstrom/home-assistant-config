@@ -76,7 +76,7 @@ cards:
           template: notification_template
           variables:
             - icon: alert
-            - name: "[[[ return `Ring Doorbell has ${states['sensor.front_door_battery'].state} % battery left.` ]]]"
+            - name: "[[[ return `Ring Doorbell has ${states['sensor.ring_doorbell_battery'].state} % battery left.` ]]]"
             - card_color: rgba(255, 0, 0, 0.8)
   - type: conditional
     conditions:

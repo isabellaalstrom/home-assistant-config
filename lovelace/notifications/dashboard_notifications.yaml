@@ -149,7 +149,7 @@ cards:
           template: notification_template
           variables:
             - icon: alert
-            - name: "[[[ return `Ring Doorbell has ${states['sensor.front_door_battery'].state}% battery left.` ]]]"
+            - name: "[[[ return `Ring Doorbell has ${states['sensor.ring_doorbell_battery'].state}% battery left.` ]]]"
             - font_size: 16px
             # - name_color: var(--primary-text-color)
             # - icon_color: var(--primary-text-color)

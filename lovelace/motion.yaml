@@ -34,5 +34,3 @@ cards:
           - entity: binary_sensor.upstairs_litterbox_motion
             name: Upstairs Litterbox Movement
             secondary_info: last-changed
-          # - entity: sensor.front_door_last_motion
-          #   name: Front Door Last Movement

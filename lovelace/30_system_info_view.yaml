@@ -151,32 +151,6 @@ cards:
               - type: "custom:button-card"
                 color_type: blank-card
 
-
-          # - type: horizontal-stack
-          #   cards:
-          #     - type: custom:decluttering-card
-          #       template: detailed_info
-          #       variables:
-          #         - name: Ring Doorbell
-          #         - entity: sensor.front_door_battery
-          #         - entity_top: sensor.front_door_wifi_signal_category
-          #         - entity_middle: sensor.system_ring_chime
-          #         - entity_bottom: sensor.system_ring_chime_pro
-          #         - entity_top_name: "Wifi"
-          #         - entity_middle_name: "Chime"
-          #         - entity_bottom_name: "Chime Pro"
-          #         - icon: mdi:doorbell-video
-          #         - show_state: false
-          #         - show_units: true
-          #         - units: "%"
-          #         - show_label: false
-              # - type: "custom:button-card"
-              #   color_type: blank-card
-              # - type: "custom:button-card"
-              #   color_type: blank-card
-              # - type: "custom:button-card"
-              #   color_type: blank-card
-
           - break
 
           - type: markdown

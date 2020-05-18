@@ -77,12 +77,12 @@ cards:
                             - entity: sensor.front_door
                               name: Front Door
                               secondary_info: last-changed
-                            - entity: camera.front_door
+                            - entity: camera.ring_doorbell
                               name: Ring Last Motion
-                            - entity: binary_sensor.front_door_motion
+                            - entity: binary_sensor.ring_doorbell_motion
                               name: Ring Motion
                               secondary_info: last-changed
-                            - entity: sensor.front_door_battery
+                            - entity: sensor.ring_doorbell_battery
                               name: Ring Battery
                           deviceID:
                             - this
@@ -615,7 +615,7 @@ cards:
           - type: custom:gap-card
             height: 21
           - type: picture-entity
-            entity: camera.front_door
+            entity: camera.ring_doorbell
             show_state: false
             show_name: false
           - type: custom:gap-card
