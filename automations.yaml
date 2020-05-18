@@ -535,3 +535,66 @@
     domain: light
     entity_id: light.downstairs_litterbox_light_strip
     type: turn_off
+- id: '1589789239123'
+  alias: '[Security] Ring Doorbell Low Battery'
+  description: ''
+  trigger:
+  - below: '15'
+    entity_id: sensor.ring_doorbell_battery
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      message: Low battery
+      title: Ring Doorbell
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1589789734091'
+  alias: '[Security] Ring Doorbell Flash Lights'
+  description: Flash Upstairs Hallway and Yard lights on ding
+  trigger:
+  - device_id: 6c649502c14445c88f5e514065c5ad66
+    domain: binary_sensor
+    entity_id: binary_sensor.ring_doorbell_ding
+    platform: device
+    type: occupied
+  condition: []
+  action:
+  - data: {}
+    service: python_script.flash_lights_upstairs_hallway_and_yard
+- id: '1589790297805'
+  alias: '[Security] Smoke Alarm'
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.dining_room_smoke_alarm
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.upstairs_hallway_smoke_alarm
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.walk_in_closet_smoke_alarm
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data_template:
+      message: 'Passage: {{states.sensor.passage_temperature.state_with_unit}} Bathroom:
+        {{states.sensor.downstairs_bathroom_temperature.state}} Stefan: {{states.sensor.stefan_temperature.state}}
+        Bedroom: {{states.sensor.bedroom_temperature.state}}
+
+        '
+      title: '{{ trigger.to_state.name }} triggered'
+    service: notify.mobile_app_isabella_s_iphone_x
+- id: '1589790536204'
+  alias: '[Climate] High Temperatures'
+  description: ''
+  trigger:
+  - above: '35'
+    entity_id: sensor.passage_temperature, sensor.downstairs_bathroom_temperature,
+      sensor.stefan_temperature, sensor.bedroom_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - data_template:
+      message: '{{ trigger.to_state.state }}'
+      title: '{{ trigger.to_state.name }}'
+    service: notify.mobile_app_isabella_s_iphone_x
