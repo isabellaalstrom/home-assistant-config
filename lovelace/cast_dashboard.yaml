@@ -1,516 +1,516 @@
-title: Cast
-icon: mdi:google-chrome
-panel: true
-theme: nest
-background: "right/auto linear-gradient(23deg, rgba(211,211,211,1) 0%, rgba(223,223,223,1) 34%, rgba(255,255,255,1) 100%)"
-path: cast-dash
-cards:
-  - type: vertical-stack
-    cards:
-      - type: custom:layout-card
-        layout: horizontal
-        max_width: [350px, 100%]
-        column_num: 2
-        max_columns: 2
-        cards:
-          - type: vertical-stack
-            cards:
-              - type: horizontal-stack
-                cards:
-                  - !include
-                    - lovelace_gen_templates/nest_picture_button.yaml
-                    - entity: person.stefan
-                      entity_picture: !secret stefan_image
-                  - !include
-                    - lovelace_gen_templates/nest_button.yaml
-                    - entity: alarm_control_panel.house
-                      show_name: false
-                      show_state: true
-                  - !include
-                    - lovelace_gen_templates/nest_picture_button.yaml
-                    - entity: person.isa
-                      entity_picture: !secret isa_image
-              - type: markdown
-                content: |
-                    # {{ states('sensor.time') }}
+# title: Cast
+# icon: mdi:google-chrome
+# panel: true
+# theme: nest
+# background: "right/auto linear-gradient(23deg, rgba(211,211,211,1) 0%, rgba(223,223,223,1) 34%, rgba(255,255,255,1) 100%)"
+# path: cast-dash
+# cards:
+#   - type: vertical-stack
+#     cards:
+#       - type: custom:layout-card
+#         layout: horizontal
+#         max_width: [350px, 100%]
+#         column_num: 2
+#         max_columns: 2
+#         cards:
+#           - type: vertical-stack
+#             cards:
+#               - type: horizontal-stack
+#                 cards:
+#                   - !include
+#                     - lovelace_gen_templates/nest_picture_button.yaml
+#                     - entity: person.stefan
+#                       entity_picture: !secret stefan_image
+#                   - !include
+#                     - lovelace_gen_templates/nest_button.yaml
+#                     - entity: alarm_control_panel.house
+#                       show_name: false
+#                       show_state: true
+#                   - !include
+#                     - lovelace_gen_templates/nest_picture_button.yaml
+#                     - entity: person.isa
+#                       entity_picture: !secret isa_image
+#               - type: markdown
+#                 content: |
+#                     # {{ states('sensor.time') }}
                     
-                    ### {{ states('sensor.date') }}
-                style: |
-                  ha-card {
-                    margin-top: 50px;
-                    # margin-bottom: 330px;
-                    background-color: rgba(0, 0, 0, 0);
-                    font-family: 'Open Sans', sans-serif;
-                    font-size: 150%;
-                    -webkit-box-shadow: none;
-                    -moz-box-shadow: none;
-                    box-shadow: none;
-                    text-align: center;
-                  }
-                  h1, h3 {
-                    font-weight: 300 !important;
-                  }
-              # - type: entities
-              #   entities:
-              #     - sensor.smhialert
-              # - type: custom:mod-card
-              #   style: |
-              #     ha-card {
-              #       height: 300px;
-              #       overflow: hidden;
-              #       font-size: !important 150%;
-              #     }
-              #   card:
-              #     !include notifications/dashboard_notifications.yaml
-              - type: custom:simple-weather-card
-                style: |
-                  ha-card {
-                    font-size: 12px;
-                    color: white !important;
-                    font-family: 'Open Sans', sans-serif;
-                  }
-                entity: weather.dark_sky
-                name: " "
-                backdrop:
-                  fade: false
-                style: |
-                  ha-card {
-                    -webkit-box-shadow: none;
-                    -moz-box-shadow: none;
-                    box-shadow: none;
-                  }
-              - type: picture-entity
-                entity: camera.fisksatra_meteogram
-                show_state: false
-                show_name: false
-                style: |
-                  ha-card {
-                    -webkit-box-shadow: none;
-                    -moz-box-shadow: none;
-                    box-shadow: none;
-                  }
-              # - type: custom:smhi-forecast-card
-              #   entity: weather.smhi_home
-              #   icons: "/local/icons/weather_icons/static/"
-              #   style: |
-              #     ha-card {
-              #       background-color: rgba(0, 0, 0, 0);
-              #       -webkit-box-shadow: none;
-              #       -moz-box-shadow: none;
-              #       box-shadow: none;
-              #     }
+#                     ### {{ states('sensor.date') }}
+#                 style: |
+#                   ha-card {
+#                     margin-top: 50px;
+#                     # margin-bottom: 330px;
+#                     background-color: rgba(0, 0, 0, 0);
+#                     font-family: 'Open Sans', sans-serif;
+#                     font-size: 150%;
+#                     -webkit-box-shadow: none;
+#                     -moz-box-shadow: none;
+#                     box-shadow: none;
+#                     text-align: center;
+#                   }
+#                   h1, h3 {
+#                     font-weight: 300 !important;
+#                   }
+#               # - type: entities
+#               #   entities:
+#               #     - sensor.smhialert
+#               # - type: custom:mod-card
+#               #   style: |
+#               #     ha-card {
+#               #       height: 300px;
+#               #       overflow: hidden;
+#               #       font-size: !important 150%;
+#               #     }
+#               #   card:
+#               #     !include notifications/dashboard_notifications.yaml
+#               - type: custom:simple-weather-card
+#                 style: |
+#                   ha-card {
+#                     font-size: 12px;
+#                     color: white !important;
+#                     font-family: 'Open Sans', sans-serif;
+#                   }
+#                 entity: weather.dark_sky
+#                 name: " "
+#                 backdrop:
+#                   fade: false
+#                 style: |
+#                   ha-card {
+#                     -webkit-box-shadow: none;
+#                     -moz-box-shadow: none;
+#                     box-shadow: none;
+#                   }
+#               - type: picture-entity
+#                 entity: camera.fisksatra_meteogram
+#                 show_state: false
+#                 show_name: false
+#                 style: |
+#                   ha-card {
+#                     -webkit-box-shadow: none;
+#                     -moz-box-shadow: none;
+#                     box-shadow: none;
+#                   }
+#               # - type: custom:smhi-forecast-card
+#               #   entity: weather.smhi_home
+#               #   icons: "/local/icons/weather_icons/static/"
+#               #   style: |
+#               #     ha-card {
+#               #       background-color: rgba(0, 0, 0, 0);
+#               #       -webkit-box-shadow: none;
+#               #       -moz-box-shadow: none;
+#               #       box-shadow: none;
+#               #     }
 
 
-          - type: vertical-stack
-            cards: 
-              - type: horizontal-stack
-                cards:
-                  - type: vertical-stack
-                    cards:
-                      - type: "custom:atomic-calendar-revive"
-                        entities:
-                          - entity: calendar.isabella_alstrom
-                            blacklist: "Gun, gun"
-                        dateSize: 70
-                        timeSize: 70
-                        titleSize: 80
-                        showNoEventsForToday: true
-                        dayWrapperLineColor: rgb(186, 192, 198)
-                        style: |
-                          ha-card {
-                            height: 295px;
-                            font-family: 'Open Sans', sans-serif;
-                            margin-top: 10px;
-                            margin-bottom: 5px;
-                            margin-right: 5px;
-                          }
-                      - type: horizontal-stack
-                        cards:
-                          - type: custom:grocy-chores-card
-                            title: Todo
-                            entity: sensor.grocy_chores
-                            show_days: 3
-                            show_quantity: 6
-                            style: |
-                              ha-card {
-                                height: 350px;
-                                padding-top: 0px;
-                                margin-right: 5px;
-                                font-family: 'Open Sans', sans-serif;
-                              }
-                              .info {
-                                font-size: 70%;
-                              }
-                              .header {
-                                padding-top: 6px !important;
-                                padding-bottom: 6px !important;
-                                font-size: 18px !important;
-                              }
-                              .secondary {
-                                font-size: 70%;
-                              }
-                              mwc-button {
-                                display: none;
-                              }
-                          - type: vertical-stack
-                            cards:
-                              - type: custom:mini-graph-card
-                                name: Bedroom
-                                entities:
-                                  - sensor.bedroom_temperature
-                                show:
-                                  icon: true
-                                  fill: false
-                                height: 35
-                                font_size: 60
-                                color_thresholds:
-                                  - value: 0
-                                    color: "#CCE5FF"
-                                  - value: 10
-                                    color: "#66B2FF"
-                                  - value: 15
-                                    color: "#0080FF"
-                                  - value: 18
-                                    color: "#87c087"
-                                  - value: 21
-                                    color: "#389638"
-                                  - value: 24
-                                    color: "#FF9932"
-                                  - value: 25
-                                    color: "#FF8000"
-                                  - value: 26
-                                    color: "#ff0000"
-                                style: |
-                                  ha-card {
-                                    margin-right: 5px;
-                                    margin-bottom: 5px;
-                                    padding: 0;
-                                  }
-                                  .graph {
-                                    margin-top: 0;
-                                  }
-                              - type: custom:mini-graph-card
-                                entities:
-                                  - sensor.stefan_temperature
-                                height: 35
-                                font_size: 60
-                                name: S Office
-                                show:
-                                  fill: false
-                                  icon: true
-                                color_thresholds:
-                                  - value: 0
-                                    color: "#CCE5FF"
-                                  - value: 10
-                                    color: "#66B2FF"
-                                  - value: 18
-                                    color: "#0080FF"
-                                  - value: 20
-                                    color: "#87c087"
-                                  - value: 21
-                                    color: "#389638"
-                                  - value: 24
-                                    color: "#FF9932"
-                                  - value: 25
-                                    color: "#FF8000"
-                                  - value: 26
-                                    color: "#ff0000"
-                                style: |
-                                  ha-card {
-                                    margin-right: 5px;
-                                    margin-bottom: 5px;
-                                    padding: 0;
-                                  }
-                                  .graph {
-                                    margin-top: 0;
-                                  }
-                  - type: vertical-stack
-                    cards:
-                      - type: custom:stack-in-card
-                        cards:
-                          - type: horizontal-stack
-                            cards:
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: input_select.mailbox_status
-                                  show_name: false
-                                  show_state: true
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: input_select.trash_status
-                                  show_name: false
-                                  show_state: true
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: input_select.washing_machine_status
-                                  icon: mdi:washing-machine
-                                  show_name: false
-                                  show_state: true
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: input_select.washing_machine_status
-                                  icon: mdi:tumble-dryer
-                                  show_name: false
-                                  show_state: true
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.vacuums
-                                  icon: mdi:robot-vacuum
-                                  show_name: false
-                                  show_state: true
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: input_select.ebike_charger_status
-                                  icon: mdi:bike
-                                  show_name: false
-                                  show_state: true
-                          - type: horizontal-stack
-                            cards:
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: input_boolean.guest_mode
-                                  icon: mdi:account-group-outline
-                                  show_name: false
-                                  show_state: true
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: input_boolean.vacation_mode
-                                  icon: mdi:beach
-                                  show_name: false
-                                  show_state: true
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: calendar.cleaning_day
-                                  icon: mdi:broom
-                                  show_name: false
-                                  show_state: true
-                        style: |
-                          ha-card:first-of-type {
-                            margin-top: 10px;
-                          }
-                      - type: custom:vertical-stack-in-card
-                        cards:
-                          - type: horizontal-stack
-                            cards:
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.front_door
-                                  icon: mdi:door-closed
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.back_door
-                                  icon: mdi:door-closed
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.yard_door
-                                  icon: mdi:door-closed
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.balcony_door
-                                  icon: mdi:door-closed
-                          - type: horizontal-stack
-                            cards:
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.dining_room_window
-                                  icon: mdi:window-closed
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.bedroom_window
-                                  icon: mdi:window-closed
-                              - !include
-                                - lovelace_gen_templates/nest_button.yaml
-                                - entity: sensor.isas_room_window
-                                  icon: mdi:window-closed
-                      - type: horizontal-stack
-                        cards:                          
-                          - type: conditional
-                            conditions:
-                              - entity: sensor.krisinformation_stockholm
-                                state_not: "Alert"
-                            card:
-                              type: 'custom:home-feed-card'
-                              title: Home Feed
-                              compact_mode: on
-                              scrollbars_enabled: false
-                              max_item_count: 12
-                              entities:
-                                - entity: input_select.dryer_status
-                                  name: Dryer
-                                  icon: mdi:tumble-dryer
-                                  content_template: '{{display_name}}|{{state}}'
-                                  include_history: true
-                                - entity: input_select.washing_machine_status
-                                  content_template: '{{display_name}}|{{state}}'
-                                  name: Washer
-                                  icon: mdi:washing-machine
-                                  include_history: true
-                                - entity: sensor.front_door
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: sensor.back_door
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: sensor.yard_door
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: sensor.balcony_door
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: sensor.dining_room_window
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: sensor.bedroom_window
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: sensor.bedroom_door
-                                  content_template: '{{display_name}}|{{state}}'
-                                  name: Bedroom
-                                  secondary_info: last-changed
-                                - entity: binary_sensor.living_room_axis_motion_0
-                                  name: Living Room Left
-                                  content_template: '{{display_name}}|{{state}}'
-                                  secondary_info: last-changed
-                                  state_map:
-                                    off: No motion
-                                - entity: binary_sensor.passage_axis_motion_0
-                                  name: Living Room Right
-                                  content_template: '{{display_name}}|{{state}}'
-                                  secondary_info: last-changed
-                                  state_map:
-                                    off: No motion
-                                - entity: binary_sensor.passage_motion_sensor
-                                  name: Passage
-                                  content_template: '{{display_name}}|{{state}}'
-                                  state_map:
-                                    off: No motion
-                                - entity: binary_sensor.upstairs_hallway_motion_sensor
-                                  name: Stairs
-                                  content_template: '{{display_name}}|{{state}}'
-                                  state_map:
-                                    off: No motion
-                                - entity: binary_sensor.stefans_room_motion
-                                  content_template: '{{display_name}}|{{state}}'
-                                  name: S Office
-                                  state_map:
-                                    off: No motion
-                                - entity: switch.bike_charger
-                                  content_template: '{{display_name}}|{{state}}'
-                                  name: E-bike charger
-                                  include_history: true
-                                - entity: binary_sensor.kitchen_motion
-                                  icon: mdi:cat
-                                  name: Kitchen Cats
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: binary_sensor.downstairs_litterbox_motion
-                                  icon: mdi:cat
-                                  name: Downstairs Litterbox
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: binary_sensor.upstairs_litterbox_motion
-                                  icon: mdi:cat
-                                  name: Upstairs Litterbox
-                                  content_template: '{{display_name}}|{{state}}'
-                                - entity: binary_sensor.hallway_motion
-                                  content_template: '{{display_name}}|{{state}}'
-                                  name: Hallway
-                              style: |
-                                ha-card {
-                                  height: 300px;
-                                  margin-top: 10px;
-                                  overflow: hidden;
-                                  font-family: 'Open Sans', sans-serif;
-                                }
-                                .item-container {
-                                  font-size: 60%;
-                                }
-                                #icon {
-                                  width: 15px !important;
-                                  height: 15px !important;
-                                }
-                                .header {
-                                  font-size: 18px !important;
-                                  padding-top: 10px !important;
-                                }
-                          - type: conditional
-                            conditions:
-                              - entity: sensor.krisinformation_stockholm
-                                state: "Alert"
-                            card:
-                              type: custom:krisinfo-card
-                              entity: sensor.krisinformation_stockholm
-                              style: |
-                                .header {
-                                  display: none;
-                                }
-                                a {
-                                  display: none;
-                                }
-                                ha-card {
-                                  height: 545px;
-                                  margin-top: 10px;
-                                  overflow: hidden;
-                                  font-family: 'Open Sans', sans-serif;
-                                }
-                          - type: vertical-stack
-                            cards:
-                              - type: custom:upcoming-media-card
-                                entity: sensor.recently_added_tv
-                                title: On Plex
-                                date: ddmm
-                                clock: 24
-                                max: 4
-                                image_style: fanart
-                                flag: false
-                                hide_unflagged: true
-                                icon: none
-                                all_shadows: false
+#           - type: vertical-stack
+#             cards: 
+#               - type: horizontal-stack
+#                 cards:
+#                   - type: vertical-stack
+#                     cards:
+#                       - type: "custom:atomic-calendar-revive"
+#                         entities:
+#                           - entity: calendar.isabella_alstrom
+#                             blacklist: "Gun, gun"
+#                         dateSize: 70
+#                         timeSize: 70
+#                         titleSize: 80
+#                         showNoEventsForToday: true
+#                         dayWrapperLineColor: rgb(186, 192, 198)
+#                         style: |
+#                           ha-card {
+#                             height: 295px;
+#                             font-family: 'Open Sans', sans-serif;
+#                             margin-top: 10px;
+#                             margin-bottom: 5px;
+#                             margin-right: 5px;
+#                           }
+#                       - type: horizontal-stack
+#                         cards:
+#                           - type: custom:grocy-chores-card
+#                             title: Todo
+#                             entity: sensor.grocy_chores
+#                             show_days: 3
+#                             show_quantity: 6
+#                             style: |
+#                               ha-card {
+#                                 height: 350px;
+#                                 padding-top: 0px;
+#                                 margin-right: 5px;
+#                                 font-family: 'Open Sans', sans-serif;
+#                               }
+#                               .info {
+#                                 font-size: 70%;
+#                               }
+#                               .header {
+#                                 padding-top: 6px !important;
+#                                 padding-bottom: 6px !important;
+#                                 font-size: 18px !important;
+#                               }
+#                               .secondary {
+#                                 font-size: 70%;
+#                               }
+#                               mwc-button {
+#                                 display: none;
+#                               }
+#                           - type: vertical-stack
+#                             cards:
+#                               - type: custom:mini-graph-card
+#                                 name: Bedroom
+#                                 entities:
+#                                   - sensor.bedroom_temperature
+#                                 show:
+#                                   icon: true
+#                                   fill: false
+#                                 height: 35
+#                                 font_size: 60
+#                                 color_thresholds:
+#                                   - value: 0
+#                                     color: "#CCE5FF"
+#                                   - value: 10
+#                                     color: "#66B2FF"
+#                                   - value: 15
+#                                     color: "#0080FF"
+#                                   - value: 18
+#                                     color: "#87c087"
+#                                   - value: 21
+#                                     color: "#389638"
+#                                   - value: 24
+#                                     color: "#FF9932"
+#                                   - value: 25
+#                                     color: "#FF8000"
+#                                   - value: 26
+#                                     color: "#ff0000"
+#                                 style: |
+#                                   ha-card {
+#                                     margin-right: 5px;
+#                                     margin-bottom: 5px;
+#                                     padding: 0;
+#                                   }
+#                                   .graph {
+#                                     margin-top: 0;
+#                                   }
+#                               - type: custom:mini-graph-card
+#                                 entities:
+#                                   - sensor.stefan_temperature
+#                                 height: 35
+#                                 font_size: 60
+#                                 name: S Office
+#                                 show:
+#                                   fill: false
+#                                   icon: true
+#                                 color_thresholds:
+#                                   - value: 0
+#                                     color: "#CCE5FF"
+#                                   - value: 10
+#                                     color: "#66B2FF"
+#                                   - value: 18
+#                                     color: "#0080FF"
+#                                   - value: 20
+#                                     color: "#87c087"
+#                                   - value: 21
+#                                     color: "#389638"
+#                                   - value: 24
+#                                     color: "#FF9932"
+#                                   - value: 25
+#                                     color: "#FF8000"
+#                                   - value: 26
+#                                     color: "#ff0000"
+#                                 style: |
+#                                   ha-card {
+#                                     margin-right: 5px;
+#                                     margin-bottom: 5px;
+#                                     padding: 0;
+#                                   }
+#                                   .graph {
+#                                     margin-top: 0;
+#                                   }
+#                   - type: vertical-stack
+#                     cards:
+#                       - type: custom:stack-in-card
+#                         cards:
+#                           - type: horizontal-stack
+#                             cards:
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: input_select.mailbox_status
+#                                   show_name: false
+#                                   show_state: true
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: input_select.trash_status
+#                                   show_name: false
+#                                   show_state: true
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: input_select.washing_machine_status
+#                                   icon: mdi:washing-machine
+#                                   show_name: false
+#                                   show_state: true
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: input_select.washing_machine_status
+#                                   icon: mdi:tumble-dryer
+#                                   show_name: false
+#                                   show_state: true
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.vacuums
+#                                   icon: mdi:robot-vacuum
+#                                   show_name: false
+#                                   show_state: true
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: input_select.ebike_charger_status
+#                                   icon: mdi:bike
+#                                   show_name: false
+#                                   show_state: true
+#                           - type: horizontal-stack
+#                             cards:
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: input_boolean.guest_mode
+#                                   icon: mdi:account-group-outline
+#                                   show_name: false
+#                                   show_state: true
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: input_boolean.vacation_mode
+#                                   icon: mdi:beach
+#                                   show_name: false
+#                                   show_state: true
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: calendar.cleaning_day
+#                                   icon: mdi:broom
+#                                   show_name: false
+#                                   show_state: true
+#                         style: |
+#                           ha-card:first-of-type {
+#                             margin-top: 10px;
+#                           }
+#                       - type: custom:vertical-stack-in-card
+#                         cards:
+#                           - type: horizontal-stack
+#                             cards:
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.front_door
+#                                   icon: mdi:door-closed
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.back_door
+#                                   icon: mdi:door-closed
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.yard_door
+#                                   icon: mdi:door-closed
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.balcony_door
+#                                   icon: mdi:door-closed
+#                           - type: horizontal-stack
+#                             cards:
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.dining_room_window
+#                                   icon: mdi:window-closed
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.bedroom_window
+#                                   icon: mdi:window-closed
+#                               - !include
+#                                 - lovelace_gen_templates/nest_button.yaml
+#                                 - entity: sensor.isas_room_window
+#                                   icon: mdi:window-closed
+#                       - type: horizontal-stack
+#                         cards:                          
+#                           - type: conditional
+#                             conditions:
+#                               - entity: sensor.krisinformation_stockholm
+#                                 state_not: "Alert"
+#                             card:
+#                               type: 'custom:home-feed-card'
+#                               title: Home Feed
+#                               compact_mode: on
+#                               scrollbars_enabled: false
+#                               max_item_count: 12
+#                               entities:
+#                                 - entity: input_select.dryer_status
+#                                   name: Dryer
+#                                   icon: mdi:tumble-dryer
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   include_history: true
+#                                 - entity: input_select.washing_machine_status
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   name: Washer
+#                                   icon: mdi:washing-machine
+#                                   include_history: true
+#                                 - entity: sensor.front_door
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: sensor.back_door
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: sensor.yard_door
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: sensor.balcony_door
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: sensor.dining_room_window
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: sensor.bedroom_window
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: sensor.bedroom_door
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   name: Bedroom
+#                                   secondary_info: last-changed
+#                                 - entity: binary_sensor.living_room_axis_motion_0
+#                                   name: Living Room Left
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   secondary_info: last-changed
+#                                   state_map:
+#                                     off: No motion
+#                                 - entity: binary_sensor.passage_axis_motion_0
+#                                   name: Living Room Right
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   secondary_info: last-changed
+#                                   state_map:
+#                                     off: No motion
+#                                 - entity: binary_sensor.passage_motion_sensor
+#                                   name: Passage
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   state_map:
+#                                     off: No motion
+#                                 - entity: binary_sensor.upstairs_hallway_motion_sensor
+#                                   name: Stairs
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   state_map:
+#                                     off: No motion
+#                                 - entity: binary_sensor.stefans_room_motion
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   name: S Office
+#                                   state_map:
+#                                     off: No motion
+#                                 - entity: switch.bike_charger
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   name: E-bike charger
+#                                   include_history: true
+#                                 - entity: binary_sensor.kitchen_motion
+#                                   icon: mdi:cat
+#                                   name: Kitchen Cats
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: binary_sensor.downstairs_litterbox_motion
+#                                   icon: mdi:cat
+#                                   name: Downstairs Litterbox
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: binary_sensor.upstairs_litterbox_motion
+#                                   icon: mdi:cat
+#                                   name: Upstairs Litterbox
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                 - entity: binary_sensor.hallway_motion
+#                                   content_template: '{{display_name}}|{{state}}'
+#                                   name: Hallway
+#                               style: |
+#                                 ha-card {
+#                                   height: 300px;
+#                                   margin-top: 10px;
+#                                   overflow: hidden;
+#                                   font-family: 'Open Sans', sans-serif;
+#                                 }
+#                                 .item-container {
+#                                   font-size: 60%;
+#                                 }
+#                                 #icon {
+#                                   width: 15px !important;
+#                                   height: 15px !important;
+#                                 }
+#                                 .header {
+#                                   font-size: 18px !important;
+#                                   padding-top: 10px !important;
+#                                 }
+#                           - type: conditional
+#                             conditions:
+#                               - entity: sensor.krisinformation_stockholm
+#                                 state: "Alert"
+#                             card:
+#                               type: custom:krisinfo-card
+#                               entity: sensor.krisinformation_stockholm
+#                               style: |
+#                                 .header {
+#                                   display: none;
+#                                 }
+#                                 a {
+#                                   display: none;
+#                                 }
+#                                 ha-card {
+#                                   height: 545px;
+#                                   margin-top: 10px;
+#                                   overflow: hidden;
+#                                   font-family: 'Open Sans', sans-serif;
+#                                 }
+#                           - type: vertical-stack
+#                             cards:
+#                               - type: custom:upcoming-media-card
+#                                 entity: sensor.recently_added_tv
+#                                 title: On Plex
+#                                 date: ddmm
+#                                 clock: 24
+#                                 max: 4
+#                                 image_style: fanart
+#                                 flag: false
+#                                 hide_unflagged: true
+#                                 icon: none
+#                                 all_shadows: false
 
-                                flag_color: "#e5a00d"
-                                border_color: "#ffffff"
-                                accent_color: "#ffffff"
-                                title_color: "#636B75"
-                                line_color: "#636B75"
+#                                 flag_color: "#e5a00d"
+#                                 border_color: "#ffffff"
+#                                 accent_color: "#ffffff"
+#                                 title_color: "#636B75"
+#                                 line_color: "#636B75"
 
-                                title_size: large
-                                line_size: medium
+#                                 title_size: large
+#                                 line_size: medium
 
-                                title_text: "$title"
-                                line1_text: "$number - $episode"
-                                line2_text: "$runtime - $rating - $genres"
-                                line3_text: "Released: $aired"
-                                line4_text: "Added: $release"
-                                style: |
-                                  # .plex_fan_fanart {
-                                  #   -webkit-box-shadow: none;
-                                  #   -moz-box-shadow: none;
-                                  #   box-shadow: none !important;
-                                  #   height: 100px;
-                                  # }
-                                  ha-card {
-                                    margin-top: 10px;
-                                    font-family: 'Open Sans', sans-serif;
-                                    # height: 560px;
-                                    # 560
-                                  }
-                                  .card-header {
-                                    padding-top: 6px !important;
-                                    padding-bottom: 6px !important;
-                                    font-size: 18px !important;
-                                  }
-                                  .plex_poster {
-                                    margin: 0 !important;
-                                  }
-                                  .rece_poster {
-                                    margin-top: 0 !important;
-                                    margin-bottom: 0 !important;
-                                  }                             
-                              - type: horizontal-stack
-                                cards:
-                                  - type: entity
-                                    entity: counter.litterbox_downstairs_visits
-                                    unit: visits
-                                    icon: mdi:emoticon-poop
-                                  - type: entity
-                                    entity: counter.litterbox_upstairs_visits
-                                    unit: visits
-                                    icon: mdi:emoticon-poop
-                    style: |
-                      ha-card {
-                        font-family: 'Open Sans', sans-serif;
-                        font-size: 150%;
-                        text-align: center;
-                      }
+#                                 title_text: "$title"
+#                                 line1_text: "$number - $episode"
+#                                 line2_text: "$runtime - $rating - $genres"
+#                                 line3_text: "Released: $aired"
+#                                 line4_text: "Added: $release"
+#                                 style: |
+#                                   # .plex_fan_fanart {
+#                                   #   -webkit-box-shadow: none;
+#                                   #   -moz-box-shadow: none;
+#                                   #   box-shadow: none !important;
+#                                   #   height: 100px;
+#                                   # }
+#                                   ha-card {
+#                                     margin-top: 10px;
+#                                     font-family: 'Open Sans', sans-serif;
+#                                     # height: 560px;
+#                                     # 560
+#                                   }
+#                                   .card-header {
+#                                     padding-top: 6px !important;
+#                                     padding-bottom: 6px !important;
+#                                     font-size: 18px !important;
+#                                   }
+#                                   .plex_poster {
+#                                     margin: 0 !important;
+#                                   }
+#                                   .rece_poster {
+#                                     margin-top: 0 !important;
+#                                     margin-bottom: 0 !important;
+#                                   }                             
+#                               - type: horizontal-stack
+#                                 cards:
+#                                   - type: entity
+#                                     entity: counter.litterbox_downstairs_visits
+#                                     unit: visits
+#                                     icon: mdi:emoticon-poop
+#                                   - type: entity
+#                                     entity: counter.litterbox_upstairs_visits
+#                                     unit: visits
+#                                     icon: mdi:emoticon-poop
+#                     style: |
+#                       ha-card {
+#                         font-family: 'Open Sans', sans-serif;
+#                         font-size: 150%;
+#                         text-align: center;
+#                       }

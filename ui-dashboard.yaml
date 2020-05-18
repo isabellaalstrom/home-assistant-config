@@ -20,7 +20,7 @@ views:
         cards:
           - type: custom:nest-layout-card
             layout: horizontal
-            max_width: [500px, 100%]
+            max_width: [490px, 100%]
             column_num: 2
             max_columns: 2
             cards:
@@ -62,29 +62,6 @@ views:
                         template: nest_picture_button
                         entity: person.isa
                         entity_picture: !secret isa_image
-                        # styles:
-                        #   grid:
-                        #     - position: relative
-                        #   custom_fields:
-                        #     notification:
-                        #       - background-color: >
-                        #           [[[
-                        #             if (states['sensor.isabellas_iphone_x_battery_level'].state > 50)
-                        #               return "#87c087";
-                        #             return "#FF8000";
-                        #           ]]]
-                        #       - border-radius: 50%
-                        #       - position: absolute
-                        #       - left: 60%
-                        #       - top: 0
-                        #       - height: 20px
-                        #       - width: 20px
-                        #       - font-size: 8px
-                        #       - line-height: 20px
-                        #       - color: white
-                        # custom_fields:
-                        #   notification: >
-                        #     [[[ return states['sensor.isabellas_iphone_x_battery_level'].state ]]]
                   - type: markdown
                     content: >
                         # [[ sensor.time.state ]]
@@ -134,6 +111,7 @@ views:
                       - type: vertical-stack
                         cards:
                           - type: "custom:atomic-calendar-revive"
+                            showWeekDay: true
                             entities:
                               - entity: calendar.isabella_alstrom
                                 blacklist: "Gun, gun"
@@ -173,6 +151,7 @@ views:
                                   - type: horizontal-stack
                                     cards:
                                     - type: custom:mini-graph-card
+                                      name: Bedroom
                                       entities:
                                         - sensor.bedroom_temperature
                                       show:
@@ -234,6 +213,7 @@ views:
                                   - type: horizontal-stack
                                     cards:
                                       - type: custom:mini-graph-card
+                                        name: Passage
                                         show:
                                           fill: false
                                           icon: true
@@ -338,24 +318,8 @@ views:
                                             margin-right: 5px;
                                             margin-bottom: 5px;
                                           }
-
-                                  # - type: custom:pollenkoll-card
-                                  #   city: stockholm
-                                  #   title: false
-                                  #   show_state: false
-                                  #   # threshold: 1
-                                  #   minimal: true
-                                  #   allergens:
-                                  #     - björk
-                                  #     - gräs
-                                  #     - gråbo
-                                  #   style: |
-                                  #     ha-card {
-                                  #       height: 125px;
-                                  #       padding-top: 0;
-                                  #       margin-right: 5px;
-                                  #       padding-bottom: 0;
-                                  #     }
+                                  - type: "custom:day-countdown"
+                                    date: "10 June 2020"
 
                       - type: vertical-stack
                         cards:
@@ -580,9 +544,24 @@ views:
                                             color: rgb(152,251,152)
                                           - value: 'Open'
                                             icon: mdi:window-open
-                                            color: rgb(255, 0, 0)
+                                            color: rgb(255,128,0)
+                                  - type: custom:decluttering-card
+                                    template: nest_button
+                                    variables:
+                                      - entity: sensor.isas_room_window
+                                      - name: Isas
+                                      - show_name: true
+                                      - show_state: false
+                                      - state:
+                                          - value: 'Closed'
+                                            icon: mdi:window-closed
+                                            color: rgb(152,251,152)
+                                          - value: 'Open'
+                                            icon: mdi:window-open
+                                            color: rgb(255,128,0)
+
                           - type: horizontal-stack
-                            cards:                          
+                            cards:
                               - type: conditional
                                 conditions:
                                   - entity: sensor.krisinformation_stockholm
@@ -617,6 +596,10 @@ views:
                                       content_template: '{{display_name}}|{{state}}'
                                     - entity: sensor.bedroom_window
                                       content_template: '{{display_name}}|{{state}}'
+                                    - entity: sensor.isas_room_window
+                                      content_template: '{{display_name}}|{{state}}'
+                                      name: Isas
+                                      secondary_info: last-changed
                                     - entity: sensor.bedroom_door
                                       content_template: '{{display_name}}|{{state}}'
                                       name: Bedroom
@@ -653,10 +636,19 @@ views:
                                       name: E-bike charger
                                       include_history: true
                                     - entity: binary_sensor.kitchen_motion
+                                      icon: mdi:cat
                                       name: Kitchen Cats
+                                      content_template: '{{display_name}}|{{state}}'
                                     - entity: binary_sensor.downstairs_litterbox_motion
+                                      icon: mdi:cat
+                                      name: Downstairs Litterbox
+                                      content_template: '{{display_name}}|{{state}}'
                                     - entity: binary_sensor.upstairs_litterbox_motion
+                                      icon: mdi:cat
+                                      name: Upstairs Litterbox
+                                      content_template: '{{display_name}}|{{state}}'
                                     - entity: binary_sensor.hallway_motion
+                                      content_template: '{{display_name}}|{{state}}'
                                       name: Hallway
                                   style: |
                                     ha-card {
@@ -664,6 +656,9 @@ views:
                                       margin-top: 10px;
                                       overflow: hidden;
                                       font-family: 'Open Sans', sans-serif;
+                                    }
+                                    .header {
+                                      padding-top: 24px !important;
                                     }
                               - type: conditional
                                 conditions:
@@ -685,64 +680,58 @@ views:
                                       overflow: hidden;
                                       font-family: 'Open Sans', sans-serif;
                                     }
-                              - type: vertical-stack
-                                cards:
-                                  - type: custom:upcoming-media-card
-                                    entity: sensor.recently_added_tv
-                                    title: To watch
-                                    date: ddmm
-                                    clock: 24
-                                    max: 2
-                                    image_style: poster
-                                    flag: false
-                                    hide_unflagged: true
-                                    icon: none
-                                    all_shadows: false
 
-                                    flag_color: "#e5a00d"
-                                    border_color: "#ffffff"
-                                    accent_color: "#ffffff"
-                                    title_color: "#636B75"
-                                    line_color: "#636B75"
+                              - type: custom:upcoming-media-card
+                                entity: sensor.recently_added_tv
+                                title: On Plex
+                                date: ddmm
+                                clock: 24
+                                max: 4
+                                image_style: fanart
+                                flag: false
+                                hide_unflagged: true
+                                icon: none
+                                all_shadows: false
 
-                                    title_size: large
-                                    line_size: medium
+                                flag_color: "#e5a00d"
+                                border_color: "#ffffff"
+                                accent_color: "#ffffff"
+                                title_color: "#636B75"
+                                line_color: "#636B75"
 
-                                    title_text: "$title"
-                                    line1_text: "$number - $episode"
-                                    line2_text: "$runtime - $rating - $genres"
-                                    line3_text: "Released: $aired"
-                                    line4_text: "Added: $release"
-                                    style: |
-                                      .plex_fan_fanart {
-                                        -webkit-box-shadow: none;
-                                        -moz-box-shadow: none;
-                                        box-shadow: none !important;
-                                        height: 100px;
-                                      }
-                                      ha-card {
-                                        margin-top: 10px;
-                                        font-family: 'Open Sans', sans-serif;
-                                        height: 370px;
-                                        # 560
-                                      }
-                                      .card-header {
-                                        padding-bottom: 8px;
-                                        padding-bottom: 0;
+                                title_size: large
+                                line_size: medium
 
-                                      }
-                                      .plex_poster {
-                                        margin: 0 !important;
-                                      }
-                                      .rece_poster {
-                                        margin-top: 0 !important;
-                                        margin-bottom: 0 !important;
-                                      }
-                                  # - type: picture-entity
-                                  #   entity: camera.attic
-                                  #   camera_view: live
-                                  #   show_state: false
-                                  #   show_name: false
+                                title_text: "$title"
+                                line1_text: "$number - $episode"
+                                line2_text: "$runtime - $rating - $genres"
+                                line3_text: "Released: $aired"
+                                line4_text: "Added: $release"
+                                style: |
+                                  # .plex_fan_fanart {
+                                  #   -webkit-box-shadow: none;
+                                  #   -moz-box-shadow: none;
+                                  #   box-shadow: none !important;
+                                  #   height: 100px;
+                                  # }
+                                  ha-card {
+                                    margin-top: 10px;
+                                    font-family: 'Open Sans', sans-serif;
+                                    height: 560px;
+                                    # 560
+                                  }
+                                  .card-header {
+                                    padding-bottom: 8px;
+                                    padding-bottom: 0;
+                                  }
+                                  .plex_poster {
+                                    margin: 0 !important;
+                                  }
+                                  .rece_poster {
+                                    margin-top: 0 !important;
+                                    margin-bottom: 0 !important;
+                                  }
+
                         style: |
                           ha-card {
                             # height: 920px;

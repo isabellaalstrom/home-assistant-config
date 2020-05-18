@@ -5,11 +5,11 @@ custom_header:
   hidden_tab_redirect: false
   # hide_tabs: "10,11,12,13"
   exceptions:
-    - conditions:
-        user: dashboard
-      config:
-        show_tabs: 8
-        kiosk_mode: true
+    # - conditions:
+    #     user: dashboard
+    #   config:
+    #     show_tabs: 8
+    #     kiosk_mode: true
     - conditions:
         media_query: "(min-width: 600px)"
       config:
@@ -20,7 +20,7 @@ custom_header:
         media_query: "(max-width: 600px)"
       config:
         footer_mode: true
-        hide_tabs: "9,10,11,12,13,14"
+        hide_tabs: "8,9,10,11,12,13,14"
         button_icons:
           options: mdi:dots-vertical
         menu_hide: true
@@ -43,8 +43,8 @@ views:
   - !include lovelace/40_camera_view.yaml
   - !include lovelace/3d_printer.yaml
   - !include lovelace/80_automations_view.yaml
-  - !include lovelace/nest_dashboard.yaml
-  - !include lovelace/cast_dashboard.yaml
+  # - !include lovelace/nest_dashboard.yaml
+  # - !include lovelace/cast_dashboard.yaml
   ## Secondary views
   - !include lovelace/media.yaml
   - !include lovelace/isa.yaml
