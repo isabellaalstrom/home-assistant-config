@@ -27,6 +27,7 @@ class ChargingStation(Base):
 
     def coming_home(self, entity, attribute, new, old, kwargs):
         self.select_option(self.charger_state, "Waiting")
+        self.notification_manager.log_home(message = "🚲 Bike has come home and is waiting for charge!")
         if(new != old and self.now_is_between("08:30:00", "22:00:00")):
             self.run_in(self.turn_on_charger, 5400)
 

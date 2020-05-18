@@ -24,12 +24,9 @@ class Summary(Base):
         overdueCount = 0
 
         chores = self.get_state("sensor.grocy_chores", attribute = "all")["attributes"]["items"]
-        chores = json.loads(chores)
         sortedChores = sorted(chores, key=lambda r: r["_next_estimated_execution_time"])
         
         for chore in sortedChores:
-            self.log(chore)
-
             dueDate = datetime.strptime(chore["_next_estimated_execution_time"][0:10], "%Y-%m-%d")
             today = datetime.today()
 

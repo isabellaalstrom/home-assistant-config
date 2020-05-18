@@ -18,7 +18,7 @@ class VacuumingSchedule(Base):
 
         self.roborock = "vacuum.roborock"
         self.roomba = "vacuum.roomba"
-        
+
         runtime = datetime.time(6, 45, 0)
         self.run_daily(self.ask_if_vacuum, runtime)
 
@@ -31,8 +31,6 @@ class VacuumingSchedule(Base):
         self.listen_state(self.check_for_start_vacuuming, self.isa, old = "Just left")
         self.listen_state(self.vacuuming_done, self.roborock, new = "docked", old = "returning")
 
-        # data = {"push":{"category": "vacuum", "thread-id": "vacuum"}}    
-        # self.notify("Where do you want to vacuum today?", name = 'mobile_app_isabella_s_iphone_x', data = data)
     def check_for_start_vacuuming(self, entity, attribute, new, old, kwargs):
         if not self.presence_helper.anyone_home():
             if self.get_state(self.vacuum_downstairs_scheduled) == "on":
