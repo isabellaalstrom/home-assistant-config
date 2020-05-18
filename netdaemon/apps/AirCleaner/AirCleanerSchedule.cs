@@ -50,7 +50,7 @@ public class AirCleanerSchedule : NetDaemonApp
 
     private async Task TurnOnAuto()
     {
-        this.NotifyDiscord(DiscordChannel.Home, "Checking presence for turing air cleaner to auto.");
+        await this.NotifyDiscord(DiscordChannel.Home, "Checking presence for turning air cleaner to auto.");
         Log($"Time for auto, checking presence.");
         if (!this.AnyoneHome())
         {
@@ -60,12 +60,16 @@ public class AirCleanerSchedule : NetDaemonApp
             });
             Log("Turning on quiet");
         }
-        else Log("Someone is home, so I won't turn on Auto.");
+        else
+        {
+            Log("Someone is home, so I won't turn on Auto.");
+            await this.NotifyDiscord(DiscordChannel.Home, "Someone is home, so I won't turn air cleaner to auto.");
+        }
     }
 
     private async Task TurnOnQuiet()
     {
-        this.NotifyDiscord(DiscordChannel.Home, "Turning air cleaner to quiet.");
+        await this.NotifyDiscord(DiscordChannel.Home, "Turning air cleaner to quiet.");
         Log($"Time for quiet.");
         await CallService("script", "turn_on", new
         {

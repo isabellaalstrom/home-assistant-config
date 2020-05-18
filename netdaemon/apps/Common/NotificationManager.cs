@@ -8,8 +8,75 @@ using JoySoftware.HomeAssistant.NetDaemon.Common;
 /// </summary>
 public static class NotificationManager
 {
-    public static Dictionary<string, IEnumerable<string>> Data = new Dictionary<string, IEnumerable<string>>();
-    public async static void NotifyDiscord(
+    public static async Task NotifyIos(
+    this NetDaemonApp app,
+    string title,
+    string message,
+    string notifier = "",
+    bool onlyIfHome = false,
+    string threadId = "home-assistant",
+    string category = "",
+    bool critical = false,
+    string imageUrl = "")
+    {
+        var isHome = app.GetState("person.isa")?.State?.ToString()?.ToLower() == "home"
+            || app.GetState("person.isa")?.State?.ToString()?.ToLower() == "just arrived";
+        if (!onlyIfHome || (onlyIfHome && isHome))
+        {
+            // object sound = "";
+            var contentType = "";
+            var hideThumbnail = "";
+            var entityId = "";
+
+            if (!string.IsNullOrWhiteSpace(entityId))
+            {
+                contentType = "jpeg";
+                category = "camera";
+                hideThumbnail = "";
+            }
+            // if (critical)
+            // {
+            //     sound = new Dictionary<string, object>
+            //     {
+            //         ["name"] = "default",
+            //         ["critical"] = 1,
+            //         ["volume"] = 1.0
+            //     };
+            // }
+
+            var data = new Dictionary<string, object>
+            {
+                ["title"] = title,
+                ["message"] = message,
+                ["data"] = new Dictionary<string, object>
+                {
+                    ["attachment"] = new Dictionary<string, object>
+                    {
+                        ["url"] = imageUrl,
+                        ["content-type"] = contentType,
+                        ["hide-thumbnail"] = hideThumbnail
+                    },
+                    ["push"] = new Dictionary<string, object>
+                    {
+                        ["thread-id"] = threadId,
+                        ["badge"] = 0,
+                        // ["sound"] = sound,
+                        ["category"] = category
+                    },
+                    ["entity_id"] = entityId
+                }
+            };
+            if (string.IsNullOrWhiteSpace(notifier))
+            {
+                await app.CallService("notify", Isa.IosNotifier, data);
+            }
+            else
+            {
+                await app.CallService("notify", notifier, data, false);
+            }
+        }
+    }
+    public async static Task NotifyDiscord(
         this NetDaemonApp app,
         string channel,
         string message,
@@ -21,7 +88,7 @@ public static class NotificationManager
             target = channel
         });
     }
-    public async static void NotifyDiscord(
+    public async static Task NotifyDiscord(
         this NetDaemonApp app,
         string channel,
         string message,
@@ -41,4 +108,9 @@ public static class DiscordChannel
 {
     public static string Camera = "515083002565623820";
     public static string Home = "510398531937501186";
+    // Alarm,
+    // Krisinfo,
+    // Monitor,
+    // System,
+    // Cats,
 }

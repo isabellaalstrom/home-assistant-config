@@ -1,0 +1,2 @@
+cleaning_mode:
+  class: CleaningMode
