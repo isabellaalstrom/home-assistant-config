@@ -1,0 +1,8 @@
+# dwains_theme
+
+type: custom:mini-media-player
+entity: {{ (data | fromjson)['entity'] }}
+artwork: cover
+icon: {{ (data | fromjson)['icon'] }}
+hide:
+  power_state: false

@@ -1,0 +1,74 @@
+
+#Dwains theme definitions (this is for doing all the jinja2 inside YAML files) 
+#You need to have a folder called dwains-theme/configs with all the configuration files inside
+dwains_theme:
+  global:
+    version: '1.3.1'
+  styles:
+    padding-left: '10px'
+  translations:
+    !include_dir_merge_named ../../dwains-theme/translations/
+  configuration:
+    !include_dir_merge_named ../../dwains-theme/configs/
+
+#Sensor for latest version
+sensor:
+  - platform: scrape
+    resource: https://dwains-theme.dwainscheeren.nl/version?v=1.3.1
+    name: Dwains Theme Version
+    select: ".current-version h1"
+    value_template: '{{ value.split(":")[1] }}'
+    scan_interval: 3600
+
+#Input select
+input_select:
+  #Theme selector
+  theme_selector:
+    name: Theme Selector 
+    options:
+      - Auto Mode (Dark/Light)
+      - Dark Mode
+      - Light Mode
+      - Auto Mode (Black/White)
+      - Black Mode
+      - White Mode
+
+#Theme automations
+automation:
+  #Theme Selector
+  - alias: 'themes'
+    initial_state: 'true'
+    trigger:
+      - platform: state
+        entity_id: input_select.theme_selector
+      - platform: homeassistant
+        event: start
+      - platform: state
+        entity_id: sun.sun
+        state: above_horizon
+      - platform: state
+        entity_id: sun.sun
+        state: below_horizon
+    action:
+      - service: frontend.set_theme
+        data_template:
+          name: >
+            {% if (is_state('sun.sun', 'above_horizon')) and (is_state('input_select.theme_selector', 'Auto Mode (Dark/Light)'))  %}
+              dwains-theme-light
+            {% elif (is_state('sun.sun', 'below_horizon')) and (is_state('input_select.theme_selector', 'Auto Mode (Dark/Light)'))  %}
+              dwains-theme-dark
+            {% elif is_state('input_select.theme_selector', 'Dark Mode') %}
+              dwains-theme-dark
+            {% elif is_state('input_select.theme_selector', 'Light Mode') %}
+              dwains-theme-light
+            {% elif (is_state('sun.sun', 'above_horizon')) and (is_state('input_select.theme_selector', 'Auto Mode (Black/White)'))  %}
+              dwains-theme-white
+            {% elif (is_state('sun.sun', 'below_horizon')) and (is_state('input_select.theme_selector', 'Auto Mode (Black/White)'))  %}
+              dwains-theme-black
+            {% elif is_state('input_select.theme_selector', 'Black Mode') %}
+              dwains-theme-black
+            {% elif is_state('input_select.theme_selector', 'White Mode') %}
+              dwains-theme-white
+            {% else %}
+              dwains-theme-light
+            {% endif %}

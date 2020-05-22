@@ -37,6 +37,7 @@ class Dryer(Base):
             self.select_option(self.dryer_state, "Running")
             self.log("Dryer running")
             self.notification_manager.log_home(message = "🧺 Dryer running.") 
+            self.call_service("dwains_theme/notification_create", message = "🧺 Dryer running", notification_id = "washer")
     
     def dryer_clean(self, entity, attribute, new, old, kwargs):
         if new != old and self.get_state(self.dryer_state) == "Running":
@@ -49,6 +50,7 @@ class Dryer(Base):
 
             self.data = {"push": {"category":"dryer", "thread-id":"home-assistant"}}
             self.notification_manager.notify_if_home(person = "Isa", message = "🧺 Dryer is done", data = self.data)
+            self.call_service("dwains_theme/notification_create", message = "🧺 Dryer is done", notification_id = "dryer")
             self.notification_manager.log_home(message = "🧺 Dryer is done.")
 
     def dryer_emptied(self, entity, attribute, new, old, kwargs):
@@ -70,6 +72,7 @@ class Dryer(Base):
                     
                 self.turn_on(self.light, color_temp = 366, brightness = brightness)
                 self.notification_manager.log_home(message = "🧺 Dryer emptied, now idle. Returning lamp to previous state.")
+            self.call_service("dwains_theme/notification_dismiss", notification_id = "dryer")
 
     def snooze_reminder(self, event_name, data, kwargs):
         self.reminder_handle = self.run_in(self.remind_again, 1800)

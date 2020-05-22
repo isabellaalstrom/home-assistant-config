@@ -1,0 +1,38 @@
+# dwains_theme
+
+## Custom button for room add-on: Camera
+## Created by Jeroen Klompen
+## Version: 1.0.0
+
+type: custom:button-card
+entity: {{ (data | fromjson)['entity'] }}
+show_live_stream: "true"
+show_entity_picture: "true"
+show_name: false
+layout: icon_name_state2nd
+size: 50%
+styles:
+  grid:
+    - grid-template-areas: '"i i"'
+    - grid-template-columns: 1fr
+    - grid-template-rows: 1fr
+  card:
+    - background-color: var(--dwains-theme-primary)
+    - border-radius: 5px
+    - margin-bottom: 10px
+    - padding: 5px
+  icon:
+    - width: 100%
+    - height: 100%
+  img_cell:
+    - margin: none
+    - align-items: flex-end
+    - background: var(--dwains-theme-background)
+tap_action:
+  action: navigate
+  navigation_path: {{ navigation_path }}
+# hold_action:
+#   action: call-service
+#   service: script.camera_snapshot
+#   service_data:
+#     camera_entity: {{ (data | fromjson)['entity'] }}

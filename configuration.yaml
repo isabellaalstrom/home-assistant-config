@@ -57,7 +57,7 @@ mobile_app:
 # ###                GUI               ###
 # ########################################
 
-lovelace_gen:
+# lovelace_gen:
 
 lovelace:
   mode: yaml
@@ -70,6 +70,12 @@ lovelace:
       icon: mdi:monitor-dashboard
       show_in_sidebar: true
       require_admin: false
+    dwains-theme:
+      mode: yaml
+      title: Dwains Theme
+      icon: mdi:alpha-d-box
+      show_in_sidebar: true
+      filename: dwains-theme-lovelace.yaml
 
 map:
 
@@ -77,6 +83,9 @@ frontend:
   themes: !include_dir_merge_named themes
   extra_html_url:
     - /local/hass-bha-icons.html
+    - /local/dwains-theme/fonts/fontawesome/hass-fontawesome-solid.html
+    - /local/dwains-theme/fonts/fontawesome/hass-fontawesome-regular.html
+    # - /local/dwains-theme/fonts/fontawesome/hass-fontawesome-light.html #If have Font Awesome Light uncomment this line
 
 netdaemon:
   

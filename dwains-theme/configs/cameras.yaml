@@ -1,0 +1,11 @@
+# https://dwainscheeren.github.io/lovelace-dwains-theme/configuration/cameras.html
+
+cameras:
+  - entity: camera.hallway
+  - entity: camera.dafang_1
+  - entity: camera.living_room_axis
+  - entity: camera.passage_axis
+  - entity: camera.isas_room
+  # - entity: camera.yard
+  # - entity: camera.ring_doorbell
+  # - entity: camera.attic

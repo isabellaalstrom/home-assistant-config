@@ -1,0 +1,71 @@
+group:
+  downstairs_lights:
+    name: Downstairs Lights
+    entities:
+      - light.living_room_ceiling_light_level
+      - light.living_room_spotlights_level
+      - light.candles
+      - light.kitchen_ceiling_spotlights_level
+      - light.dining_room_ceiling_light_level
+      - light.passage_ceiling_spotlights_level
+      - light.stairs_lights
+      - light.hallway_window_light
+
+  downstairs_motion:
+    name: Downstairs Motion
+    entities:
+      - binary_sensor.axis_living_room_motion_1
+      - binary_sensor.axis_passage_motion_1
+      - binary_sensor.living_room_axis_motion_0
+      - binary_sensor.passage_axis_motion_0
+      - binary_sensor.passage_motion_sensor
+      - binary_sensor.upstairs_hallway_motion_sensor
+      - binary_sensor.hallway_motion
+
+  downstairs_media:
+    name: Downstairs Media
+    entities:
+      - media_player.living_room_tv
+      - media_player.living_room_nvidia_shield
+      - media_player.shield # cc
+      - media_player.shield_plex
+      - media_player.living_room_sonos
+
+  downstairs_doors:
+    name: Downstairs Doors
+    entities:
+      - binary_sensor.back_door
+      - binary_sensor.front_door
+
+  laundry_devices:
+    name: Laundry Devices
+    entities:
+      - input_select.washing_machine_status
+      - input_select.dryer_status
+
+  outdoor_lights:
+    name: Outdoor Lights
+    entities:
+      - light.outdoor_front_hanging_lights
+      - light.outdoor_front_light
+      - light.outdoor_yard_light
+      - light.outdoor_hanging_lights
+      - light.outdoor_yard_light_net
+
+  bedroom_lights:
+    name: Bedroom Lights
+    entities:
+      - light.bedroom_ceiling_light
+      - light.bedside_lamp
+
+  isa_office_lights:
+    name: Isa Office Lights
+    entities:
+      - light.isa_ceiling_light
+      - light.isa_filament
+
+  upstairs_hallway_lights:
+    name: Upstairs Hallway Lights
+    entities:
+      - light.upstairs_hallway_ceiling_light_level
+      - light.gateway_light_34ce008bfc4b

@@ -1,0 +1,118 @@
+# https://dwainscheeren.github.io/lovelace-dwains-theme/configuration/rooms.html
+
+rooms:
+  - name: Outside
+    icon: mdi:tree
+    light: group.outdoor_lights
+    device: input_select.mailbox_status
+    page_entities:
+      columns: 1
+      show_title: 'false'
+      entities:
+        - entity: camera.ring_doorbell
+          name: Doorbell
+
+  - name: Downstairs
+    icon: mdi:sofa
+    light: group.downstairs_lights
+    temperature: sensor.passage_temperature
+    climate: climate.sanyo
+    motion: group.downstairs_motion
+    door: group.downstairs_doors
+    window: binary_sensor.dining_room_window
+    # vacuum: 
+    #   entity: vacuum.rockrobo
+    cover: cover.living_room_roller_blind_level
+    media_player: group.downstairs_media
+    page_entities:
+      columns: 1 #optional
+      show_title: 'false' #optional
+      entities:
+        - entity: binary_sensor.ikea_hydro_water_level
+        - entity: vacuum.roborock
+    device: binary_sensor.ikea_hydro_water_level
+    addons:
+      - name: Media
+        path: 'dwains-theme/addons/rooms/downstairs/media/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/downstairs/media/button.yaml'
+        data:
+          entity: media_player.living_room_nvidia_shield
+          icon: mdi:android
+      - name: Media
+        path: 'dwains-theme/addons/rooms/downstairs/media/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/downstairs/media/button.yaml'
+        data:
+          entity: media_player.shield_plex
+          icon: si:plex
+      - name: Media
+        path: 'dwains-theme/addons/rooms/downstairs/media/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/downstairs/media/button.yaml'
+        data:
+          entity: media_player.shield
+          icon: mdi:cast
+      - name: Media
+        path: 'dwains-theme/addons/rooms/downstairs/media/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/downstairs/media/button.yaml'
+        data:
+          entity: media_player.living_room_tv
+          icon: mdi:television
+
+  - name: Laundry Room
+    icon: mdi:washing-machine
+    temperature: sensor.downstairs_bathroom_temperature
+    device: group.laundry_devices
+
+  - name: Bedroom
+    icon: mdi:bed-double-outline
+    light: group.bedroom_lights
+
+  - name: Upstairs Hallway
+    icon: mdi:stairs-down
+    light: group.upstairs_hallway_lights
+
+  - name: Isa Office
+    icon: mdi:desktop-classic
+    light: group.isa_office_lights
+
+  - name: Stefan Office
+    icon: mdi:desktop-classic
+    temperature: sensor.stefan_temperature
+
+  - name: Walk In Closet
+    icon: mdi:wardrobe-outline
+    light: light.walk_in_closet_lights
+
+  - name: Cats
+    icon: mdi:cat
+    light: light.downstairs_litterbox_light_strip
+    page_entities:
+      columns: 2 #optional
+      entities:
+        - entity: counter.litterbox_downstairs_visits
+        - entity: counter.litterbox_upstairs_visits
+    addons:
+      - name: Downstairs
+        path: 'dwains-theme/addons/rooms/cats/litter/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/cats/litter/button.yaml'
+        data:
+          entity: counter.litterbox_downstairs_visits
+      - name: Camera
+        path: 'dwains-theme/addons/rooms/cats/camera/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/cats/camera/button.yaml'
+        data:
+          entity: camera.attic
+      - name: Camera
+        path: 'dwains-theme/addons/rooms/cats/camera/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/cats/camera/button.yaml'
+        data:
+          entity: camera.isas_room
+      - name: Camera 
+        path: 'dwains-theme/addons/rooms/cats/camera/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/cats/camera/button.yaml'
+        data:
+          entity: camera.attic
+      - name: Camera
+        path: 'dwains-theme/addons/rooms/cats/camera/page.yaml'
+        button_path: 'dwains-theme/addons/rooms/cats/camera/button.yaml'
+        data:
+          entity: camera.isas_room

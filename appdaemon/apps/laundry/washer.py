@@ -38,6 +38,7 @@ class Washer(Base):
             self.select_option(self.washer_state, "Running")
             self.log("Washer running")
             self.notification_manager.log_home(message = "🧼 Washer running.") 
+            self.call_service("dwains_theme/notification_create", message = "🧼 Washer running", notification_id = "washer")
     
     def washer_clean(self, entity, attribute, new, old, kwargs):
         if new != old and self.get_state(self.washer_state) == "Running":
@@ -51,6 +52,7 @@ class Washer(Base):
 
             self.data = {"push": {"category":"washer", "thread-id":"home-assistant"}}
             self.notification_manager.notify_if_home(person = "Isa", message = "🧼 Washing machine is done", data = self.data)
+            self.call_service("dwains_theme/notification_create", message = "🧼 Washing machine is done", notification_id = "washer")
             self.notification_manager.log_home(message = "🧼 Washer clean.")
             
     def washer_emptied(self, entity, attribute, new, old, kwargs):
@@ -73,6 +75,7 @@ class Washer(Base):
                     
                 self.turn_on(self.light, color_temp = 366, brightness = brightness)
                 self.notification_manager.log_home(message = "🧼 Washer emptied, now idle. Returning lamp to previous state.")
+            self.call_service("dwains_theme/notification_dismiss", notification_id = "washer")
 
     def snooze_reminder(self, event_name, data, kwargs):
         self.reminder_handle = self.run_in(self.remind_again, 1800)

@@ -57,6 +57,8 @@ class Mailbox(Base):
                     self.just_notified = True
                     self.run_in(self.reset_notification, 60)
                     self.notification_manager.log_home(message = "📬 You've got {}".format(self.newState))
+                self.log(self.newState)
+                self.call_service("dwains_theme/notification_create", message = "📬 {}".format(self.newState), notification_id = "mailbox")
                 self.select_option(self.mail_status, self.newState)
 
             elif (entity == self.door_sensor):
@@ -74,6 +76,7 @@ class Mailbox(Base):
     def mailbox_emptied(self):
         self.notification_manager.notify_if_home(person = "Isa", message = "📭 Mailbox emptied")
 
+        self.call_service("dwains_theme/notification_dismiss", notification_id = "mailbox")
         self.newState = "Empty"
         self.select_option(self.mail_status, self.newState)
         self.log("Mailbox emptied")
@@ -93,6 +96,7 @@ class Mailbox(Base):
             self.run_in(self.reset_notification, 60)
             self.notification_manager.log_home(message = "📦 You've got {}".format(self.newState))  
 
+        self.call_service("dwains_theme/notification_create", message = "📦 {}".format(self.newState), notification_id = "mailbox")
         self.select_option(self.mail_status, self.newState)
         self.log("Check mail")
     
