@@ -1,26 +1,307 @@
-title: Krisinfo
-icon: mdi:alert
-path: kris
+## The button card templates and other things are from Dwains theme
+
+title: Home
+icon: mdi:home
+path: test
+panel: true
 cards:
-  # - type: custom:pollenkoll-card
-  #   city: Stockholm
-  #   title: true
-  #   minimal: false
-  #   show_state: false
-  #   allergens:
-  #     - björk
-  #     - gräs
-  #     - gråbo
+  - type: custom:mod-card
+    style:
+      layout-card:
+        $: |
+          @media only screen and (min-width: 1025px) {
+            #columns {
+              margin: auto !important;
+              max-width: 1465px;
+            }
+          }
+          @media only screen and (max-width: 1025px) {
+            #columns {
+              margin: 0 !important;
+            }
+          }
+          .cards {
+            margin: 0 !important;
+          }
+          .cards > * {
+            margin: 0 !important;
+          }
+    card:
+      type: custom:layout-card
+      layout: vertical
+      column_width: 100%
+      cards:
+        - type: custom:state-switch
+          entity: mediaquery
+          states:
+            ## Mobile and ipad
+            "(max-width: 1025px)":
+              type: custom:mod-card
+              style: |
+                ha-card {
+                  background-color: var(--dwains-theme-header-background);
+                  --ha-card-background: transparent;
+                  border-radius: 0;
+                  overflow: hidden;
+                } 
+              card: 
+                type: custom:layout-card
+                layout: grid
+                gridrows: 50px 30px 90px
+                gridcols: 70px auto 70px
+                cards:
+                  - type: custom:button-card
+                    gridrow: 1 / 2
+                    gridcol: 1 / 2
+                    template: header_house_information
+                  - type: custom:button-card
+                    gridrow: 1 / 2
+                    gridcol: 2 / 3
+                    template: header_weather
+                    entity: weather.smhi_home
+                  - type: custom:button-card
+                    gridrow: 1 / 2
+                    gridcol: 3 / 4
+                    template: header_alarm
+                    entity: alarm_control_panel.house
+                    tap_action:
+                      action: more-info
+                  - type: markdown
+                    gridrow: 2 / 3
+                    gridcol: 1 / 4
+                    style: |
+                      p {
+                        color: var(--dwains-theme-header-text);
+                        font-size: 22px;
+                        font-weight: bold;
+                      }
+                      ha-card {
+                        background-color: rgba(0, 0, 0, 0);
+                        -webkit-box-shadow: none;
+                        -moz-box-shadow: none;
+                        box-shadow: none;
+                      }
+                      .markdown, .no-header{
+                        padding: 0 8px 8px 8px !important;
+                      }
+                    content: |
+                        {% if now().hour < 12 %}
+                        Good morning
+                        {% elif now().hour < 18 %}
+                        Good afternoon
+                        {% else %}
+                        Good evening
+                        {%- endif %}
+                  - type: horizontal-stack
+                    gridrow: 3 / 4
+                    gridcol: 1 / 4
+                    style: |
+                      ha-card {
+                        margin-top: 5px;
+                      }
+                      @media only screen and (min-width: 600px) {
+                        ha-card {
+                          margin-top: 15px;
+                        }
+                      }
+                    cards:
+                      - type: custom:button-card
+                        template: header_states_person
+                        entity: person.isa
+                        # entity_picture: '/local/{{ person["picture_path"] }}'
+                        entity_picture: 'https://avatars.dicebear.com/v2/initials/isa.svg'
+                        name: Isa
+                        tap_action: 
+                          action: navigate
+                          navigation_path: isa
+                      - type: custom:button-card
+                        template: header_states_person
+                        entity: person.stefan
+                        # entity_picture: '/local/{{ person["picture_path"] }}'
+                        entity_picture: 'https://avatars.dicebear.com/v2/initials/stefan.svg'
+                        name: Stefan
+                        tap_action: 
+                          action: navigate
+                          navigation_path: stefan
+                      - type: custom:button-card
+                        template: header_states_door
+                      - type: custom:button-card
+                        template: header_states_window
+                      - type: custom:button-card
+                        template: header_states_lock
+                      - type: custom:button-card
+                        template: header_states_light
+                      - type: custom:button-card
+                        template: header_states_outdoor_light
+                      # - type: custom:button-card
+                      #   template: header_states_climate
+                      # - type: custom:button-card
+                      #   template: header_states_cover
+                      # - type: custom:button-card
+                      #   template: header_states_device
+                      - type: custom:button-card
+                        template: header_states_media_player
+                      - type: custom:button-card
+                        template: header_states_mail
+                      - type: custom:button-card
+                        template: header_states_vacuum
+                      # - type: custom:button-card
+                      #   template: header_states_plant
 
+            "all":
+              type: custom:mod-card
+              style: |
+                ha-card {
+                  background-color: var(--dwains-theme-header-background);
+                  --ha-card-background: transparent;
+                  border-radius: 0;
+                  overflow: hidden;
+                } 
+                @media only screen and (min-width: 1025px) {
+                  ha-card {
+                    margin-top: 25px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                  }
+                }
+              card:
+                type: custom:layout-card
+                layout: grid
+                gridrows: 70px 70px
+                gridcols: 150px 300px auto 300px 150px
+                cards:
+                  - type: horizontal-stack
+                    gridrow: 1 / 2
+                    gridcol: 2 / 3
+                    cards:
+                      - type: custom:button-card
+                        template: header_house_information_large
+                      - type: custom:button-card
+                        template: header_alarm_large
+                        entity: alarm_control_panel.house
+                        tap_action:
+                          action: more-info
+                  - type: markdown
+                    gridrow: 2 / 3
+                    gridcol: 2 / 3
+                    style: |
+                      p {
+                        color: var(--dwains-theme-header-text);
+                        font-size: 22px;
+                        font-weight: bold;
+                      }   
+                      ha-card {
+                        background-color: rgba(0, 0, 0, 0);
+                        -webkit-box-shadow: none;
+                        -moz-box-shadow: none;
+                        box-shadow: none;
+                      }
+                      .markdown, .no-header {
+                        padding: 0px !important;
+                      }
+                    content: |
+                        {% if now().hour < 12 %}
+                        Good morning
+                        {% elif now().hour < 18 %}
+                        Good afternoon
+                        {% else %}
+                        Good evening
+                        {%- endif %}
 
-  # - type: custom:krisinfo-card
-  #   entity: sensor.krisinformation_stockholm
-  # - type: custom:krisinfo-card
-  #   entity: sensor.krisinformation_all_test
-  #   only_alerts: true
-  # - type: custom:krisinfo-card
-  #   entity: sensor.krisinformation_stockholm_1km
-
-  - type: custom:flower-card
-    entity: plant.big_chili
-    species: "tomato master no. 2 f1"
+                  - type: custom:dwains-weather-card
+                    gridrow: 1 / 3
+                    gridcol: 3 / 4
+                    entity: weather.smhi_home
+                    style: |
+                      ha-card {
+                        background: var(--dwains-theme-header-button-background) !important;
+                      }
+                      .variations, .variations ha-icon, #main {
+                        color: var(--dwains-theme-header-button-text) !important;
+                      }
+                  #Start header states
+                  - type: horizontal-stack
+                    gridrow: 1 / 2
+                    gridcol: 4 / 5
+                    style: |
+                      ha-card {
+                        margin-top: 5px;
+                      }
+                      @media only screen and (min-width: 600px) {
+                        ha-card {
+                          margin-top: 15px;
+                        }
+                      }
+                    cards:
+                      - type: custom:button-card
+                        template: header_states_person
+                        entity: person.isa
+                        # entity_picture: '/local/{{ person["picture_path"] }}'
+                        entity_picture: 'https://avatars.dicebear.com/v2/initials/isa.svg'
+                        name: Isa
+                        tap_action: 
+                          action: navigate
+                          navigation_path: isa
+                      - type: custom:button-card
+                        template: header_states_person
+                        entity: person.stefan
+                        # entity_picture: '/local/{{ person["picture_path"] }}'
+                        entity_picture: 'https://avatars.dicebear.com/v2/initials/stefan.svg'
+                        name: Stefan
+                        tap_action: 
+                          action: navigate
+                          navigation_path: stefan
+                      - type: custom:button-card
+                        template: header_states_door
+                      - type: custom:button-card
+                        template: header_states_window
+                      - type: custom:button-card
+                        template: header_states_lock
+                      - type: custom:button-card
+                        template: header_states_light
+                      - type: custom:button-card
+                        template: header_states_outdoor_light
+                      # - type: custom:button-card
+                      #   template: header_states_climate
+                      # - type: custom:button-card
+                      #   template: header_states_cover
+                      # - type: custom:button-card
+                      #   template: header_states_device
+                      - type: custom:button-card
+                        template: header_states_media_player
+                      - type: custom:button-card
+                        template: header_states_mail
+                      - type: custom:button-card
+                        template: header_states_vacuum
+                      # - type: custom:button-card
+                      #   template: header_states_plant
+                #End header states
+          # #END HOMEPAGE HEADER
+          #   - type: custom:layout-card
+          #     layout: grid
+          #     gridrows: 180px 200px auto
+          #     gridcols: 180px auto 180px
+          #     cards:
+          #       - type: glance
+          #         entities:
+          #           - sun.sun
+          #         gridrow: 1 / 2
+          #         gridcol: 1 / 2
+          #         style: "ha-card { height: 100%; }"
+          #       - type: entities
+          #         entities: &ents
+          #           - light.bed_light
+          #           - light.kitchen_lights
+          #           - light.ceiling_lights
+          #         gridrow: 1 / 3
+          #         gridcol: 2 / 4
+          #         style: "ha-card { height: 100%; }"
+          #       - type: markdown
+          #         content: test
+          #         gridrow: 2 / 4
+          #         gridcol: 1 / 2
+          #         style: "ha-card { height: 100%; }"
+          #       - type: entities
+          #         entities: *ents
+          #         gridrow: 3 / 4
+          #         gridcol: 2 / 3
