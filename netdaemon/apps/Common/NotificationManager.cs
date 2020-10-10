@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JoySoftware.HomeAssistant.NetDaemon.Common;
+using System.Reactive.Linq;
+using NetDaemon.Common.Reactive;
 
 /// <summary>
 ///     App docs
 /// </summary>
 public static class NotificationManager
 {
-    public static async Task NotifyIos(
-    this NetDaemonApp app,
+    public static void NotifyIos(
+    this NetDaemonRxApp app,
     string title,
     string message,
     string notifier = "",
@@ -19,8 +20,8 @@ public static class NotificationManager
     bool critical = false,
     string imageUrl = "")
     {
-        var isHome = app.GetState("person.isa")?.State?.ToString()?.ToLower() == "home"
-            || app.GetState("person.isa")?.State?.ToString()?.ToLower() == "just arrived";
+        var isHome = app.State("person.isa")?.State?.ToString()?.ToLower() == "home"
+            || app.State("person.isa")?.State?.ToString()?.ToLower() == "just arrived";
         if (!onlyIfHome || (onlyIfHome && isHome))
         {
             // object sound = "";
@@ -68,34 +69,34 @@ public static class NotificationManager
             };
             if (string.IsNullOrWhiteSpace(notifier))
             {
-                await app.CallService("notify", Isa.IosNotifier, data);
+                app.CallService("notify", Isa.IosNotifier, data);
             }
             else
             {
-                await app.CallService("notify", notifier, data, false);
+                app.CallService("notify", notifier, data);
             }
         }
     }
-    public async static Task NotifyDiscord(
-        this NetDaemonApp app,
+    public static void NotifyDiscord(
+        this NetDaemonRxApp app,
         string channel,
         string message,
         bool mention = false)
     {
-        await app.CallService("notify", "hass_discord", new
+        app.CallService("notify", "hass_discord", new
         {
             message = message,
             target = channel
         });
     }
-    public async static Task NotifyDiscord(
-        this NetDaemonApp app,
+    public static void NotifyDiscord(
+        this NetDaemonRxApp app,
         string channel,
         string message,
         Dictionary<string, IEnumerable<string>> data,
         bool mention = false)
     {
-        await app.CallService("notify", "hass_discord", new
+        app.CallService("notify", "hass_discord", new
         {
             data = data,
             message = message,
@@ -108,9 +109,9 @@ public static class DiscordChannel
 {
     public static string Camera = "515083002565623820";
     public static string Home = "510398531937501186";
-    // Alarm,
-    // Krisinfo,
-    // Monitor,
-    // System,
-    // Cats,
+    public static string Alarm = "515083002565623820";
+    public static string Krisinfo = "532525430125625345";
+    public static string Monitor = "547346452125450240";
+    public static string System = "510402538898718728";
+    public static string Cats = "665694350373683210";
 }

@@ -1,0 +1,12 @@
+alarm_handler:
+  class: AlarmHandler
+  Alarm: alarm_control_panel.house
+  AlarmCode: "!secret alarm_code"
+  XiaomiGatewayMac: "!secret xiaomi_mac"
+  AlarmLights:
+    - light.gateway_light_34ce008bfc4b
+    - light.isa_lightstrip
+    - light.stefan_lightstrip
+    - light.downstairs_lights
+    - light.upstairs_lights
+  CleaningDayCalendar: calendar.cleaning_day

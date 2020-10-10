@@ -1,0 +1,15 @@
+washer:
+  class: Laundry  
+  PowerSensor: sensor.washer
+  InputSelect: input_select.washing_machine_status
+  HatchSensor: binary_sensor.washer_hatch
+  Light: light.floorlamp_uplight
+  Type: Washer
+
+dryer:
+  class: Laundry
+  PowerSensor: sensor.dryer
+  InputSelect: input_select.dryer_status
+  HatchSensor: binary_sensor.dryer_hatch
+  Light: light.floorlamp_uplight
+  Type: Dryer

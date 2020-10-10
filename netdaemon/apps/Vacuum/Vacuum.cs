@@ -1,75 +1,107 @@
 using System;
 using System.Threading.Tasks;
-using JoySoftware.HomeAssistant.NetDaemon.Common;
-
+using NetDaemon.Common.Reactive;
+using System.Reactive.Linq;
+using Netdaemon.Generated.Reactive;
+using System.Dynamic;
 /// <summary>
-///     App docs
+///     Handles scheduling of robot vacuuming. Going to the kitchen bin when full is handled in regular automation.
 /// </summary>
-public class Vacuum : NetDaemonApp
+
+public class Vacuum : GeneratedAppBase
 {
-    private string Roborock = "vacuum.roborock";
-    private string Roomba = "vacuum.roomba";
-    private string DownstairsScheduler = "input_boolean.vacuum_downstairs_scheduled";
-    private string UpstairsScheduler = "input_boolean.vacuum_upstairs_scheduled";
-
-    public override Task InitializeAsync()
+    public override void Initialize()
     {
-
-        Scheduler.RunDaily(
+        RunDaily(
             "06:45:00", () => AskToSchedule());
+        RunDaily(
+            "10:00:00", () => AskToVacuum());
+        RunDaily(
+            "14:00:00", () => AskToVacuum());
 
         Entity(Isa.PersonEntity)
-            .WhenStateChange((n, o) =>
-            o?.State?.ToString().ToLower() == "just left")
-            .Call(VacuumOnSchedule).Execute();
+        .StateChanges
+        .Where(
+            e => e.New?.State?.ToString().ToLower() == "just left")
+        .Subscribe(s => VacuumOnSchedule());
+
         Entity(Stefan.PersonEntity)
-            .WhenStateChange((n, o) =>
-            o?.State?.ToString().ToLower() == "just left")
-            .Call(VacuumOnSchedule).Execute();
+        .StateChanges
+        .Where(
+            e => e.New?.State?.ToString().ToLower() == "just left")
+        .Subscribe(s => VacuumOnSchedule());
 
-        Event(IosEvent.EventType).Call((eventType, eventData) => ScheduleCleaning(eventData)).Execute();
+        Entity(Stefan.PersonEntity)
+        .StateChanges
+        .Where(
+            e => e.New?.State?.ToString().ToLower() == "just arrived")
+        .Subscribe(s => DockVacuum());
 
-
-        return Task.CompletedTask;
-    }
-
-    private async Task AskToSchedule()
-    {
-        if(GetState("calendar.cleaning_day")?.State?.ToString()?.ToLower() == "off")
+        EventChanges
+        .Where(e => e.Event == IosEvent.EventType)
+        .Subscribe(s =>
         {
-            await this.NotifyIos("🧹", "Where do you want to vacuum today?", "", false, "vacuum", "vacuum");
-            await this.NotifyDiscord(DiscordChannel.Home, "🧹 Asking about scheduling vacuuming today.");
+            ScheduleCleaning(s.Data);
+        });
+    }
+
+    private void AskToSchedule()
+    {
+        if (Calendar.CleaningDay.State == "off" && InputBoolean.WorkingFromHome.State == "off")
+        {
+            this.NotifyIos("🧹", "Do you want to vacuum today?", "", false, "vacuum", "vacuum");
+            this.NotifyDiscord(DiscordChannel.Home, "🧹 Asking about scheduling vacuuming today.");
         }
-        else {
-            await this.NotifyDiscord(DiscordChannel.Home, "🧹 No robot vacuuming today - it's cleaning day.");
+        else if (Calendar.CleaningDay.State == "off" && InputBoolean.WorkingFromHome.State == "on")
+        {
+            this.NotifyIos("🧹", "Do you want to vacuum today?", "", false, "vacuum", "vacuum");
+            this.NotifyDiscord(DiscordChannel.Home, "🧹 Asking about scheduling vacuuming today and also will ask later.");
+        }
+        else if (Calendar.CleaningDay.State == "on")
+        {
+            InputBoolean.VacuumDownstairsScheduled.TurnOff();
+            InputBoolean.VacuumWhenHomeScheduled.TurnOff();
+            this.NotifyDiscord(DiscordChannel.Home, "🧹 No robot vacuuming today - it's cleaning day.");
+        }
+    }
+    private void AskToVacuum()
+    {
+        if (InputBoolean.VacuumWhenHomeScheduled.State == "on")
+        {
+            this.NotifyIos("🧹", "Do you want to vacuum now?", "", false, threadId: "vacuum", category: "vacuum_now");
+            this.NotifyDiscord(DiscordChannel.Home, "🧹 Asking about vacuuming now.");
         }
     }
 
-    private async Task ScheduleCleaning(dynamic? eventData)
+    private void ScheduleCleaning(dynamic? eventData)
     {
         if (eventData != null)
         {
             switch (eventData.actionName)
             {
-                case (IosEvent.VACUUM_UPSTAIRS):
-                    await Entity(UpstairsScheduler).TurnOn().ExecuteAsync();
-                    await Entity(DownstairsScheduler).TurnOff().ExecuteAsync();
-                    await this.NotifyDiscord(DiscordChannel.Home, "🧹 Scheduling vacuuming upstairs.");
+                case (IosEvent.VACUUM):
+                    InputBoolean.VacuumDownstairsScheduled.TurnOn();
+                    this.NotifyDiscord(DiscordChannel.Home, "🧹 Scheduling vacuuming for when no one is home.");
                     break;
-                case (IosEvent.VACUUM_DOWNSTAIRS):
-                    await Entity(DownstairsScheduler).TurnOn().ExecuteAsync();
-                    await Entity(UpstairsScheduler).TurnOff().ExecuteAsync();
-                    await this.NotifyDiscord(DiscordChannel.Home, "🧹 Scheduling vacuuming downstairs.");
-                    break;
-                case (IosEvent.VACUUM_BOTH):
-                    await Entity(UpstairsScheduler).TurnOn().ExecuteAsync();
-                    await Entity(DownstairsScheduler).TurnOn().ExecuteAsync();
-                    await this.NotifyDiscord(DiscordChannel.Home, "🧹 Scheduling vacuuming downstairs and upstairs.");
+                case (IosEvent.VACUUM_ASK):
+                    InputBoolean.VacuumDownstairsScheduled.TurnOn();
+                    InputBoolean.VacuumWhenHomeScheduled.TurnOn();
+                    this.NotifyDiscord(DiscordChannel.Home, "🧹 Asking about scheduling vacuuming today and also will ask later.");
                     break;
                 case (IosEvent.VACUUM_STOP_ASKING):
-                    await Entity(UpstairsScheduler).TurnOff().ExecuteAsync();
-                    await Entity(DownstairsScheduler).TurnOff().ExecuteAsync();
-                    await this.NotifyDiscord(DiscordChannel.Home, "🧹 No scheduled vacuuming today.");
+                    InputBoolean.VacuumDownstairsScheduled.TurnOff();
+                    this.NotifyDiscord(DiscordChannel.Home, "🧹 No vacuuming today.");
+                    break;
+                case (IosEvent.VACUUM_NOW):
+                    InputBoolean.VacuumDownstairsScheduled.TurnOff();
+                    InputBoolean.VacuumWhenHomeScheduled.TurnOff();
+                    Vacuum.Rockrobo.Start();
+                    this.NotifyDiscord(DiscordChannel.Home, "🧹 Vacuuming!");
+                    break;
+                case (IosEvent.VACUUM_NO):
+                    InputBoolean.VacuumDownstairsScheduled.TurnOff();
+                    InputBoolean.VacuumWhenHomeScheduled.TurnOff();
+                    this.NotifyDiscord(DiscordChannel.Home, "🧹 No vacuuming today.");
                     break;
                 default:
                     break;
@@ -77,28 +109,26 @@ public class Vacuum : NetDaemonApp
         }
     }
 
-    private async Task VacuumOnSchedule(string entityId, EntityState? newState, EntityState? oldState)
+    private void VacuumOnSchedule()
     {
         if (!this.AnyoneHome())
         {
-            if(GetState(DownstairsScheduler)?.State?.ToString()?.ToLower() == "on")
+            if (InputBoolean.VacuumDownstairsScheduled.State == "on")
             {
-                await CallService("vacuum", "start", new
-                {
-                    entity_id = Roborock
-                });
-                await this.NotifyDiscord(DiscordChannel.Home, "🧹 Starting vacuum downstairs.");
+                Vacuum.Rockrobo.Start();
+                this.NotifyDiscord(DiscordChannel.Home, "🧹 Starting vacuuming.");
             }
-            if(GetState(UpstairsScheduler)?.State?.ToString()?.ToLower() == "on")
-            {
-                await CallService("vacuum", "start", new
-                {
-                    entity_id = Roomba
-                });
-                await this.NotifyDiscord(DiscordChannel.Home, "🧹 Starting vacuum upstairs.");
-            }
-            await Entity(UpstairsScheduler).TurnOff().ExecuteAsync();
-            await Entity(DownstairsScheduler).TurnOff().ExecuteAsync();
+            InputBoolean.VacuumDownstairsScheduled.TurnOff();
         }
+    }
+
+    private void DockVacuum()
+    {
+        if (Vacuum.Rockrobo.State == "cleaning")
+        {
+            Vacuum.Rockrobo.ReturnToBase();
+            this.NotifyDiscord(DiscordChannel.Home, "🧹 Docking vacuum since Stefan got home.");
+        }
+        InputBoolean.VacuumDownstairsScheduled.TurnOff();
     }
 }

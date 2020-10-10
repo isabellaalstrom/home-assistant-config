@@ -1,80 +1,95 @@
 
 using System;
 using System.Threading.Tasks;
-using JoySoftware.HomeAssistant.NetDaemon.Common;
+using System.Reactive.Linq;
+using NetDaemon.Common.Reactive;
 
 /// <summary>
-///     App docs
+///     Handle turning off some features on cleaning day,
+///     also turns on all lights and tries to figure out when cleaning is done.
 /// </summary>
-public class CleaningMode : NetDaemonApp
+
+public class CleaningMode : NetDaemonRxApp
 {
     public int MinutesSinceDoorOpened { get; set; }
-    public override Task InitializeAsync()
+    public override void Initialize()
     {
-        Entity("sensor.unlocked_by").WhenStateChange(to: "Cleaners").Call(async (entityId, to, from) => await CleanersArrive(entityId, to, from)).Execute();
+        Entity("sensor.unlocked_by")
+        .StateChanges
+        .Where(
+            e => e.New?.State == "Cleaners"
+        )
+        .Subscribe(s => CleanersArrive());
 
-        Entity("sensor.front_door").WhenStateChange(to: "Open").Call(async (entityId, to, from) => await DoorOpened(entityId, to, from)).Execute();
-        return Task.CompletedTask;
+        Entity("sensor.front_door")
+        .StateChanges
+        .Where(
+            e => e.New?.State == "Open"
+        )
+        .Subscribe(s => DoorOpened());
     }
 
-    private async Task DoorOpened(string entityId, EntityState? to, EntityState? from)
+    private void DoorOpened()
     {
-        await this.NotifyDiscord(DiscordChannel.Home, "Front door opened, checking time.");
+        this.NotifyDiscord(DiscordChannel.Home, "Front door opened, checking time.");
     
-        var doorTime = GetState("sensor.front_door")?.LastUpdated;
+        var doorTime = State("sensor.front_door")?.LastUpdated;
         if (doorTime.HasValue)
         {
-            await this.NotifyDiscord(DiscordChannel.Home, $"Front door opened at {doorTime.Value}.");
-            Scheduler.RunIn(new TimeSpan(0, 10, 0), async () => await CheckMotion(doorTime.Value));
+            this.NotifyDiscord(DiscordChannel.Home, $"Front door opened at {doorTime.Value}.");
+            RunIn(new TimeSpan(0, 10, 0), () => CheckMotion(doorTime.Value));
             // Scheduler.RunIn(new TimeSpan(0, 5, 0), async () => await CheckMotion(doorTime.Value));
         }
     }
 
-    private async Task CheckMotion(DateTime doorTime)
+    private void CheckMotion(DateTime doorTime)
     {
         if (!this.AnyoneHome())
         {
-            await this.NotifyDiscord(DiscordChannel.Home, $"No one seems to be home, checking motion sensors.");
-            var motionTime = GetState("sensor.house_motion")?.LastUpdated;
+            this.NotifyDiscord(DiscordChannel.Home, $"No one seems to be home, checking motion sensors.");
+            var motionTime = State("sensor.house_motion")?.LastUpdated;
             if (motionTime.HasValue)
             {
                 var utcMotionTime = motionTime.Value.ToUniversalTime();
                 var utcDoorTime = doorTime.ToUniversalTime();
                 if (utcMotionTime < utcDoorTime || (int)((utcMotionTime - utcDoorTime).TotalSeconds) < 60)
                 {
-                    await this.NotifyDiscord(DiscordChannel.Home, $"No one should be in the house. Last motion was at {motionTime.Value} and last door opening was at {doorTime}");
-                    await this.NotifyIos("🚪 Door opened 5 mins ago", $"No one should be in the house. Last motion was at {motionTime.Value} and last door opening was at {doorTime}");
+                    this.NotifyDiscord(DiscordChannel.Home, $"No one should be in the house. Last motion was at {motionTime.Value} and last door opening was at {doorTime}");
+                    this.NotifyIos("🚪 Door opened 5 mins ago", $"No one should be in the house. Last motion was at {motionTime.Value} and last door opening was at {doorTime}");
                     // script for cleaner leaving, turn off lights
                     // await CallService("script", "1587037128688");
+                    // RunScript("1587037128688");
                 }
                 else
-                    await this.NotifyDiscord(DiscordChannel.Home, $"Someone seems to still be in the house. Last door opening was at {doorTime} and last motion was at {motionTime.Value}.");
-                    await this.NotifyIos("🚪 Door opened 5 mins ago", $"Someone seems to still be in the house. Last door opening was at {doorTime} and last motion was at {motionTime.Value}");
+                    this.NotifyDiscord(DiscordChannel.Home, $"Someone seems to still be in the house. Last door opening was at {doorTime} and last motion was at {motionTime.Value}.");
+                    this.NotifyIos("🚪 Door opened 5 mins ago", $"Someone seems to still be in the house. Last door opening was at {doorTime} and last motion was at {motionTime.Value}");
             }
         }
         else
-            await this.NotifyDiscord(DiscordChannel.Home, $"Someone is still home.");
+            this.NotifyDiscord(DiscordChannel.Home, $"Someone is still home.");
 
         return;
     }
 
-    private async Task CleanersArrive(string entityId, EntityState? to, EntityState? from)
+
+    private void CleanersArrive()
     {
-        if (GetState("calendar.cleaning_day")?.State?.ToString() == "on")
+        if (State("calendar.cleaning_day")?.State?.ToString() == "on")
         {
             if (!this.AnyoneHome())
                 //script cleaner arriving, turn on lights
-                await CallService("script", "1587035537523");
+                // CallService("script", "1587035537523");
+                RunScript("1587035537523");
 
-            await CallService("input_boolean", "turn_on", new
+            CallService("input_boolean", "turn_on", new
             {
                 entity_id = "input_boolean.ec_lights_on_ring_control"
             });
-            await CallService("input_boolean", "turn_off", new
+            CallService("input_boolean", "turn_off", new
             {
                 entity_id = "input_boolean.ad_litterboxes"
             });
-            await this.NotifyIos("Cleaning time!", "Cleaner has arrived");
+            this.NotifyIos("Cleaning time!", "Cleaner has arrived");
         }
     }
 }
